@@ -1,16 +1,15 @@
-function generateSecretCode() {
-  const colors = ['R', 'B', 'G', 'Y', 'O', 'P'];
+const generateSecretCode = () => {
+  const colors = ['r', 'b', 'g', 'y', 'o', 'p'];
   let code = [];
 
-  let i = 0;
-  while (i++ < length) {
+  for (let i = 0; i < 4; i++) {
     code.push(colors[Math.floor(Math.random() * colors.length)]);
   }
 
   return code;
 }
 
-function checkGuess(guess, secret) {
+const checkGuess = (guess, secret) => {
   let copy = [...secret];
   
   // check black (right color, right spot)
@@ -44,18 +43,19 @@ function checkGuess(guess, secret) {
 
 let secret = generateSecretCode();
 
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 10; i++) {
   let guess = prompt('Take a guess!');
   guess = [...guess];
   console.log('Your guess:', guess);
   let [blackPegs, whitePegs] = checkGuess(guess, secret);
   console.log(`${blackPegs} blackPegs, ${whitePegs} whitePegs`);
   if (blackPegs === secret.length) {
-    console.log('You win!')
+    console.log('You win!');
+    console.log('The secret code was:', secret);
     break;
-  } else if (i === 7) {
+  } else if (i === 9) {
     console.log('You lose!')
-    console.log('The secret code was', secret);
+    console.log('The secret code was:', secret);
   }
 }
 
