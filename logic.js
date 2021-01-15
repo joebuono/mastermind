@@ -6,7 +6,7 @@ Pass forward the possible valid solutions/guesses to each next round
 
 
 */
-debugger;
+
 // ******* GLOBAL VARIABLE ******* //
 let COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
 
@@ -19,17 +19,17 @@ console.log('Secret Code:', secretCode);
 let templates = [['x', 'x', 'x', 'x']];
 
 let guess = [];
-console.log('Guess', guess);
 
 let COLORS_TRIED_THUS_FAR = [];
 // we only add to this when we have complete information, or when the template is still ['x', 'x', 'x', 'x']
 
-let ROUNDS = 10;
+let newColorsIntroduced = [];
 
-while (true) {
-  debugger;
-  let nextGuess = generateNextGuess(possibleSolutions);
-  console.log(nextGuess);
+let rounds = 10;
+
+while (rounds) {
+  let nextGuess = generateNextGuess(templates);
+  console.log('Next Guess:', nextGuess);
   guess = nextGuess;
 
   let guessResults = getBlackAndWhitePegs(guess, secretCode);
@@ -46,8 +46,13 @@ while (true) {
   // Don't we also need to pass possible templates? Starts with [['x', 'x', 'x', 'x']],
   // then becomes an array of templates to fill for each subsequent round
   // New colors(s) introduced, plus the wildcard 'x'
-  let allPermutations = generateAllPermutations(['r', 'b', 'x']);
-  console.log('All Permutations:', allPermutations);
+
+  // for the sake of debugging
+  // templates = [['x', 'x', 'x']];
+  // newColorsIntroduced = ['r', 'b'];
+
+  let allPermutations = generateAllPermutations(templates, newColorsIntroduced); // previously was hard-coded ['r', 'b', 'x']
+  console.log('All Permutations:', allPermutations, 'Number of perms:', allPermutations.length);
 
   let possibleSolutions = filterForPossibleSolutions(guess, guessResults, allPermutations);
   console.log('Possible Solutions:', possibleSolutions);
@@ -58,8 +63,7 @@ while (true) {
   // updateColorTracker
   updateColorTracker(possibleSolutions);
   console.log(COLOR_TRACKER);
-
-  ROUNDS--;
+  rounds--;
 }
 
 // ---------- FUNCTIONS ---------- //
@@ -136,21 +140,42 @@ function getBlackAndWhitePegs(guess, secret) {
 }
 
 
-function generateAllPermutations(arrOfColors) {
+function generateAllPermutations(templates, newColorsIntroduced) {
+  // add wildcard variable 
+  // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
+  // (not super efficient, but beware of premature optimization!)
+  let newColors = [...newColorsIntroduced, '?'];
+
   let perms = [];
 
-  function recurse(perm) {
-    for (let i = 0; i < arrOfColors.length; i++) {
-      let newPerm = [...perm, arrOfColors[i]]
-      if (newPerm.length === 4) {
-        perms.push(newPerm);
-      } else {
-        recurse(newPerm);
+  // fill the templates with the newColor(s) introduced in the previous guess
+  for (let template of templates) {
+    fillInTemplate(template);
+  }
+
+  // it's not "re-winding" back to the very first index
+  // there's some funky stuff happening with the x's...
+  function fillInTemplate(template, index = 0) {
+    for (let i = index; i < template.length; i++) {
+      if (template[i] === 'x') {
+        for (let j = 0; j < newColors.length; j++) {
+          let templateCopy = [...template];
+          templateCopy[i] = newColors[j];
+          if (index === templateCopy.length - 1) {
+            // replace ?'s with x
+            for (let i = 0; i < templateCopy.length; i++) {
+              if (templateCopy[i] === '?') {
+                templateCopy[i] = 'x';
+              }
+            }
+            perms.push(templateCopy);
+          } else {
+            fillInTemplate(templateCopy, index + 1);
+          }
+        }        
       }
     }
   }
-
-  recurse([]);
 
   return perms;
 }
@@ -175,7 +200,7 @@ function filterForPossibleSolutions(guess, guessResults, permutations) {
 
   for (let perm of permutations) {
     let result = getBlackAndWhitePegs(guess, perm);
-    console.log('Perm, Result:', perm, result);
+    // console.log('Perm, Result:', perm, result);
     // if result matches guess results, push perm to possibleSolutions array
     if (checkIfArraysMatch(result, guessResults)) {
       possibleSolutions.push(perm);
@@ -227,6 +252,8 @@ function updateColorTracker(possibleSolutions) {
         }
       } else {
         // update number
+        console.log(setColorTracker[color].number);
+        console.log(colorData[color].number);
         if (!setColorTracker[color].number.includes(colorData[color].number)) {
           setColorTracker[color].number.push(colorData[color].number);
         }
@@ -271,66 +298,6 @@ function trackPossibleSolution(possibleSolution) {
     colorData[color].position.push(i + 1); // one-indexed     
   }
   return colorData;
-}
-
-
-function generateNextGuess(templates) {
-  // check if template is all 'x's
-  if (checkIfArraysMatch(templates, [['x', 'x', 'x', 'x']])) {
-    // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
-    let colorsForGuess = [];
-    for (let color in COLOR_TRACKER) {
-      if (!COLORS_TRIED_THUS_FAR.includes(color)) {
-        colorsForGuess.push(color);
-        if (colorsForGuess.length === 2) {
-          break;
-        }
-      }
-    }
-    
-    COLORS_TRIED_THUS_FAR = [COLORS_TRIED_THUS_FAR, ...colorsForGuess];
-
-    let guess = new Array(3).fill(colorsForGuess[0]);
-    // to account for both 4 and 5 code games
-    while (guess.length < secretCode.length) {
-      guess.push(colorsForGuess[1]);
-    }
-    console.log(guess);
-    return guess;
-  }
-
-  // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
-  let colorWeKnowTheLeastAbout = leastAmountKnown();
-  // filter templates
-//   console.log(colorWeKnowTheLeastAbout);
-
-  // I'm not sure exactly which order we should do the next steps in
-  // Filter for number of unique colors
-
-  let templatesWithLeastNumberOfUniqueColors = filterTemplatesForLeastNumberOfUniqueColors(templates);
-//   console.log(templatesWithLeastNumberOfUniqueColors);
-
-  // Then filter for number of wildcards
-  let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = filterTemplatesForLeastNumberOfWildcards(templatesWithLeastNumberOfUniqueColors);
-//   console.log(templatesFilteredByLeastNumberOfUniqueColorsAndWilcards);
-
-  // Shorten the variable name lol
-  let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
-  // Then arbitrarily select one of the remaining filtered templates
-
-  let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-//   console.log(randomTemplate);
-  
-  // and fill it with the colorWeKnowTheLeastAbout
-  for (let i = 0; i < randomTemplate.length; i++) {
-    if (randomTemplate[i] === 'x') {
-      randomTemplate[i] = colorWeKnowTheLeastAbout;
-    }
-  }
-  
-  // unnecessary renaming, just for clarity
-  let bestNextGuess = randomTemplate;
-  return bestNextGuess;
 }
 
 
@@ -395,5 +362,76 @@ function filterTemplatesForLeastNumberOfWildcards(templates) {
   }
 
   return filteredTemplates;
+}
+
+
+function generateNextGuess(templates) {
+  // check if template is all 'x's
+  if (templates.length === 1 && checkIfArraysMatch(templates[0], ['x', 'x', 'x', 'x'])) {
+    // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
+    let colorsForGuess = [];
+    for (let color in COLOR_TRACKER) {
+      if (!COLORS_TRIED_THUS_FAR.includes(color)) {
+        colorsForGuess.push(color);
+        if (colorsForGuess.length === 2) {
+          break;
+        }
+      }
+    }
+    
+    for (let color of colorsForGuess) {
+      COLORS_TRIED_THUS_FAR.push(color);
+    }
+
+    newColorsIntroduced = [];
+    for (let color of colorsForGuess) {
+      newColorsIntroduced.push(color);
+    }
+
+    let guess = new Array(3).fill(colorsForGuess[0]);
+    // to account for both 4 and 5 code games
+    while (guess.length < secretCode.length) {
+      guess.push(colorsForGuess[1]);
+    }
+    return guess;
+  }
+
+  // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
+  // Edge case: What if there's a tie?
+  let colorWeKnowTheLeastAbout = leastAmountKnown();
+
+  newColorsIntroduced = [];
+  newColorsIntroduced.push(colorWeKnowTheLeastAbout);
+  
+  // filter templates
+//   console.log(colorWeKnowTheLeastAbout);
+
+  // I'm not sure exactly which order we should do the next steps in
+  // Filter for number of unique colors
+
+  let templatesWithLeastNumberOfUniqueColors = filterTemplatesForLeastNumberOfUniqueColors(templates);
+//   console.log(templatesWithLeastNumberOfUniqueColors);
+
+  // Then filter for number of wildcards
+  let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = filterTemplatesForLeastNumberOfWildcards(templatesWithLeastNumberOfUniqueColors);
+//   console.log(templatesFilteredByLeastNumberOfUniqueColorsAndWilcards);
+
+  // Shorten the variable name lol
+  let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
+  // Then arbitrarily select one of the remaining filtered templates
+
+  let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
+//   console.log(randomTemplate);
+  
+  // and fill it with the colorWeKnowTheLeastAbout
+  for (let i = 0; i < randomTemplate.length; i++) {
+    if (randomTemplate[i] === 'x') {
+      randomTemplate[i] = colorWeKnowTheLeastAbout;
+    }
+  }
+  
+  // unnecessary renaming, just for clarity
+  let bestNextGuess = randomTemplate;
+  return bestNextGuess;
 }
 
