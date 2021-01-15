@@ -142,14 +142,19 @@ function getBlackAndWhitePegs(guess, secret) {
 
 function generateAllPermutations(templates, newColorsIntroduced) {
   // add wildcard variable 
-  // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
-  // (not super efficient, but beware of premature optimization!)
-  let newColors = [...newColorsIntroduced, '?'];
+  let newColors = [...newColorsIntroduced, 'x'];
 
   let perms = [];
 
   // fill the templates with the newColor(s) introduced in the previous guess
   for (let template of templates) {
+    // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
+    // (not super efficient, but beware of premature optimization!)
+    for (let i = 0; i < template.length; i++) {
+      if (template[i] === 'x') {
+        template[i] = '?';
+      }
+    }
     fillInTemplate(template);
   }
 
@@ -157,17 +162,11 @@ function generateAllPermutations(templates, newColorsIntroduced) {
   // there's some funky stuff happening with the x's...
   function fillInTemplate(template, index = 0) {
     for (let i = index; i < template.length; i++) {
-      if (template[i] === 'x') {
+      if (template[i] === '?') {
         for (let j = 0; j < newColors.length; j++) {
           let templateCopy = [...template];
           templateCopy[i] = newColors[j];
           if (index === templateCopy.length - 1) {
-            // replace ?'s with x
-            for (let i = 0; i < templateCopy.length; i++) {
-              if (templateCopy[i] === '?') {
-                templateCopy[i] = 'x';
-              }
-            }
             perms.push(templateCopy);
           } else {
             fillInTemplate(templateCopy, index + 1);
