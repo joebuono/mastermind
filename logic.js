@@ -6,7 +6,7 @@ Pass forward the possible valid solutions/guesses to each next round
 
 
 */
-
+debugger;
 // ******* GLOBAL VARIABLE ******* //
 let COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
 
@@ -47,7 +47,7 @@ while (true) {
   // then becomes an array of templates to fill for each subsequent round
   // New colors(s) introduced, plus the wildcard 'x'
   let allPermutations = generateAllPermutations(['r', 'b', 'x']);
-  // console.log('All Permutations:', allPermutations);
+  console.log('All Permutations:', allPermutations);
 
   let possibleSolutions = filterForPossibleSolutions(guess, guessResults, allPermutations);
   console.log('Possible Solutions:', possibleSolutions);
