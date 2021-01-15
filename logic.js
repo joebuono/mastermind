@@ -24,6 +24,8 @@ console.log('Guess', guess);
 let COLORS_TRIED_THUS_FAR = [];
 // we only add to this when we have complete information, or when the template is still ['x', 'x', 'x', 'x']
 
+let ROUNDS = 10;
+
 while (true) {
   debugger;
   let nextGuess = generateNextGuess(possibleSolutions);
@@ -56,6 +58,8 @@ while (true) {
   // updateColorTracker
   updateColorTracker(possibleSolutions);
   console.log(COLOR_TRACKER);
+
+  ROUNDS--;
 }
 
 // ---------- FUNCTIONS ---------- //
