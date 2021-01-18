@@ -29,7 +29,6 @@ let rounds = 10;
 
 while (rounds) {
   let nextGuess = generateNextGuess(templates);
-  console.log('Next Guess:', nextGuess);
   guess = nextGuess;
 
   let guessResults = getBlackAndWhitePegs(guess, secretCode);
@@ -52,10 +51,12 @@ while (rounds) {
   // newColorsIntroduced = ['r', 'b'];
 
   let allPermutations = generateAllPermutations(templates, newColorsIntroduced); // previously was hard-coded ['r', 'b', 'x']
-  console.log('All Permutations:', allPermutations, 'Number of perms:', allPermutations.length);
+  console.log('All Permutations:', allPermutations);
+  console.log('Number of all possible permutations:', allPermutations.length);
 
   let possibleSolutions = filterForPossibleSolutions(guess, guessResults, allPermutations);
   console.log('Possible Solutions:', possibleSolutions);
+  console.log('Number of possible solutions (templates):', possibleSolutions.length);
 
   // set the global variable
   templates = possibleSolutions;
@@ -140,6 +141,7 @@ function getBlackAndWhitePegs(guess, secret) {
 }
 
 
+// Separate concerns
 function generateAllPermutations(templates, newColorsIntroduced) {
   // add wildcard variable 
   let newColors = [...newColorsIntroduced, 'x'];
@@ -155,28 +157,33 @@ function generateAllPermutations(templates, newColorsIntroduced) {
         template[i] = '?';
       }
     }
-    fillInTemplate(template);
-  }
-
-  // it's not "re-winding" back to the very first index
-  // there's some funky stuff happening with the x's...
-  function fillInTemplate(template, index = 0) {
-    for (let i = index; i < template.length; i++) {
-      if (template[i] === '?') {
-        for (let j = 0; j < newColors.length; j++) {
-          let templateCopy = [...template];
-          templateCopy[i] = newColors[j];
-          if (index === templateCopy.length - 1) {
-            perms.push(templateCopy);
-          } else {
-            fillInTemplate(templateCopy, index + 1);
-          }
-        }        
-      }
-    }
+    perms = [...perms, ...fillInTemplate(template, newColors)];
   }
 
   return perms;
+}
+
+
+// it's not "re-winding" back to the very first index
+// there's some funky stuff happening with the x's...
+function fillInTemplate(template, newColors, index = 0) {
+  let permutationsOfTemplate = [];
+  for (let i = index; i < template.length; i++) {
+    if (template[i] === '?') {
+      for (let j = 0; j < newColors.length; j++) {
+        let templateCopy = [...template];
+        templateCopy[i] = newColors[j];
+        if (i === templateCopy.length - 1) {
+          permutationsOfTemplate.push(templateCopy);
+        } else {
+          permutationsOfTemplate = [...permutationsOfTemplate, ...fillInTemplate(templateCopy, newColors, i + 1)];
+        }
+      }
+      break; // to omit templates using '?'      
+    }
+  }
+  
+  return permutationsOfTemplate;
 }
 
 
@@ -251,8 +258,6 @@ function updateColorTracker(possibleSolutions) {
         }
       } else {
         // update number
-        console.log(setColorTracker[color].number);
-        console.log(colorData[color].number);
         if (!setColorTracker[color].number.includes(colorData[color].number)) {
           setColorTracker[color].number.push(colorData[color].number);
         }
@@ -409,18 +414,18 @@ function generateNextGuess(templates) {
   // Filter for number of unique colors
 
   let templatesWithLeastNumberOfUniqueColors = filterTemplatesForLeastNumberOfUniqueColors(templates);
-//   console.log(templatesWithLeastNumberOfUniqueColors);
+  console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
 
   // Then filter for number of wildcards
   let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = filterTemplatesForLeastNumberOfWildcards(templatesWithLeastNumberOfUniqueColors);
-//   console.log(templatesFilteredByLeastNumberOfUniqueColorsAndWilcards);
 
   // Shorten the variable name lol
   let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
+  console.log('Best templates (least wildcards and unique colors)', bestTemplates);
+  
   // Then arbitrarily select one of the remaining filtered templates
-
   let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-//   console.log(randomTemplate);
+  console.log('Best template:', randomTemplate);
   
   // and fill it with the colorWeKnowTheLeastAbout
   for (let i = 0; i < randomTemplate.length; i++) {
@@ -431,6 +436,7 @@ function generateNextGuess(templates) {
   
   // unnecessary renaming, just for clarity
   let bestNextGuess = randomTemplate;
+  console.log('Best next guess:', bestNextGuess);
   return bestNextGuess;
 }
 
