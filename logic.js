@@ -25,9 +25,11 @@ let COLORS_TRIED_THUS_FAR = [];
 
 let newColorsIntroduced = [];
 
-let rounds = 10;
+let round = 1;
+let roundLimit = 10;
 
-while (rounds) {
+while (round <= roundLimit) {
+  console.log(`------------------------------------------------ Round ${round} ------------------------------------------------`);
   let nextGuess = generateNextGuess(templates);
   guess = nextGuess;
 
@@ -64,7 +66,7 @@ while (rounds) {
   // updateColorTracker
   updateColorTracker(possibleSolutions);
   console.log(COLOR_TRACKER);
-  rounds--;
+  round++;
 }
 
 // ---------- FUNCTIONS ---------- //
@@ -369,6 +371,25 @@ function filterTemplatesForLeastNumberOfWildcards(templates) {
 }
 
 
+function checkForKnownNumberOfAnyColor() {
+  for (let color in COLOR_TRACKER) {
+    if (COLOR_TRACKER[color].number.length === 1) {
+      return true;
+    }
+  }
+  return false;;
+}
+
+
+function pickNewColorToIntroduce() {
+  for (let color in COLOR_TRACKER) {
+    if (!COLORS_TRIED_THUS_FAR.includes(color)) {
+      return color;
+    }
+  }
+}
+
+
 function generateNextGuess(templates) {
   // check if template is all 'x's
   if (templates.length === 1 && checkIfArraysMatch(templates[0], ['x', 'x', 'x', 'x'])) {
@@ -400,12 +421,26 @@ function generateNextGuess(templates) {
     return guess;
   }
 
-  // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
-  // Edge case: What if there's a tie?
-  let colorWeKnowTheLeastAbout = leastAmountKnown();
+  // ------------------------------------- CRUCIAL POINT!!!! -------------------------------------
+  // This is where we decide whether to introduce a new color, 
+  // or to gain more information about the color we know the least about
+ 
+  // If we know the exact number of any of the COLORS_TRIED_THUS_FAR, then introduce a new color
+  // Else, use the color we know the least about
+
+  let fillGuessTemplateWithThisColor;
+  if (checkForKnownNumberOfAnyColor()) {
+    // introduce new color
+    fillGuessTemplateWithThisColor = pickNewColorToIntroduce();
+    COLORS_TRIED_THUS_FAR.push(fillGuessTemplateWithThisColor);
+  } else {
+    // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
+    // Edge case: What if there's a tie?
+    fillGuessTemplateWithThisColor = leastAmountKnown();
+  }
 
   newColorsIntroduced = [];
-  newColorsIntroduced.push(colorWeKnowTheLeastAbout);
+  newColorsIntroduced.push(fillGuessTemplateWithThisColor);
   
   // filter templates
 //   console.log(colorWeKnowTheLeastAbout);
@@ -425,17 +460,18 @@ function generateNextGuess(templates) {
   
   // Then arbitrarily select one of the remaining filtered templates
   let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-  console.log('Best template:', randomTemplate);
+  console.log('Best template (randomly selected):', randomTemplate);
   
-  // and fill it with the colorWeKnowTheLeastAbout
-  for (let i = 0; i < randomTemplate.length; i++) {
-    if (randomTemplate[i] === 'x') {
-      randomTemplate[i] = colorWeKnowTheLeastAbout;
+  // Make copy to avoid passing by reference
+  let bestNextGuess = [...randomTemplate];
+  
+  // and fill it with the fillGuessTemplateWithThisColor
+  for (let i = 0; i < bestNextGuess.length; i++) {
+    if (bestNextGuess[i] === 'x') {
+      bestNextGuess[i] = fillGuessTemplateWithThisColor;
     }
   }
-  
-  // unnecessary renaming, just for clarity
-  let bestNextGuess = randomTemplate;
+
   console.log('Best next guess:', bestNextGuess);
   return bestNextGuess;
 }
