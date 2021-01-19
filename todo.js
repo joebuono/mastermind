@@ -27,5 +27,16 @@ Code breaker
 Code maker
 - Can you make a code that stumps the algorithm?!
 
+
+There's A LOT of interesting stuff you can do now with statistics and testing
+- For example, generate every possible color combination, then run the algorithm on each one like 100 times
+- Keep track of the average number of turns it takes the algorithm to solve each secret code
+- Then, introduce randomization to the algorithm when it selects which colors to introduce next, and see if that improves the performance
+
+Bonus: Use D3 to graph your results!!
+
+
+Can you make a 5-code mastermind game?
+
 */
 
