@@ -1,5 +1,10 @@
 /*
 
+Write automated tests with Jest, Mocha/Chai, CircleCI, etc
+- This is the perfect opportunity to do that!!
+- Great for your resume too
+
+
 Make a clean folder/file structure
 - Folders containing files containing individual (or grouped) functions
 

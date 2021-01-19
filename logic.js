@@ -5,7 +5,7 @@ let COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
 
 let COLOR_TRACKER = generateColorTracker();
 
-let secretCode = ['r', 'b', 'o', 'g'];
+let secretCode = ['p', 'o', 'y', 'g'];
 // generateSecretCode();
 console.log('Secret Code:', secretCode);
 
