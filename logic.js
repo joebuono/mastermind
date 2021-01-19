@@ -5,7 +5,7 @@ let COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
 
 let COLOR_TRACKER = generateColorTracker();
 
-let secretCode = ['b', 'g', 'o', 'g'];
+let secretCode = ['b', 'o', 'r', 'g'];
 // generateSecretCode();
 console.log('Secret Code:', secretCode);
 
@@ -428,7 +428,7 @@ function generateNextGuess(templates) {
   let fillGuessTemplateWithThisColor;
   if (checkForKnownNumberOfAnyColor()) {
     // introduce new color
-    fillGuessTemplateWithThisColor = pickNewColorToIntroduce();
+    fillGuessTemplateWithThisColor = pickNewColorToIntroduce() || leastAmountKnown();
     COLORS_TRIED_THUS_FAR.push(fillGuessTemplateWithThisColor);
   } else {
     // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
@@ -453,7 +453,7 @@ function generateNextGuess(templates) {
 
   // Shorten the variable name lol
   let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
-  // console.log('Best templates (least wildcards and unique colors)', bestTemplates);
+  console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
   
   // Then arbitrarily select one of the remaining filtered templates
   let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
