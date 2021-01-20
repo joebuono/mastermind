@@ -8,8 +8,12 @@ const { generateNextGuess } = require('./solverAlgorithm/generateNextGuess');
 
 const CODE_SIZE = 4; // or 5 (eventually)
 
-// How come none of the secret codes include Orange or Purple?
 let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
+
+// *** TESTING *** //
+SECRET_CODE = ['g', 'r', 'b', 'r']; 
+// this weirdly stumped the algorithm
+// Do we need to filter out templates that do not contain any wildcards? We can try, and then see what happens
 
 let COLORS_TRIED_THUS_FAR = [];
 // we only add to this when we have complete information, or when the template is still ['x', 'x', 'x', 'x']

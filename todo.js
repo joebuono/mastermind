@@ -4,10 +4,6 @@ Write automated tests with Jest, Mocha/Chai, CircleCI, etc
 - This is the perfect opportunity to do that!!
 - Great for your resume too
 
-
-Make a clean folder/file structure
-- Folders containing files containing individual (or grouped) functions
-
 You should program the algorithm to randomly select among unused colors. 
 - As in, don't always go in the same order ('r', 'b', 'g', 'y', 'o', 'p')
 - Randomizing may give you better overall results

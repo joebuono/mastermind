@@ -60,6 +60,30 @@ const filterTemplatesForLeastNumberOfUniqueColors = (templates) => {
 };
 
 // Requires templates
+const filterForTemplatesWithAtLeastOneWildcard = (templates) => {
+  // Unless ALL the templates have no wildcards!
+  let templatesWithAtLeastOneWildcard = [];
+  let templatesWithNoWildcards = [];
+
+  for (let template of templates) {
+    let numWildcards = 0;
+    for (let color of template) {
+      if (color === 'x') {
+        numWildcards++;
+        break;
+      }
+    }
+    if (numWildcards) {
+      templatesWithAtLeastOneWildcard.push(template);
+    } else {
+      templatesWithNoWildcards.push(template);
+    }
+  }
+
+  return templatesWithAtLeastOneWildcard.length ? templatesWithAtLeastOneWildcard : templatesWithNoWildcards;
+};
+
+// Requires templates
 const filterTemplatesForLeastNumberOfWildcards = (templates) => {
   let leastNumberOfWildcards = Infinity;
   let filteredTemplates = [];
@@ -88,5 +112,6 @@ module.exports = {
   pickNewColorToIntroduce,
   leastAmountKnown,
   filterTemplatesForLeastNumberOfUniqueColors,
+  filterForTemplatesWithAtLeastOneWildcard,
   filterTemplatesForLeastNumberOfWildcards
 };

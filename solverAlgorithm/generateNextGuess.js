@@ -80,8 +80,10 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
   let templatesWithLeastNumberOfUniqueColors = g.filterTemplatesForLeastNumberOfUniqueColors(templates);
   // console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
 
+  let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templatesWithLeastNumberOfUniqueColors);
+
   // Then filter for number of wildcards
-  let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithLeastNumberOfUniqueColors);
+  let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
 
   // Shorten the variable name lol
   let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
