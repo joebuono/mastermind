@@ -6,12 +6,12 @@ const { generateNextGuess } = require('./solverAlgorithm/generateNextGuess');
 
 // ******* GLOBAL VARIABLES ******* //
 
-const CODE_SIZE = 4; // or 5 (eventually)
+const CODE_SIZE = 5; // or 5 (eventually)
 
 let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
 
 // *** TESTING *** //
-SECRET_CODE = [ 'r', 'b', 'r', 'b' ]; 
+// SECRET_CODE = [ 'r', 'b', 'r', 'b' ]; 
 // this weirdly stumped the algorithm
 // Do we need to filter out templates that do not contain any wildcards? We can try, and then see what happens
 
@@ -22,7 +22,7 @@ console.log('COLORS', COLORS);
 console.log('SECRET_CODE', SECRET_CODE);
 console.log('COLOR_TRACKER', COLOR_TRACKER);
 
-let templates = [['x', 'x', 'x', 'x']];
+let templates = [new Array(CODE_SIZE).fill('x')];
 
 let guess = [];
 

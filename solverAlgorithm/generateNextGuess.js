@@ -9,7 +9,7 @@ const g = require('./guessHelperFunctions');
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
 exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE) => {
   // check if template is all 'x's
-  if (templates.length === 1 && checkIfArraysMatch(templates[0], ['x', 'x', 'x', 'x'])) {
+  if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     let colorsForGuess = [];
     for (let color in COLOR_TRACKER) {

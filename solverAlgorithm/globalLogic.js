@@ -13,15 +13,15 @@ const generateSecretCode = (CODE_SIZE) => {
   return secretCode;
 };
 
-const generateColorTracker = (colors) => {
+const generateColorTracker = (colors, CODE_SIZE) => {
   let colorTracker = {};
 
   for (let color of colors) {
     colorTracker[color] = {
-      number: [0, 1, 2, 3, 4], 
+      number: [...Array(CODE_SIZE + 1).keys()],
       // yeah, we probably want to update each color every time
       // in other words, we want to track wildcard information as we go (x's do matter)
-      position: [1, 2, 3, 4]
+      position: [...Array(CODE_SIZE).keys()].map(x => x + 1)
     };
   }
 
@@ -31,7 +31,7 @@ const generateColorTracker = (colors) => {
 exports.initializeGame = (CODE_SIZE) => {
   const colors = COLORS.slice(0, CODE_SIZE * 2 - 2);
   const secretCode = generateSecretCode(CODE_SIZE);
-  const colorTracker = generateColorTracker(colors);
+  const colorTracker = generateColorTracker(colors, CODE_SIZE);
   return [colors, secretCode, colorTracker];
 };
 
