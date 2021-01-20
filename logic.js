@@ -1,13 +1,14 @@
-
+const { COLORS, generateColorTracker, generateSecretCode } = require('./globalLogic');
+const { generateAllPermutations, fillInTemplate } = require('./generatePermutations');
 
 // ******* GLOBAL VARIABLES ******* //
-let COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
+
+const SECRET_CODE = generateSecretCode(); // ['b', 'o', 'o', 'p'];
 
 let COLOR_TRACKER = generateColorTracker();
 
-let secretCode = ['p', 'o', 'y', 'g'];
 // generateSecretCode();
-console.log('Secret Code:', secretCode);
+console.log('Secret Code:', SECRET_CODE);
 
 let templates = [['x', 'x', 'x', 'x']];
 
@@ -18,17 +19,17 @@ let COLORS_TRIED_THUS_FAR = [];
 
 let newColorsIntroduced = [];
 
-let round = 1;
-let roundLimit = 10;
+let CURRENT_ROUND = 1;
+let ROUND_LIMIT = 10;
 
-while (round <= roundLimit) {
+while (CURRENT_ROUND <= ROUND_LIMIT) {
   let nextGuess = generateNextGuess(templates);
   guess = nextGuess;
 
-  console.log(`------------------------------------------------ Round ${round} ------------------------------------------------`);
+  console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
   console.log('Next guess:', guess);
 
-  let guessResults = getBlackAndWhitePegs(guess, secretCode);
+  let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
   console.log('Guess Results:', guessResults);
 
   // check win condition
@@ -62,50 +63,29 @@ while (round <= roundLimit) {
   // updateColorTracker
   updateColorTracker(possibleSolutions);
   console.log(COLOR_TRACKER);
-  round++;
+  CURRENT_ROUND++;
 }
 
 // ---------- FUNCTIONS ---------- //
 
 /*
 
-- generateColorTracker
-- generateSecretCode
 - getBlackAndWhitePegs
 - generateAllPermutations
+- fillInTemplate
 - checkIfArraysMatch
 - filterForPossibleSolutions
 - updateColorTracker
 - trackPossibleSolution
+- leastAmountKnown
+- filterTemplatesForLeastNumberOfUniqueColors
+- filterTemplatesForLeastNumberOfWildcards
+- checkForKnownNumberOfAnyColor
+- pickNewColorToIntroduce
 - generateNextGuess
 
 */
 
-function generateColorTracker() {
-  let colorTracker = {};
-
-  for (let color of COLORS) {
-    colorTracker[color] = {
-      number: [0, 1, 2, 3, 4], 
-      // yeah, we probably want to update each color every time
-      // in other words, we want to track wildcard information as we go (x's do matter)
-      position: [1, 2, 3, 4]
-    };
-  }
-
-  return colorTracker;
-}
-
-
-function generateSecretCode() {
-  let code = [];
-
-  for (let i = 0; i < 4; i++) {
-    code.push(COLORS[Math.floor(Math.random() * COLORS.length)]);
-  }
-
-  return code;
-}
 
 
 function getBlackAndWhitePegs(guess, secret) {
@@ -139,51 +119,52 @@ function getBlackAndWhitePegs(guess, secret) {
 }
 
 
-// Separate concerns
-function generateAllPermutations(templates, newColorsIntroduced) {
-  // add wildcard variable 
-  let newColors = [...newColorsIntroduced, 'x'];
+// // Separate concerns
+// function generateAllPermutations(templates, newColorsIntroduced) {
+//   // add wildcard variable 
+//   let newColors = [...newColorsIntroduced, 'x'];
 
-  let perms = [];
+//   let perms = [];
 
-  // fill the templates with the newColor(s) introduced in the previous guess
-  for (let template of templates) {
-    // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
-    // (not super efficient, but beware of premature optimization!)
-    for (let i = 0; i < template.length; i++) {
-      if (template[i] === 'x') {
-        template[i] = '?';
-      }
-    }
-    perms = [...perms, ...fillInTemplate(template, newColors)];
-  }
+//   // fill the templates with the newColor(s) introduced in the previous guess
+//   for (let template of templates) {
+//     // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
+//     // (not super efficient, but beware of premature optimization!)
+//     for (let i = 0; i < template.length; i++) {
+//       if (template[i] === 'x') {
+//         template[i] = '?';
+//       }
+//     }
+//     // use .concat() instead? could be cleaner
+//     perms = [...perms, ...fillInTemplate(template, newColors)];
+//   }
 
-  return perms;
-}
+//   return perms;
+// }
 
 
-function fillInTemplate(template, newColors, index = 0) {
-  let permutationsOfTemplate = [];
-  for (let i = index; i < template.length; i++) {
-    if (i === template.length - 1 && template[i] !== '?') {
-      permutationsOfTemplate.push(template);
-      break;
-    } else if (template[i] === '?') {
-        for (let j = 0; j < newColors.length; j++) {
-          let templateCopy = [...template];
-          templateCopy[i] = newColors[j];
-          if (i === templateCopy.length - 1) {
-            permutationsOfTemplate.push(templateCopy);
-          } else {
-            permutationsOfTemplate = [...permutationsOfTemplate, ...fillInTemplate(templateCopy, newColors, i + 1)];
-          }
-        }
-      break; // to omit templates using '?'      
-    }
-  }
+// function fillInTemplate(template, newColors, index = 0) {
+//   let permutationsOfTemplate = [];
+//   for (let i = index; i < template.length; i++) {
+//     if (i === template.length - 1 && template[i] !== '?') {
+//       permutationsOfTemplate.push(template);
+//       break;
+//     } else if (template[i] === '?') {
+//         for (let j = 0; j < newColors.length; j++) {
+//           let templateCopy = [...template];
+//           templateCopy[i] = newColors[j];
+//           if (i === templateCopy.length - 1) {
+//             permutationsOfTemplate.push(templateCopy);
+//           } else {
+//             permutationsOfTemplate = [...permutationsOfTemplate, ...fillInTemplate(templateCopy, newColors, i + 1)];
+//           }
+//         }
+//       break; // to omit templates using '?'      
+//     }
+//   }
   
-  return permutationsOfTemplate;
-}
+//   return permutationsOfTemplate;
+// }
 
 
 function checkIfArraysMatch(arr1, arr2) {
@@ -412,7 +393,7 @@ function generateNextGuess(templates) {
 
     let guess = new Array(3).fill(colorsForGuess[0]);
     // to account for both 4 and 5 code games
-    while (guess.length < secretCode.length) {
+    while (guess.length < SECRET_CODE.length) {
       guess.push(colorsForGuess[1]);
     }
     return guess;
