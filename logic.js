@@ -1,5 +1,6 @@
 const { initializeGame } = require('./globalLogic');
 const { generateAllPermutations } = require('./generatePermutations');
+const { getBlackAndWhitePegs, checkIfArraysMatch, filterForPossibleSolutions } = require('./filterPermutations');
 
 // ******* GLOBAL VARIABLES ******* //
 
@@ -21,7 +22,7 @@ let COLORS_TRIED_THUS_FAR = [];
 let newColorsIntroduced = [];
 
 let CURRENT_ROUND = 1;
-let ROUND_LIMIT = 10;
+const ROUND_LIMIT = 10;
 
 while (CURRENT_ROUND <= ROUND_LIMIT) {
   let nextGuess = generateNextGuess(templates);
@@ -35,7 +36,7 @@ while (CURRENT_ROUND <= ROUND_LIMIT) {
 
   // check win condition
   // if 4 (or later 5) black pegs
-  if (guessResults[0] === guess.length) {
+  if (guessResults[0] === CODE_SIZE) {
     console.log('YOU WIN!!!');
     break;
   }
@@ -89,65 +90,65 @@ while (CURRENT_ROUND <= ROUND_LIMIT) {
 
 
 
-function getBlackAndWhitePegs(guess, secret) {
-  let guessCopy = [...guess];
-  let secretCopy = [...secret];
+// function getBlackAndWhitePegs(guess, secret) {
+//   let guessCopy = [...guess];
+//   let secretCopy = [...secret];
   
-  // check black (right color, right spot)
-  let blackPegs = 0;
+//   // check black (right color, right spot)
+//   let blackPegs = 0;
 
-  for (let i = 0; i < guessCopy.length; i++) {
-    if (guessCopy[i] === secretCopy[i]) {
-      blackPegs++;
-      secretCopy[i] = null;
-      guessCopy[i] = null;
-    }
-  }
+//   for (let i = 0; i < guessCopy.length; i++) {
+//     if (guessCopy[i] === secretCopy[i]) {
+//       blackPegs++;
+//       secretCopy[i] = null;
+//       guessCopy[i] = null;
+//     }
+//   }
 
-  // check white (right color, wrong spot)
-  let whitePegs = 0;
-  for (let i = 0; i < guessCopy.length; i++) {
-    if (guessCopy[i]) {
-      let index = secretCopy.indexOf(guessCopy[i]);
-      if (index !== - 1) {
-        whitePegs++;
-        secretCopy[index] = null;
-      }
-    }
-  }
+//   // check white (right color, wrong spot)
+//   let whitePegs = 0;
+//   for (let i = 0; i < guessCopy.length; i++) {
+//     if (guessCopy[i]) {
+//       let index = secretCopy.indexOf(guessCopy[i]);
+//       if (index !== - 1) {
+//         whitePegs++;
+//         secretCopy[index] = null;
+//       }
+//     }
+//   }
 
-  return [blackPegs, whitePegs];
-}
-
-
-function checkIfArraysMatch(arr1, arr2) {
-  if (arr1 == null || arr2 == null) return false;
-  if (arr1.length !== arr2.length) return false;
-
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
+//   return [blackPegs, whitePegs];
+// }
 
 
-function filterForPossibleSolutions(guess, guessResults, permutations) {
-  let possibleSolutions = [];
+// function checkIfArraysMatch(arr1, arr2) {
+//   if (arr1 == null || arr2 == null) return false;
+//   if (arr1.length !== arr2.length) return false;
 
-  for (let perm of permutations) {
-    let result = getBlackAndWhitePegs(guess, perm);
-    // console.log('Perm, Result:', perm, result);
-    // if result matches guess results, push perm to possibleSolutions array
-    if (checkIfArraysMatch(result, guessResults)) {
-      possibleSolutions.push(perm);
-    }
-  }
+//   for (let i = 0; i < arr1.length; i++) {
+//     if (arr1[i] !== arr2[i]) {
+//       return false;
+//     }
+//   }
 
-  return possibleSolutions;
-}
+//   return true;
+// }
+
+
+// function filterForPossibleSolutions(guess, guessResults, permutations) {
+//   let possibleSolutions = [];
+
+//   for (let perm of permutations) {
+//     let result = getBlackAndWhitePegs(guess, perm);
+//     // console.log('Perm, Result:', perm, result);
+//     // if result matches guess results, push perm to possibleSolutions array
+//     if (checkIfArraysMatch(result, guessResults)) {
+//       possibleSolutions.push(perm);
+//     }
+//   }
+
+//   return possibleSolutions;
+// }
 
 
 

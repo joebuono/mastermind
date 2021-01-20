@@ -16,7 +16,7 @@ Dependencies
   - fillInTemplate
 
 - filterForPossibleSolutions
-  - getBlackAndWhitePegs(CURRENT_GUESS, SECRET_CODE)
+  - getBlackAndWhitePegs(guess, SECRET_CODE)
   - checkIfArraysMatch
 
 - updateColorTracker
