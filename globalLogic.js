@@ -1,11 +1,22 @@
 // Global Logic
 
-const COLORS = ['r', 'b', 'g', 'y', 'o', 'p'];
+const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
+// Red, Blue, Green, Yellow, Orange, Purple, Brown, White
 
-const generateColorTracker = () => {
+const generateSecretCode = (codeSize) => {
+  let secretCode = [];
+
+  for (let i = 0; i < codeSize; i++) {
+    secretCode.push(COLORS[Math.floor(Math.random() * codeSize)]);
+  }
+
+  return secretCode;
+};
+
+const generateColorTracker = (colors) => {
   let colorTracker = {};
 
-  for (let color of COLORS) {
+  for (let color of colors) {
     colorTracker[color] = {
       number: [0, 1, 2, 3, 4], 
       // yeah, we probably want to update each color every time
@@ -17,18 +28,10 @@ const generateColorTracker = () => {
   return colorTracker;
 };
 
-const generateSecretCode = () => {
-  let code = [];
-
-  for (let i = 0; i < 4; i++) {
-    code.push(COLORS[Math.floor(Math.random() * COLORS.length)]);
-  }
-
-  return code;
+exports.initializeGame = (codeSize) => {
+  const colors = COLORS.slice(0, codeSize * 2 - 2);
+  const secretCode = generateSecretCode(codeSize);
+  const colorTracker = generateColorTracker(colors);
+  return [colors, secretCode, colorTracker];
 };
 
-module.exports = {
-  COLORS,
-  generateColorTracker,
-  generateSecretCode
-};

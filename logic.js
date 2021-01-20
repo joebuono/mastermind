@@ -1,14 +1,15 @@
-const { COLORS, generateColorTracker, generateSecretCode } = require('./globalLogic');
-const { generateAllPermutations, fillInTemplate } = require('./generatePermutations');
+const { initializeGame } = require('./globalLogic');
+const { generateAllPermutations } = require('./generatePermutations');
 
 // ******* GLOBAL VARIABLES ******* //
 
-const SECRET_CODE = generateSecretCode(); // ['b', 'o', 'o', 'p'];
+const CODE_SIZE = 4; // or 5 (eventually)
 
-let COLOR_TRACKER = generateColorTracker();
+const [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
 
-// generateSecretCode();
-console.log('Secret Code:', SECRET_CODE);
+console.log('COLORS', COLORS);
+console.log('SECRET_CODE', SECRET_CODE);
+console.log('COLOR_TRACKER', COLOR_TRACKER);
 
 let templates = [['x', 'x', 'x', 'x']];
 

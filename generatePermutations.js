@@ -1,29 +1,4 @@
 
-
-// Separate concerns
-const generateAllPermutations = (templates, newColorsIntroduced) => {
-  // add wildcard variable 
-  let newColors = [...newColorsIntroduced, 'x'];
-
-  let perms = [];
-
-  // fill the templates with the newColor(s) introduced in the previous guess
-  for (let template of templates) {
-    // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
-    // (not super efficient, but beware of premature optimization!)
-    for (let i = 0; i < template.length; i++) {
-      if (template[i] === 'x') {
-        template[i] = '?';
-      }
-    }
-    // use .concat() instead? could be cleaner
-    perms = [...perms, ...fillInTemplate(template, newColors)];
-  }
-
-  return perms;
-};
-
-
 const fillInTemplate = (template, newColors, index = 0) => {
   let permutationsOfTemplate = [];
   for (let i = index; i < template.length; i++) {
@@ -47,7 +22,25 @@ const fillInTemplate = (template, newColors, index = 0) => {
   return permutationsOfTemplate;
 };
 
-module.exports = {
-  generateAllPermutations,
-  fillInTemplate
+// Separate concerns
+exports.generateAllPermutations = (templates, newColorsIntroduced) => {
+  // add wildcard variable 
+  let newColors = [...newColorsIntroduced, 'x'];
+
+  let perms = [];
+
+  // fill the templates with the newColor(s) introduced in the previous guess
+  for (let template of templates) {
+    // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
+    // (not super efficient, but beware of premature optimization!)
+    for (let i = 0; i < template.length; i++) {
+      if (template[i] === 'x') {
+        template[i] = '?';
+      }
+    }
+    // use .concat() instead? could be cleaner
+    perms = perms.concat(fillInTemplate(template, newColors));
+  }
+
+  return perms;
 };
