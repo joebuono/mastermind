@@ -11,7 +11,7 @@ const CODE_SIZE = 4; // or 5 (eventually)
 let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
 
 // *** TESTING *** //
-SECRET_CODE = ['g', 'r', 'b', 'r']; 
+SECRET_CODE = [ 'r', 'b', 'r', 'b' ]; 
 // this weirdly stumped the algorithm
 // Do we need to filter out templates that do not contain any wildcards? We can try, and then see what happens
 
