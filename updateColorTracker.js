@@ -1,7 +1,31 @@
 
+// This is getting the possible colors (numbers and positions) for just ONE possible solution
+const trackPossibleSolution = (possibleSolution, COLORS_TRIED_THUS_FAR) => {
+  let colorData = {};
+  for (let usedColor of COLORS_TRIED_THUS_FAR) {
+    colorData[usedColor] = {
+      number: 0,
+      position: []     
+    };
+  }
+
+  colorData['x'] = {
+    number: 0,
+    position: []  
+  }
+
+  for (let i = 0; i < possibleSolution.length; i++) {
+    let color = possibleSolution[i];
+    colorData[color].number++;
+    colorData[color].position.push(i + 1); // one-indexed     
+  }
+  return colorData;
+};
+
 
 // This function is too big. Break it down into sub-functions
-function updateColorTracker(possibleSolutions) {
+exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER) => {
+  console.log('Inside updateColorTracker function', COLORS);
   let setColorTracker = {};
   for (let color of COLORS) {
     if (COLORS_TRIED_THUS_FAR.includes(color)) {
@@ -20,7 +44,7 @@ function updateColorTracker(possibleSolutions) {
   // for each possibleSolution, 
   for (let possibleSolution of possibleSolutions) {
     // track (get number and position data) for each possible solution
-    let colorData = trackPossibleSolution(possibleSolution);
+    let colorData = trackPossibleSolution(possibleSolution, COLORS_TRIED_THUS_FAR);
     // use info to update color tracker
     for (let color in colorData) {
       if (color === 'x') {
@@ -53,34 +77,17 @@ function updateColorTracker(possibleSolutions) {
     }
   }
 
+  // clone COLOR_TRACKER
+  const updatedColorTracker = JSON.parse(JSON.stringify(COLOR_TRACKER));
+
   // update global color tracker
   for (let color in setColorTracker) {
-    // sort (not really necessary)
+    // sorting (not really necessary)
     setColorTracker[color].number.sort((a, b) => a - b);
     setColorTracker[color].position.sort((a, b) => a - b);
-    COLOR_TRACKER[color] = setColorTracker[color];
-  }
-}
-
-// This is getting the possible colors (numbers and positions) for just ONE possible solution
-const trackPossibleSolution = (possibleSolution) => {
-  let colorData = {};
-  for (let usedColor of COLORS_TRIED_THUS_FAR) {
-    colorData[usedColor] = {
-      number: 0,
-      position: []     
-    };
+    updatedColorTracker[color] = setColorTracker[color];
   }
 
-  colorData['x'] = {
-    number: 0,
-    position: []  
-  }
-
-  for (let i = 0; i < possibleSolution.length; i++) {
-    let color = possibleSolution[i];
-    colorData[color].number++;
-    colorData[color].position.push(i + 1); // one-indexed     
-  }
-  return colorData;
-}
+  // should we return the updated color tracker? I don't want the function to have side effects (affect the outside world)
+  return updatedColorTracker;
+};
