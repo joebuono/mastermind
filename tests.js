@@ -8,6 +8,8 @@ Test these secret codes:
 
 ['g', 'b', 'r', 'r'] // this also weirdly stumped the algorithm
 
+['g', 'r', 'b', 'r'] // this also weirdly stumped the algorithm
+
 
 // Less important tests:
 ['r', 'r', 'r', 'p'] // this involves a fascinating optimization that I haven't yet coded!

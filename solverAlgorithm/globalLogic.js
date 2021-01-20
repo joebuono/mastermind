@@ -3,11 +3,11 @@
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 // Red, Blue, Green, Yellow, Orange, Purple, Brown, White
 
-const generateSecretCode = (codeSize) => {
+const generateSecretCode = (CODE_SIZE) => {
   let secretCode = [];
 
-  for (let i = 0; i < codeSize; i++) {
-    secretCode.push(COLORS[Math.floor(Math.random() * codeSize)]);
+  for (let i = 0; i < CODE_SIZE; i++) {
+    secretCode.push(COLORS[Math.floor(Math.random() * (CODE_SIZE * 2 - 2))]);
   }
 
   return secretCode;
@@ -28,9 +28,9 @@ const generateColorTracker = (colors) => {
   return colorTracker;
 };
 
-exports.initializeGame = (codeSize) => {
-  const colors = COLORS.slice(0, codeSize * 2 - 2);
-  const secretCode = generateSecretCode(codeSize);
+exports.initializeGame = (CODE_SIZE) => {
+  const colors = COLORS.slice(0, CODE_SIZE * 2 - 2);
+  const secretCode = generateSecretCode(CODE_SIZE);
   const colorTracker = generateColorTracker(colors);
   return [colors, secretCode, colorTracker];
 };

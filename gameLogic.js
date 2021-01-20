@@ -1,13 +1,14 @@
-const { initializeGame } = require('./globalLogic');
-const { generateAllPermutations } = require('./generatePermutations');
-const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('./filterPermutations');
-const { updateColorTracker } = require('./updateColorTracker');
-const { generateNextGuess } = require('./generateNextGuess');
+const { initializeGame } = require('./solverAlgorithm/globalLogic');
+const { generateAllPermutations } = require('./solverAlgorithm/generatePermutations');
+const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('./solverAlgorithm/filterPermutations');
+const { updateColorTracker } = require('./solverAlgorithm/updateColorTracker');
+const { generateNextGuess } = require('./solverAlgorithm/generateNextGuess');
 
 // ******* GLOBAL VARIABLES ******* //
 
 const CODE_SIZE = 4; // or 5 (eventually)
 
+// How come none of the secret codes include Orange or Purple?
 let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
 
 let COLORS_TRIED_THUS_FAR = [];
