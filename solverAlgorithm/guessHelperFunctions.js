@@ -1,13 +1,14 @@
 // Helper functions used in generating the best next guess
 
 // Requires COLOR_TRACKER
-const checkForKnownNumberOfAnyColor = (COLOR_TRACKER) => {
+const checkForHowManyColorsWeKnowTheNumberOf = (COLOR_TRACKER) => {
+  let numberOfKnownColors = 0;
   for (let color in COLOR_TRACKER) {
     if (COLOR_TRACKER[color].number.length === 1) {
-      return true;
+      numberOfKnownColors++;
     }
   }
-  return false;
+  return numberOfKnownColors;
 };
 
 // Requires COLOR_TRACKER and COLORS_TRIED_THUS_FAR
@@ -108,7 +109,7 @@ const filterTemplatesForLeastNumberOfWildcards = (templates) => {
 };
 
 module.exports = {
-  checkForKnownNumberOfAnyColor,
+  checkForHowManyColorsWeKnowTheNumberOf,
   pickNewColorToIntroduce,
   leastAmountKnown,
   filterTemplatesForLeastNumberOfUniqueColors,

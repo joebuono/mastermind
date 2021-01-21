@@ -56,9 +56,11 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
   let addToColorsTriedThusFar = [];
 
   let fillGuessTemplateWithThisColor;
-  if (g.checkForKnownNumberOfAnyColor(COLOR_TRACKER)) {
+  // If TOTAL number of known colors is <==> to the number of colors tried thus far (if the difference is less than 1)
+  if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) < 1) {
     // introduce new color
-    fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR) || g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
+    // I think that this is the sticking point for Green
+    fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
     
     // !!! WARNING !!! This function is modifying the outside world. Avoid side effects
     // COLORS_TRIED_THUS_FAR.push(fillGuessTemplateWithThisColor);
