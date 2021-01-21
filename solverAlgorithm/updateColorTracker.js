@@ -25,7 +25,7 @@ const trackPossibleSolution = (possibleSolution, COLORS_TRIED_THUS_FAR) => {
 
 // This function is too big. Break it down into sub-functions
 exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER) => {
-  console.log('Inside updateColorTracker function', COLORS);
+  // console.log('Inside updateColorTracker function', COLORS);
   let setColorTracker = {};
   for (let color of COLORS) {
     if (COLORS_TRIED_THUS_FAR.includes(color)) {

@@ -87,11 +87,11 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
 
   // Shorten the variable name lol
   let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
-  console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
+  // console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
   
   // Then arbitrarily select one of the remaining filtered templates
   let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-  console.log('Best template (randomly selected):', randomTemplate);
+  // console.log('Best template (randomly selected):', randomTemplate);
   
   // Make copy to avoid passing by reference
   let bestNextGuess = [...randomTemplate];
@@ -103,6 +103,6 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
     }
   }
 
-  console.log('Best next guess:', bestNextGuess);
+  // console.log('Best next guess:', bestNextGuess);
   return [bestNextGuess, colorUsedToFillTemplate, addToColorsTriedThusFar];
 };

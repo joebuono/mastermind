@@ -1,9 +1,11 @@
+const { gameLogic } = require('./gameLogic');
+
+let result = gameLogic(['r', 'p', 'o', 'p']);
+console.log(result);
+
+
 
 /*
-
-
-Actually, first, I'm very curious to see what happens if we do a secret code of length 5!
-
 
 Write a test suite!
 
@@ -16,12 +18,6 @@ Write a test suite!
 - Then, return an array sorted by the average number of turns it takes to solve each code
 
 - Then, see if you can reduce this through randomization in selecting colors (and perhaps other clever tricks!)
-
-
-
-
-
-
 
 Test these secret codes:
 
