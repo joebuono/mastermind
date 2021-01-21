@@ -1,9 +1,22 @@
 const { gameLogic } = require('./gameLogic');
+const { fillInTemplate } = require('./solverAlgorithm/generatePermutations');
 
-let result = gameLogic(['r', 'p', 'o', 'p']);
-console.log(result);
+const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
+// 1,296 for codeSize of 4
+// 32,768 for codeSize of 5
 
+const generateAllPermutationsForTesting = (codeSize) => {
+  const colors = COLORS.slice(0, (codeSize * 2 - 2));
+  let template = new Array(codeSize).fill('?');
+  return fillInTemplate(template, colors);
+};
+
+let result = generateAllPermutationsForTesting(4);
+console.log(result, result.length);
+
+// let result = gameLogic(['r', 'p', 'o', 'p']);
+// console.log(result);
 
 /*
 

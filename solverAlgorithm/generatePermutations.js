@@ -12,6 +12,7 @@ const fillInTemplate = (template, newColors, index = 0) => {
           if (i === templateCopy.length - 1) {
             permutationsOfTemplate.push(templateCopy);
           } else {
+            // use .concat() here
             permutationsOfTemplate = [...permutationsOfTemplate, ...fillInTemplate(templateCopy, newColors, i + 1)];
           }
         }
@@ -23,7 +24,7 @@ const fillInTemplate = (template, newColors, index = 0) => {
 };
 
 // Separate concerns
-exports.generateAllPermutations = (templates, newColorsIntroduced) => {
+const generateAllPermutations = (templates, newColorsIntroduced) => {
   // add wildcard variable 
   let newColors = [...newColorsIntroduced, 'x'];
 
@@ -43,4 +44,9 @@ exports.generateAllPermutations = (templates, newColorsIntroduced) => {
   }
 
   return perms;
+};
+
+module.exports = {
+  fillInTemplate,
+  generateAllPermutations
 };
