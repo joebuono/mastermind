@@ -28,6 +28,8 @@ const generateAllPermutations = (templates, newColorsIntroduced) => {
   // add wildcard variable 
   let newColors = [...newColorsIntroduced, 'x'];
 
+  // Later, make permutations a set to avoid duplicates
+  // Or adjust the algorithm so that it doesn't generate duplicates (but the former is probably easier)
   let perms = [];
 
   // fill the templates with the newColor(s) introduced in the previous guess

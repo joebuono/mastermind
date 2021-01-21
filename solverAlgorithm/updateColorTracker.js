@@ -64,12 +64,12 @@ exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, 
         }
       } else {
         // update number
-        if (!setColorTracker[color].number.includes(colorData[color].number)) {
+        if (setColorTracker[color] && !setColorTracker[color].number.includes(colorData[color].number)) {
           setColorTracker[color].number.push(colorData[color].number);
         }
         // update position
         for (let position of colorData[color].position) {
-          if (!setColorTracker[color].position.includes(position)) {
+          if (setColorTracker[color] && !setColorTracker[color].position.includes(position)) {
             setColorTracker[color].position.push(position);
           }
         }        

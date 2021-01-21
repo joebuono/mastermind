@@ -7,7 +7,10 @@ const g = require('./guessHelperFunctions');
 // Required functions: checkIfArraysMatch, checkForKnownNumberOfAnyColor, pickNewColorToIntroduce, leastAmountKnown
 // filterTemplatesForLeastNumberOfUniqueColors, filterTemplatesForLeastNumberOfWildcards
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
-exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE) => {
+exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses) => {
+   // Make local copy of templates
+   let templates = [...globalTemplates];
+
   // check if template is all 'x's
   if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
@@ -57,10 +60,10 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
 
   let fillGuessTemplateWithThisColor;
   // If TOTAL number of known colors is <==> to the number of colors tried thus far (if the difference is less than 1)
-  if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) < 1) {
+  if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= 1) {
     // introduce new color
     // I think that this is the sticking point for Green
-    fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
+    fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR) || g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
     
     // !!! WARNING !!! This function is modifying the outside world. Avoid side effects
     // COLORS_TRIED_THUS_FAR.push(fillGuessTemplateWithThisColor);
@@ -73,50 +76,66 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
 
   let colorUsedToFillTemplate = [fillGuessTemplateWithThisColor];
   
-  // filter templates
-//   console.log(colorWeKnowTheLeastAbout);
 
-  // I'm not sure exactly which order we should do the next steps in
-  // Filter for number of unique colors
+  let bestNextGuess = []
+
+  while (true) {
+
+    // filter templates
+  //   console.log(colorWeKnowTheLeastAbout);
+
+    // I'm not sure exactly which order we should do the next steps in
+    // Filter for number of unique colors
 
 
-  // Let's experiment with first filtering for least number of wildcards
-  // Then filter for unique colors? Try it. 
-  // Initially, this appears to fix the problem!
+    // Let's experiment with first filtering for least number of wildcards
+    // Then filter for unique colors? Try it. 
+    // Initially, this appears to fix the problem!
 
-  let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
-  console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
+    let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
+    // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
 
-  let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
+    let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
 
-  let bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+    let bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+    
+    /*
+    let templatesWithLeastNumberOfUniqueColors = g.filterTemplatesForLeastNumberOfUniqueColors(templates);
+    console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
 
-  /*
-  let templatesWithLeastNumberOfUniqueColors = g.filterTemplatesForLeastNumberOfUniqueColors(templates);
-  console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
+    let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templatesWithLeastNumberOfUniqueColors);
+    console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
 
-  let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templatesWithLeastNumberOfUniqueColors);
-  console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
+    // Then filter for number of wildcards
+    let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
+    */
+    
+    // Shorten the variable name lol
+    // let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
+    // console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
+    
+    // Then arbitrarily select one of the remaining filtered templates
+    let randomTemplate = bestTemplates.length === 1 ? bestTemplates[0] : bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
 
-  // Then filter for number of wildcards
-  let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
-  */
-  
-  // Shorten the variable name lol
-  // let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
-  console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
-  
-  // Then arbitrarily select one of the remaining filtered templates
-  let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-  console.log('Best template (randomly selected):', randomTemplate);
-  
-  // Make copy to avoid passing by reference
-  let bestNextGuess = [...randomTemplate];
-  
-  // and fill it with the fillGuessTemplateWithThisColor
-  for (let i = 0; i < bestNextGuess.length; i++) {
-    if (bestNextGuess[i] === 'x') {
-      bestNextGuess[i] = fillGuessTemplateWithThisColor;
+    // let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
+    // console.log('Best template (randomly selected):', randomTemplate);
+    
+    // Make copy to avoid passing by reference
+    bestNextGuess = [...randomTemplate];
+    
+    // and fill it with the fillGuessTemplateWithThisColor
+    for (let i = 0; i < bestNextGuess.length; i++) {
+      if (bestNextGuess[i] === 'x') {
+        bestNextGuess[i] = fillGuessTemplateWithThisColor;
+      }
+    }
+
+    if (previousGuesses.has(`${bestNextGuess}`)) {
+      // remove that template from this round
+      templates = templates.filter(template => !checkIfArraysMatch(template, randomTemplate));
+      // loop back around and pick a different template
+    } else {
+      break;
     }
   }
 

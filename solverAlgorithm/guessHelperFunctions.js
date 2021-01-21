@@ -30,8 +30,14 @@ const leastAmountKnown = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
     // a more rigorous way would be to first check if the length of the number array is 1
     // if so, does the length of the position array match the single value in the number array?
     // if so, we have complete information for that color
-    info += COLOR_TRACKER[usedColor].number.length;
-    info += COLOR_TRACKER[usedColor].position.length;
+    // ^^^ YES!!!
+    if (COLOR_TRACKER[usedColor]) {
+      // check for INCOMPLETE knowledge
+      if (COLOR_TRACKER[usedColor].number.length > 1 || COLOR_TRACKER[usedColor].number[0] !== COLOR_TRACKER[usedColor].position.length) {
+        info += COLOR_TRACKER[usedColor].number.length;
+        info += COLOR_TRACKER[usedColor].position.length;
+      }
+    }
     if (info > amountKnown) {
       color = usedColor;
       amountKnown = info;
