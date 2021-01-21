@@ -53,8 +53,17 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations) => {
   return worstCases.sort((a, b) => b[0] - a[0]);
 };
 
-let worstCases = getWorstCaseTurnsPerPermutation(4, 10);
-console.log(worstCases);
+let codeSize = 4;
+let worstCases = getAverageTurnsPerPermutation(codeSize, 10);
+console.log(`Single worst average case for code size ${codeSize}:`, worstCases[0]);
+let total = 0;
+for (let worstCase of worstCases) {
+  total += worstCase[0];
+}
+let globalAverageForWorstCases = total / worstCases.length;
+console.log(`Global average for average cases for code size ${codeSize}:`, globalAverageForWorstCases);
 // let averageCases = getAverageTurnsPerPermutation(4, 10);
 // console.log(averageCases);
 // console.log('failed at least once:', failedAtLeastOnce);
+
+// 

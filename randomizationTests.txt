@@ -1,0 +1,29 @@
+
+
+Before randomizing the next colors selected:
+
+4-colors
+Single worst worst case for code size 4: [ 8, [ 'r', 'b', 'o', 'p' ] ]
+Global average for worst cases for code size 4: 6.10
+Single worst average case for code size 4: [ 7.54, [ 'r', 'o', 'p', 'r' ] ]
+Global average for average cases for code size 4: 5.506890432098776
+
+5-colors
+Single worst worst case for code size 5: [ 12, [ 'r', 'p', 'o', 'n', 'w' ] ]
+Global average for worst cases for code size 5: 8.248046875
+Single worst average case for code size 5: [ 11, [ 'w', 'b', 'n', 'n', 'n' ] ]
+Global average for average cases for code size 5: 7.468725585937797
+
+
+************** After randomization **************
+- Single worst case:
+- Global average for worst cases:
+- Single worst average case:
+- Global average for average case:
+
+5-colors
+- Single worst case:
+- Global average for worst cases:
+- Single worst average case:
+- Global average for average cases:
+

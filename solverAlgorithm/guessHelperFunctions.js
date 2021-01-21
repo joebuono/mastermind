@@ -12,12 +12,34 @@ const checkForHowManyColorsWeKnowTheNumberOf = (COLOR_TRACKER) => {
 };
 
 // Requires COLOR_TRACKER and COLORS_TRIED_THUS_FAR
-const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
+const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfNewColors = 1) => {
+
+  // Before randomization:
   for (let color in COLOR_TRACKER) {
     if (!COLORS_TRIED_THUS_FAR.includes(color)) {
       return color;
     }
   }
+
+  // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
+  // let unusedColors = [];
+  // for (let color in COLOR_TRACKER) {
+  //   if (!COLORS_TRIED_THUS_FAR.includes(color)) {
+  //     unusedColors.push(color);
+  //   }
+  // }
+
+  // if (numberOfNewColors === 1) {
+  //   return unusedColors[Math.floor(Math.random() * unusedColors.length)];
+  // } else {
+  //   let twoNewColors = [];
+  //   let randomColor1 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
+  //   twoNewColors.push(randomColor1);
+  //   unusedColors = unusedColors.filter(color => color !== randomColor1);
+  //   let randomColor2 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
+  //   twoNewColors.push(randomColor2);
+  //   return twoNewColors;
+  // }
 };
 
 // Requires COLORS_TRIED_THUS_FAR and COLOR_TRACKER

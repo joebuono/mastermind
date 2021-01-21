@@ -14,6 +14,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // check if template is all 'x's
   if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
+    // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
+    // let colorsForGuess = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
+    
+    // Before randomization:
     let colorsForGuess = [];
     for (let color in COLOR_TRACKER) {
       if (!COLORS_TRIED_THUS_FAR.includes(color)) {
@@ -23,6 +27,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
         }
       }
     }
+    
     
     // This is modifying the outside world *************************************
     // Return colorsForGuess at the end of this if condition, when the single template is ['x', 'x', 'x', 'x']
@@ -63,6 +68,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= 1) {
     // introduce new color
     // I think that this is the sticking point for Green
+    // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
     fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR) || g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
     
     // !!! WARNING !!! This function is modifying the outside world. Avoid side effects
