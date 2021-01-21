@@ -48,7 +48,7 @@ exports.gameLogic = (secretTestCode) => {
     // check win condition
     if (guessResults[0] === CODE_SIZE) {
       // console.log('YOU WIN!!!');
-      return [SECRET_CODE, CURRENT_ROUND];
+      return CURRENT_ROUND;
       // break;
     }
 
@@ -71,5 +71,5 @@ exports.gameLogic = (secretTestCode) => {
     CURRENT_ROUND++;
   }
 
-  return [SECRET_CODE, CURRENT_ROUND];
+  return CURRENT_ROUND;
 };
