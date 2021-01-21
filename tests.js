@@ -36,6 +36,25 @@ const getAverageTurnsPerPermutation = (codeSize, iterations) => {
   return averageTurns.sort((a, b) => b[0] - a[0]);
 };
 
-let result = getAverageTurnsPerPermutation(4, 10);
-console.log(result);
-console.log('failed at least once:', failedAtLeastOnce);
+const getWorstCaseTurnsPerPermutation = (codeSize, iterations) => {
+  let allPermutations = generateAllPermutationsForTesting(codeSize);
+  let worstCases = [];
+
+  for (let perm of allPermutations) {
+    console.log(perm);
+    let worstCase = 0;
+    for (let i = 0; i < iterations; i++) {
+      let turnsToSolve = gameLogic(perm);
+      worstCase = Math.max(worstCase, turnsToSolve);
+    }
+    worstCases.push([worstCase, perm]);
+  }
+
+  return worstCases.sort((a, b) => b[0] - a[0]);
+};
+
+let worstCases = getWorstCaseTurnsPerPermutation(4, 10);
+console.log(worstCases);
+// let averageCases = getAverageTurnsPerPermutation(4, 10);
+// console.log(averageCases);
+// console.log('failed at least once:', failedAtLeastOnce);
