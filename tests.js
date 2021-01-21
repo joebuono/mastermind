@@ -53,7 +53,7 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations) => {
   return worstCases.sort((a, b) => b[0] - a[0]);
 };
 
-let worstCases = getWorstCaseTurnsPerPermutation(5, 10);
+let worstCases = getWorstCaseTurnsPerPermutation(4, 10);
 console.log(worstCases);
 // let averageCases = getAverageTurnsPerPermutation(4, 10);
 // console.log(averageCases);

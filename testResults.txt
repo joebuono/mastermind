@@ -5,6 +5,10 @@
 // Now to introduce randomization in selecting the next color(s)...
 
   // The worst case never exceeds 12 rounds (for codes of length 5)
+  // Notice they each include the "last" color, White
+  // This is why we need randomization. 
+  // I predict it will reduce the AVERAGE case, but not necessarily the WORST case
+  // This is so cool!!
   [ 12, [ 'r', 'p', 'n', 'w', 'n' ] ],
   [ 12, [ 'r', 'p', 'w', 'n', 'n' ] ],
   [ 12, [ 'r', 'n', 'p', 'n', 'w' ] ],
