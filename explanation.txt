@@ -1,0 +1,5 @@
+
+
+Pruning the tree of permutations (generated through recursion)
+
+

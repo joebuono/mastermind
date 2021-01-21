@@ -77,21 +77,36 @@ exports.generateNextGuess = (templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CO
   // I'm not sure exactly which order we should do the next steps in
   // Filter for number of unique colors
 
+
+  // Let's experiment with first filtering for least number of wildcards
+  // Then filter for unique colors? Try it. 
+  // Initially, this appears to fix the problem!
+
+  let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
+  console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
+
+  let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
+
+  let bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+
+  /*
   let templatesWithLeastNumberOfUniqueColors = g.filterTemplatesForLeastNumberOfUniqueColors(templates);
-  // console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
+  console.log('Least number of unique colors:', templatesWithLeastNumberOfUniqueColors);
 
   let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templatesWithLeastNumberOfUniqueColors);
+  console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
 
   // Then filter for number of wildcards
   let templatesFilteredByLeastNumberOfUniqueColorsAndWilcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
-
+  */
+  
   // Shorten the variable name lol
-  let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
-  // console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
+  // let bestTemplates = templatesFilteredByLeastNumberOfUniqueColorsAndWilcards;
+  console.log('Best (viable) templates (least wildcards and unique colors)', bestTemplates);
   
   // Then arbitrarily select one of the remaining filtered templates
   let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
-  // console.log('Best template (randomly selected):', randomTemplate);
+  console.log('Best template (randomly selected):', randomTemplate);
   
   // Make copy to avoid passing by reference
   let bestNextGuess = [...randomTemplate];

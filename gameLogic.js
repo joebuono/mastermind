@@ -43,7 +43,7 @@ exports.gameLogic = (/* TESTING */ secretTestCode /* TESTING */) => {
     console.log('Next guess:', guess);
 
     let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
-    // console.log('Guess Results:', guessResults);
+    console.log('Guess Results:', guessResults);
 
     // check win condition
     if (guessResults[0] === CODE_SIZE) {
