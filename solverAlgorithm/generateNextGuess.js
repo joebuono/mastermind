@@ -15,7 +15,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
-    let colorsForGuess = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
+    let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
     
     // Before randomization:
     // let colorsForGuess = [];
@@ -35,19 +35,19 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     //   COLORS_TRIED_THUS_FAR.push(color);
     // }
 
-    let colorsUsedToFillTemplate = [];
-    for (let color of colorsForGuess) {
-      colorsUsedToFillTemplate.push(color);
-    }
+    // let colorsUsedToFillTemplate = [];
+    // for (let color of colorsForGuess) {
+    //   colorsUsedToFillTemplate.push(color);
+    // }
 
-    let bestNextGuess = new Array(3).fill(colorsForGuess[0]);
+    let bestNextGuess = new Array(3).fill(colorsUsedToFillTemplate[0]);
     // to account for both 4 and 5 code games
     while (bestNextGuess.length < CODE_SIZE) {
-      bestNextGuess.push(colorsForGuess[1]);
+      bestNextGuess.push(colorsUsedToFillTemplate[1]);
     }
 
-    // perhaps an unnecessary reassignment
-    let addToColorsTriedThusFar = colorsForGuess;
+    // perhaps an unnecessary reassignment, just for clarity
+    let addToColorsTriedThusFar = colorsUsedToFillTemplate;
 
     return [bestNextGuess, colorsUsedToFillTemplate, addToColorsTriedThusFar];
   }
@@ -136,6 +136,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
       }
     }
 
+    // check if we've already used that guess before in a prior round
     if (previousGuesses.has(`${bestNextGuess}`)) {
       // remove that template from this round
       templates = templates.filter(template => !checkIfArraysMatch(template, randomTemplate));
@@ -146,5 +147,6 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   }
 
   // console.log('Best next guess:', bestNextGuess);
+  // addToColorsTriedThusFar may be an empty array, and that's okay
   return [bestNextGuess, colorUsedToFillTemplate, addToColorsTriedThusFar];
 };

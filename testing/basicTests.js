@@ -1,12 +1,19 @@
 const { gameLogic } = require('../gameLogic');
 
-for (let i = 0; i < 10; i++) {
-  let result = gameLogic([ 'g', 'y', 'y', 'b' ]);
-  console.log('Rounds to solve:', result);
-}
+
+let secretCode = ['p', 'o', 'g', 'b']
+let roundsToSolve = gameLogic(secretCode);
+console.log(`Rounds to solve [${secretCode}]`, roundsToSolve);
+
+
+// For basic iterative tests:
+// let iterations = 10;
+// for (let i = 0; i < iterations; i++) {
+//   let roundsToSolve = gameLogic(secretCode);
+//   console.log(`Rounds to solve ${secretCode}`, roundsToSolve);
+// }
 
 /*
-
 
 [ 'g', 'y', 'y', 'b' ]
 Waiting for the debugger to disconnect...

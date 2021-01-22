@@ -37,12 +37,10 @@ WORSE
   in a low number of turns. 
 - As a result, this subset noticeably reduces the global average for worst cases. 
 - However, the benefit of reducing the single worst AVERAGE case through randomization outweighs the loss of
-  not solving a certain subset of solutions in very few moves (4 or less)
-
-
-
-How do we balance these trade-offs?
-
+  not solving a certain subset of solutions in very few moves (4 or less). 
+- Therefore, the randomized color-selection algorithm is more performant overall. 
+  ^^^
+  How do we balance these trade-offs? (See comment above)
 
 
 --------------------------------------------------------------------------------------------------------------------------------

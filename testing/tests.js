@@ -3,9 +3,6 @@ const { fillInTemplate } = require('../solverAlgorithm/generatePermutations');
 
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
-// // 1,296 possible solutions for codeSize of 4
-// // 32,768 possible solutions for codeSize of 5
-
 let failedAtLeastOnce = [];
 
 const generateAllPermutationsForTesting = (codeSize) => {
@@ -66,4 +63,6 @@ console.log(`Global average for average cases for code size ${codeSize}:`, globa
 // console.log(averageCases);
 // console.log('failed at least once:', failedAtLeastOnce);
 
-// 
+// 1,296 possible solutions for codeSize of 4
+// 32,768 possible solutions for codeSize of 5
+
