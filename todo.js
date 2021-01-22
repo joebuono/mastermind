@@ -1,32 +1,21 @@
 /*
 
-Test these secret codes:
+1/22/21
 
-// More important tests:
-It's bugging out on these secret codes for some reason:
+Pour through the code
+- Clean everything up
+- Add useful comments
+- Make a separate file that explains in written form how the algorithm works
+-- You'll use this later when you code up the UI learning mode in React
 
-['r', 'b', 'b', 'g', 'b']
-['r', 'b', 'b', 'g', 'g']
-['r', 'b', 'b', 'g', 'y']
-['r', 'b', 'b', 'g', 'o']
+Make a basic React/Webpack project
+- Should only take about 15 minutes
 
-
-Write a test suite!
-
-- First, generate every possible permutation (1296 for a code of 4)
-
-- Then, run the solver algorithm 100 times for each secret code
-
-- Store the average number of turns it takes to solve each code, along with the code
-
-- Then, return an array sorted by the average number of turns it takes to solve each code
-
-- Then, see if you can reduce this through randomization in selecting colors (and perhaps other clever tricks!)
+Sketch out how you want the SPA to look
 
 
-// Less important tests:
+------------------------------------------------------------------------------------------------
 
-[ 'r', 'b', 'r', 'b' ] // solves it in 7 steps; seems inefficient
 
 ['r', 'r', 'r', 'p'] // this involves a fascinating optimization that I haven't yet coded!
 
@@ -65,9 +54,6 @@ There's A LOT of interesting stuff you can do now with statistics and testing
 - Then, introduce randomization to the algorithm when it selects which colors to introduce next, and see if that improves the performance
 
 Bonus: Use D3 to graph your results!!
-
-
-Can you make a 5-code mastermind game?
 
 */
 
