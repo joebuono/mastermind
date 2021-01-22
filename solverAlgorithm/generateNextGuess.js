@@ -11,6 +11,15 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
    // Make local copy of templates
    let templates = [...globalTemplates];
 
+
+  // *********************** REVISE THIS PART ***********************
+  // Basically, if you're playing a game of codeSize 5 and you have four x's in your template, 
+  // shift your strategy as if you're playing a game of 4
+  // For example, say your single template is ['x', 'x', 'x', 'x', 'y'];
+  // Your next guess should be something like ['r', 'r', 'r', 'b', 'y'];
+  // So basically you're counting the number of x's
+  // If there are 4 x's, fill in the template (don't create a new template!) with two new colors
+
   // check if template is all 'x's
   if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
