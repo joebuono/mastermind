@@ -51,7 +51,7 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations) => {
 };
 
 let codeSize = 4;
-let worstCases = getAverageTurnsPerPermutation(codeSize, 100);
+let worstCases = getAverageTurnsPerPermutation(codeSize, 10);
 console.log(`Single worst average case for code size ${codeSize}:`, worstCases[0]);
 let total = 0;
 for (let worstCase of worstCases) {
@@ -65,4 +65,4 @@ console.log(`Global average for average cases for code size ${codeSize}:`, globa
 
 // 1,296 possible solutions for codeSize of 4
 // 32,768 possible solutions for codeSize of 5
-
+// 10^6 would be a million for codeSize of 5

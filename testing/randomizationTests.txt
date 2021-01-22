@@ -30,7 +30,7 @@ WORSE
 - The global average for worst cases is about a whole round WORSE after randomization for both four and five color codes. 
 - WHY?!
 - Here's my hypothesis:
-- Say the secret code is "rrrb". The hard-coded algorithm will solve this in one step every single time, 
+- Say the secret code is "rrrb". The hard-coded algorithm will always solve this in one step every single time, 
   whereas the randomized algorithm will solve it in a varying number of turns. Same goes for if the secret
   code was "gggy". The hard-coded algorithm will solve this in two steps every single time.
 - The point is that there are a subset of solutions that the hard-coded algorithm will consistently solve

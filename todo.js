@@ -1,5 +1,11 @@
 /*
 
+
+Ethan notes:
+- All caps for const's and "magic strings"
+- COLORS would be all caps
+
+
 1/22/21
 
 Pour through the code

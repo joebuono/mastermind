@@ -41,16 +41,11 @@ exports.gameLogic = (/* TESTING */ secretTestCode = null /* TESTING */) => {
     // addToColorsTriedThusFar could be an empty array, which is totally fine
     COLORS_TRIED_THUS_FAR = COLORS_TRIED_THUS_FAR.concat(addToColorsTriedThusFar);
 
-    console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
-    console.log('Next guess:', guess);
+    // console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
+    // console.log('Next guess:', guess);
 
     let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
-    console.log('Guess Results:', guessResults);
-
-    priorRounds[CURRENT_ROUND] = {
-      guess: [...bestNextGuess], // not sure if copying the arrays is necessary, just playing it safe
-      results: [...guessResults]
-    }
+    // console.log('Guess Results:', guessResults);
 
     // check win condition
     if (guessResults[0] === CODE_SIZE) {
@@ -58,10 +53,15 @@ exports.gameLogic = (/* TESTING */ secretTestCode = null /* TESTING */) => {
       return CURRENT_ROUND;
     }
 
+    priorRounds[CURRENT_ROUND] = {
+      guess: [...bestNextGuess], // not sure if copying the arrays is necessary, just playing it safe
+      results: [...guessResults]
+    }
+
     // console.log('These are the templates being used to generate all permutations:', templates);
     let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate); // previously was hard-coded ['r', 'b', 'x']
-    console.log('All Permutations:', allPermutations);
-    console.log('Number of all possible permutations:', allPermutations.length);
+    // console.log('All Permutations:', allPermutations);
+    // console.log('Number of all possible permutations:', allPermutations.length);
 
 
     // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
@@ -86,7 +86,7 @@ exports.gameLogic = (/* TESTING */ secretTestCode = null /* TESTING */) => {
 
     // updateColorTracker
     COLOR_TRACKER = updateColorTracker(possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER);
-    console.log(COLOR_TRACKER);
+    // console.log(COLOR_TRACKER);
     CURRENT_ROUND++;
   }
 

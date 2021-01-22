@@ -1,7 +1,7 @@
 const { gameLogic } = require('../gameLogic');
 
 
-let secretCode = ['p', 'o', 'g', 'b']
+let secretCode = ['b', 'g', 'o', 'g', 'w'];
 let roundsToSolve = gameLogic(secretCode);
 console.log(`Rounds to solve [${secretCode}]`, roundsToSolve);
 
