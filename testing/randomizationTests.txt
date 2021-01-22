@@ -25,6 +25,7 @@ SAME
 
 WORSE
 - The global average for worst cases is about a whole round WORSE after randomization for both four and five color codes. 
+- WHY?!
 
 BETTER
 + The single worst average case is noticeably reduced after randomization for both four and five color codes. 

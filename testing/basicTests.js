@@ -1,4 +1,4 @@
-const { gameLogic } = require('./gameLogic');
+const { gameLogic } = require('../gameLogic');
 
 for (let i = 0; i < 10; i++) {
   let result = gameLogic([ 'g', 'y', 'y', 'b' ]);

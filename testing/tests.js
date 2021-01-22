@@ -1,5 +1,5 @@
-const { gameLogic } = require('./gameLogic');
-const { fillInTemplate } = require('./solverAlgorithm/generatePermutations');
+const { gameLogic } = require('../gameLogic');
+const { fillInTemplate } = require('../solverAlgorithm/generatePermutations');
 
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
