@@ -23,15 +23,27 @@ SAME
 * The global average for average cases remains exactly the same before and after randomization for both four and five color codes. 
 * The single worst case remains exactly the same before and after randomization for both four and five color codes. 
 
-WORSE
-- The global average for worst cases is about a whole round WORSE after randomization for both four and five color codes. 
-- WHY?!
-
 BETTER
 + The single worst average case is noticeably reduced after randomization for both four and five color codes. 
 
+WORSE
+- The global average for worst cases is about a whole round WORSE after randomization for both four and five color codes. 
+- WHY?!
+- Here's my hypothesis:
+- Say the secret code is "rrrb". The hard-coded algorithm will solve this in one step every single time, 
+  whereas the randomized algorithm will solve it in a varying number of turns. Same goes for if the secret
+  code was "gggy". The hard-coded algorithm will solve this in two steps every single time.
+- The point is that there are a subset of solutions that the hard-coded algorithm will consistently solve
+  in a low number of turns. 
+- As a result, this subset noticeably reduces the global average for worst cases. 
+- However, the benefit of reducing the single worst AVERAGE case through randomization outweighs the loss of
+  not solving a certain subset of solutions in very few moves (4 or less)
+
+
 
 How do we balance these trade-offs?
+
+
 
 --------------------------------------------------------------------------------------------------------------------------------
 
