@@ -15,18 +15,18 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
-    // let colorsForGuess = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
+    let colorsForGuess = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
     
     // Before randomization:
-    let colorsForGuess = [];
-    for (let color in COLOR_TRACKER) {
-      if (!COLORS_TRIED_THUS_FAR.includes(color)) {
-        colorsForGuess.push(color);
-        if (colorsForGuess.length === 2) {
-          break;
-        }
-      }
-    }
+    // let colorsForGuess = [];
+    // for (let color in COLOR_TRACKER) {
+    //   if (!COLORS_TRIED_THUS_FAR.includes(color)) {
+    //     colorsForGuess.push(color);
+    //     if (colorsForGuess.length === 2) {
+    //       break;
+    //     }
+    //   }
+    // }
     
     
     // This is modifying the outside world *************************************
@@ -68,7 +68,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= 1) {
     // introduce new color
     // I think that this is the sticking point for Green
-    // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
+    // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select one of them
     fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR) || g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
     
     // !!! WARNING !!! This function is modifying the outside world. Avoid side effects

@@ -3,8 +3,8 @@ const { fillInTemplate } = require('./solverAlgorithm/generatePermutations');
 
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
-// // 1,296 for codeSize of 4
-// // 32,768 for codeSize of 5
+// // 1,296 possible solutions for codeSize of 4
+// // 32,768 possible solutions for codeSize of 5
 
 let failedAtLeastOnce = [];
 
@@ -54,7 +54,7 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations) => {
 };
 
 let codeSize = 4;
-let worstCases = getAverageTurnsPerPermutation(codeSize, 10);
+let worstCases = getAverageTurnsPerPermutation(codeSize, 100);
 console.log(`Single worst average case for code size ${codeSize}:`, worstCases[0]);
 let total = 0;
 for (let worstCase of worstCases) {

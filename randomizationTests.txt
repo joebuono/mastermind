@@ -1,4 +1,39 @@
 
+                       FOUR COLORS
+ Before/After Randomization |            Measurement
+----------------------------------------------------------------
+           8 / 8            |  Single worst case
+        6.10 / 7.12         |  Global average for worst cases
+        7.54 / 6.13         |  Single worst average case                          
+        5.51 / 5.51         |  Global average for average cases
+
+
+                       FIVE COLORS
+ Before/After Randomization |            Measurement
+----------------------------------------------------------------
+          12 / 12           |  Single worst case
+        8.25 / 9.24         |  Global average for worst cases
+        11.0 / 9.3          |  Single worst average case                          
+        7.47 / 7.47         |  Global average for average cases        
+
+
+Notable observations:
+
+SAME
+* The global average for average cases remains exactly the same before and after randomization for both four and five color codes. 
+* The single worst case remains exactly the same before and after randomization for both four and five color codes. 
+
+WORSE
+- The global average for worst cases is about a whole round WORSE after randomization for both four and five color codes. 
+
+BETTER
++ The single worst average case is noticeably reduced after randomization for both four and five color codes. 
+
+
+How do we balance these trade-offs?
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 
 Before randomizing the next colors selected:
 
@@ -6,24 +41,33 @@ Before randomizing the next colors selected:
 Single worst worst case for code size 4: [ 8, [ 'r', 'b', 'o', 'p' ] ]
 Global average for worst cases for code size 4: 6.10
 Single worst average case for code size 4: [ 7.54, [ 'r', 'o', 'p', 'r' ] ]
-Global average for average cases for code size 4: 5.506890432098776
+Global average for average cases for code size 4: 5.51
 
 5-colors
 Single worst worst case for code size 5: [ 12, [ 'r', 'p', 'o', 'n', 'w' ] ]
-Global average for worst cases for code size 5: 8.248046875
+Global average for worst cases for code size 5: 8.25
 Single worst average case for code size 5: [ 11, [ 'w', 'b', 'n', 'n', 'n' ] ]
-Global average for average cases for code size 5: 7.468725585937797
+Global average for average cases for code size 5: 7.47
 
 
 ************** After randomization **************
-- Single worst case:
-- Global average for worst cases:
-- Single worst average case:
-- Global average for average case:
+
+4-colors
+Single worst worst case for code size 4: [ 8, [ 'r', 'r', 'y', 'b' ] ]
+Global average for worst cases for code size 4: 6.89 // this is higher than before randomization
+// Really?
+Single worst worst case for code size 4: [ 8, [ 'r', 'r', 'b', 'o' ] ]
+Global average for worst cases for code size 4: 6.87 // this is higher than before randomization
+// Yep
+Single worst worst case for code size 4: [ 8, [ 'r', 'r', 'b', 'g' ] ]
+Global average for worst cases for code size 4: 7.59 // this is higher than before randomization
+
+Single worst average case for code size 4: [ 6.13, [ 'p', 'b', 'g', 'y' ] ] // this is noticeably lower than before randomization
+Global average for average cases for code size 4: 5.51 // exactly the same as before
 
 5-colors
-- Single worst case:
-- Global average for worst cases:
-- Single worst average case:
-- Global average for average cases:
+Single worst worst case for code size 5: [ 12, [ 'r', 'r', 'g', 'b', 'b' ] ]
+Global average for worst cases for code size 5: 9.24
+Single worst average case for code size 5: [ 9.3, [ 'g', 'r', 'n', 'r', 'r' ] ] // this is noticeably lower than before randomization
+Global average for average cases for code size 5: 7.47 // exactly the same as before
 
