@@ -1,0 +1,31 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  width: 500px;
+  height: 800px;
+  padding-bottom: 20%;
+  margin: auto;
+}
+
+/* I didn't put px after it... WOW silly errors */
+.guesses {
+  grid-column: 1 / 5;
+  grid-row: 1 / 11;
+  background-color: rgb(77, 165, 42);
+  border-radius: 20px 0 0 0;
+}
+
+.blackAndWhitePegs {
+  grid-column: 5 / 6;
+  grid-row: 1 / 11;
+  background-color: rgb(165, 42, 147);
+  border-radius: 0 20px 0 0;
+}
+
+.colors {
+  grid-column: 1 / 6;
+  grid-row: 11 / 13;
+  background-color: chocolate;
+  border-radius: 0 0 20px 20px;
+}
