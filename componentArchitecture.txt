@@ -1,0 +1,53 @@
+Frontend Component Architecture
+
+App
+- Board
+- ColorTracker
+- LearningMode
+
+Board State:
+- currentRound
+- secretCode
+- colorOptions
+- guesses
+- blackAndWhitePegs
+
+Board Components and Props:
+- SecretCode (secretCode)
+- ColorOptions (colorOptions)
+- GuessesContainer (guesses)
+  - Guess (guess)
+- BlackAndWhitePegsContainer (all blackAndWhitePegs)
+  - BlackAndWhitePegs (single blackAndWhitePegs)
+- MakeGuessButton
+- (Later: login info and statistics)
+
+ColorTracker State:
+- colorTracker
+
+ColorTracker Components:
+- Title
+- Headers
+- RowsContainer
+  - Row
+    - Color (circle)
+    - Number (formatting examples: 0-5, 1-3, 0,1, 2)
+    - Position * (see note below)
+
+* Basically a miniature guess, but the circles are one of three types:
+- Gray question mark (?) representing a possible position
+- Red X (x) representing an impossible position
+- Green check mark representing a certain position ***
+- *** NOTE: We will need to adjust the algorithm to explicitly keep track of certain positions
+  - For instance, there may be 2 blues, and we may know the position of one of the blues for certain, 
+  yet still be uncertain as to where the other blue goes. 
+
+ColorTracker Features:
+- Highlight rows when we have "complete information" (i.e., when, for a given color, number.length === 1 and position.length === number[0])
+- React tool tips pop up on hover with more detailed information about what the ColorTracker is displaying
+
+HintButton
+- Suggests what you next move should be
+
+
+
