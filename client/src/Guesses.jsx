@@ -1,5 +1,5 @@
 import React from 'react';
-import Guess from './Guess.jsx';
+import Colors from './Colors.jsx';
 
 // Guesses will need to know how many rounds there are
 // in order to fill the next rounds with empty spots
@@ -8,13 +8,13 @@ function Guesses({guesses, totalRounds, guessSize}) {
   let emptyRound = new Array(guessSize).fill('empty');
   let roundsLeft = totalRounds - guesses.length;
   for (let i = 0; i < roundsLeft; i++) {
-    emptyRounds.push(<Guess key={i} guess={emptyRound} />)
+    emptyRounds.push(<Colors key={i} colors={emptyRound} />)
   }
 
   return (
     <div>
       {emptyRounds}
-      {[...guesses].reverse().map((guess, index) => <Guess key={index} guess={guess} />)}
+      {[...guesses].reverse().map((guess, index) => <Colors key={index} colors={guess} />)}
     </div>
   );
 }
