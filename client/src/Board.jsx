@@ -23,7 +23,7 @@ function Board() {
         <Guesses guesses={guesses} totalRounds={totalRounds} guessSize={guessSize} />
       </div>
       <div className={styles.blackAndWhitePegs}>
-        <BWPegsContainer bwPegs={bwPegs} />
+        <BWPegsContainer bwPegs={bwPegs} roundsLeft={totalRounds - guesses.length} />
       </div>
       <div className={styles.colors}>
         <Colors colors={colorOptions} />
