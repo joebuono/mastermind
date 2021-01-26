@@ -26,7 +26,7 @@ ColorTracker State:
 - colorTracker
 
 ColorTracker Components:
-- Title
+- GlobalKnowledge (e.g., ? ? ? RED)
 - Headers
 - RowsContainer
   - Row
@@ -44,6 +44,7 @@ ColorTracker Components:
 
 ColorTracker Features:
 - Highlight rows when we have "complete information" (i.e., when, for a given color, number.length === 1 and position.length === number[0])
+- Updates GlobalKnowledge when green check marks appear in the table
 - React tool tips pop up on hover with more detailed information about what the ColorTracker is displaying
 
 HintButton
