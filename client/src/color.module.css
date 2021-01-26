@@ -1,0 +1,37 @@
+.circle {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.r {
+  background-color: red;
+}
+
+.b {
+  background-color: blue;
+}
+
+.g {
+  background-color: green;
+}
+
+.y {
+  background-color: yellow;
+}
+
+.o {
+  background-color: orange;
+}
+
+.p {
+  background-color: purple;
+}
+
+.n {
+  background-color: brown;
+}
+
+.w {
+  background-color: white;
+}

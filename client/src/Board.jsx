@@ -1,5 +1,9 @@
 import React from 'react';
 import styles from './board.module.css';
+import ColorOptions from './ColorOptions.jsx';
+
+// TESTING
+const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
 function Board() {
   return (
@@ -7,7 +11,9 @@ function Board() {
       <div className={styles.secretCode}></div>
       <div className={styles.guesses}></div>
       <div className={styles.blackAndWhitePegs}></div>
-      <div className={styles.colors}></div>
+      <div className={styles.colors}>
+        <ColorOptions colorOptions={colorOptions} />
+      </div>
     </div>
   );
 }
