@@ -2,6 +2,8 @@
   border-radius: 50%;
   height: 50px;
   width: 50px;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 .r {
@@ -34,4 +36,8 @@
 
 .w {
   background-color: white;
+}
+
+.empty {
+  background-color: hotpink
 }
