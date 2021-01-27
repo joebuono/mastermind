@@ -28,7 +28,7 @@ const generateColorTracker = (colors, CODE_SIZE) => {
   return colorTracker;
 };
 
-exports.initializeGame = (CODE_SIZE) => {
+exports.initializeGame = (CODE_SIZE = 4) => {
   const colors = COLORS.slice(0, CODE_SIZE * 2 - 2);
   const secretCode = generateSecretCode(CODE_SIZE);
   const colorTracker = generateColorTracker(colors, CODE_SIZE);
