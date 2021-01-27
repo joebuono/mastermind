@@ -5,6 +5,7 @@ import SecretCode from './SecretCode.jsx';
 import Guesses from './Guesses.jsx';
 import BWPegsContainer from './BWPegsContainer.jsx';
 import { initializeGame } from './solverAlgorithm/globalLogic';
+import { getBlackAndWhitePegs } from './solverAlgorithm/filterPermutations';
 
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
@@ -12,7 +13,7 @@ import { initializeGame } from './solverAlgorithm/globalLogic';
 // const guesses = [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']];
 // const bwPegs = [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]];
 // const totalRounds = 10; // later on, we'll have to make the board dynamically size according to the number of rounds
-// const guessSize = secretCode.length;
+// const codeSize = secretCode.length;
 
 class Board extends Component {
   constructor(props) {
@@ -24,16 +25,17 @@ class Board extends Component {
       guesses: [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']],
       bwPegs: [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
-      guessSize: 4, // there has to be a better way to do this
+      currentRound: 1,
+      codeSize: 4, // there has to be a better way to do this
       colorTracker: {},
       currentGuess: ['x', 'x', 'x', 'x']
     };
     this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
+    this.submitGuess = this.submitGuess.bind(this);
   }
 
   updateCurrentGuess(newColor) {
     let updatedCurrentGuess = this.state.currentGuess;
-    console.log('current guess', updatedCurrentGuess);
     for (let i = 0; i < updatedCurrentGuess.length; i++) {
       if (updatedCurrentGuess[i] === 'x') {
         updatedCurrentGuess[i] = newColor;
@@ -46,11 +48,7 @@ class Board extends Component {
     }
     console.log('updated guess', updatedCurrentGuess);
     let updatedGuesses = [...this.state.guesses];
-    if (!updatedGuesses.length) {
-      updatedGuesses.push(updatedCurrentGuess);
-    } else {
-      updatedGuesses[updatedGuesses.length - 1] = updatedCurrentGuess;
-    }
+    updatedGuesses[this.state.currentRound - 1] = updatedCurrentGuess;
 
     this.setState({
       currentGuess: updatedCurrentGuess,
@@ -58,26 +56,54 @@ class Board extends Component {
     });
   }
 
+  submitGuess() {
+    console.log('clicked submit guess');
+   let { currentGuess, secretCode, bwPegs, currentRound } = this.state;
+   let newBWPegs = getBlackAndWhitePegs(currentGuess, secretCode);
+   console.log(bwPegs);
+   // check win condition here
+
+   let updatedBWPegs = [...bwPegs];
+   updatedBWPegs[currentRound - 1] = newBWPegs;
+   this.setState({
+    bwPegs: updatedBWPegs,
+    currentGuess: ['x', 'x', 'x', 'x'],
+    currentRound: this.state.currentRound + 1,
+    // - setState colorTracker
+   });
+  }
+
   componentDidMount() {
-    let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.guessSize);
+    let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.codeSize);
+    let initializeEmptyGuesses = [];
+    let emptyGuess = new Array(this.state.codeSize).fill('x');
+    for (let i = 0; i < this.state.totalRounds; i++) {
+      initializeEmptyGuesses.push(emptyGuess);
+    }
+
+    let initializeEmptyBWPegs = [];
+    for (let i = 0; i < this.state.totalRounds; i++) {
+      initializeEmptyBWPegs.push([0, 0]);
+    }
+
     this.setState({
       colorOptions,
       secretCode,
       colorTracker,
-      guesses: [],
-      bwPegs: []
+      guesses: initializeEmptyGuesses,
+      bwPegs: initializeEmptyBWPegs
     });
   }
 
   render() {
-    let { colorOptions, secretCode, guesses, bwPegs, totalRounds, guessSize } = this.state;
+    let { colorOptions, secretCode, guesses, bwPegs, totalRounds, codeSize } = this.state;
     return (
       <div className={styles.container}>
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>
         <div className={styles.guesses}>
-          <Guesses guesses={guesses} totalRounds={totalRounds} guessSize={guessSize} />
+          <Guesses guesses={guesses} totalRounds={totalRounds} guessSize={codeSize} />
         </div>
         <div className={styles.blackAndWhitePegs}>
           <BWPegsContainer bwPegs={bwPegs} roundsLeft={totalRounds - guesses.length} />
@@ -85,6 +111,7 @@ class Board extends Component {
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
+        <button onClick={this.submitGuess}>Submit guess</button>
       </div>
     );
   }
