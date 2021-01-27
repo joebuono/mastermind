@@ -5,7 +5,7 @@ import Colors from './Colors.jsx';
 // in order to fill the next rounds with empty spots
 function Guesses({guesses, totalRounds, guessSize}) {
   let emptyRounds = [];
-  let emptyRound = new Array(guessSize).fill('empty');
+  let emptyRound = new Array(guessSize).fill('x');
   let roundsLeft = totalRounds - guesses.length;
   for (let i = 0; i < roundsLeft; i++) {
     emptyRounds.push(<Colors key={i} colors={emptyRound} />)
