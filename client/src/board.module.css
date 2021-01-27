@@ -3,7 +3,7 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(24, 1fr);
   width: 500px;
-  height: 800px;
+  height: 890px;
   padding-bottom: 20%;
   margin: auto;
 }
@@ -19,7 +19,7 @@
 .guesses {
   grid-column: 1 / 5;
   grid-row: 4 / 22;
-  background-color: rgb(77, 165, 42);
+  background-color: rgb(213, 154, 82);
 }
 
 .blackAndWhitePegs {
@@ -31,6 +31,6 @@
 .colors {
   grid-column: 1 / 6;
   grid-row: 22 / 25;
-  background-color: chocolate;
+  background-color: rgb(120, 68, 32);
   border-radius: 0 0 20px 20px;
 }

@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './blackAndWhitePegs.module.css';
 
 function BlackAndWhitePegs({pegs}) {
   return (
-    <div>
+    <div className={styles.container}>
       {pegs}
     </div>
   );
