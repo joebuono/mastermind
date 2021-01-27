@@ -20,17 +20,26 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // default settings just for testing
       colorOptions: ['r', 'b', 'g', 'y', 'o', 'p'], // 'n', 'w'
       secretCode: ['g', 'r', 'b', 'r'],
       guesses: [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']],
       bwPegs: [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
-      guessSize: 4 // there has to be a better way to do this
+      guessSize: 4, // there has to be a better way to do this
+      colorTracker: {}
     }
   }
 
   componentDidMount() {
-    initializeGame(this.state.guessSize);
+    let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.guessSize);
+    this.setState({
+      colorOptions,
+      secretCode,
+      colorTracker,
+      guesses: [],
+      bwPegs: []
+    });
   }
 
   render() {
