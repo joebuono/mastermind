@@ -4,6 +4,9 @@ import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Guesses from './Guesses.jsx';
 import BWPegsContainer from './BWPegsContainer.jsx';
+import { initializeGame } from './solverAlgorithm/globalLogic';
+
+
 
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
@@ -22,8 +25,12 @@ class Board extends Component {
       guesses: [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']],
       bwPegs: [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
-      guessSize: this.state.secretCode.length // there has to be a better way to do this
+      guessSize: 4 // there has to be a better way to do this
     }
+  }
+
+  componentDidMount() {
+    initializeGame(this.state.guessSize);
   }
 
   render() {
