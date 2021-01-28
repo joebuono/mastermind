@@ -5,8 +5,8 @@ import ColorTracker from './colorTracker/ColorTracker.jsx';
 function App() {
   return (
     <div className="App">
-      <Board></Board>
       <ColorTracker></ColorTracker>
+      <Board></Board>
     </div>
   );
 }

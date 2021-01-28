@@ -1,0 +1,19 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.color {
+  grid-column: 1 / 4;
+  background-color: indianred;
+}
+
+.number {
+  grid-column: 4 / 7;
+  background-color: royalblue;
+}
+
+.position {
+  grid-column: 7 / 13;
+  background-color: green;
+}
