@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './blackAndWhitePegs.module.css';
+import styles from '../styles/blackAndWhitePegs.module.css';
 
 function BlackAndWhitePegs({pegs}) {
   return (

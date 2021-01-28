@@ -1,6 +1,6 @@
 import React from 'react';
 import BlackAndWhitePegs from './BlackAndWhitePegs.jsx';
-import styles from './bwPegsContainer.module.css';
+import styles from '../styles/bwPegsContainer.module.css';
 
 function BWPegsContainer({bwPegs, roundsLeft}) {
   let emptyRounds = [];

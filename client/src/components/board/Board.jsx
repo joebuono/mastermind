@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import styles from './board.module.css';
+import styles from '../styles/board.module.css';
 import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Guesses from './Guesses.jsx';
 import BWPegsContainer from './BWPegsContainer.jsx';
-import { initializeGame } from './solverAlgorithm/globalLogic';
-import { getBlackAndWhitePegs } from './solverAlgorithm/filterPermutations';
+import { initializeGame } from '../../solverAlgorithm/globalLogic';
+import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './color.module.css';
+import styles from '../styles/color.module.css';
 
 // className={`${styles.circle} ${color}`}
 // Will likely need to take color and size as props

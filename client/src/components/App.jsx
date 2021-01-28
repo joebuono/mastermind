@@ -1,6 +1,6 @@
 import React from 'react';
-import Board from './Board.jsx';
-import ColorTracker from './ColorTracker.jsx';
+import Board from './board/Board.jsx';
+import ColorTracker from './colorTracker/ColorTracker.jsx';
 
 function App() {
   return (

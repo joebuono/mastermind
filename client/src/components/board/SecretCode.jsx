@@ -1,6 +1,6 @@
 import React from 'react';
 import Color from './Color.jsx';
-import styles from './secretCode.module.css';
+import styles from '../styles/secretCode.module.css';
 
 function SecretCode({secretCode}) {
   return (
