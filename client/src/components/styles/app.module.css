@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.colorTracker {
+  grid-column: 1 / 7;
+}
+
+.board {
+  grid-column: 7 / 13;
+}
