@@ -7,6 +7,7 @@
   padding-bottom: 20%;
   margin: auto;
 }
+/* I didn't put px after it... WOW silly errors */
 
 .secretCode {
   grid-column: 1 / 6;
@@ -15,9 +16,8 @@
   border-radius: 20px 20px 0 0;
 }
 
-/* I didn't put px after it... WOW silly errors */
-.guesses {
-  grid-column: 1 / 5;
+.rounds {
+  grid-column: 1 / 6;
   grid-row: 4 / 22;
   background-color: rgb(213, 154, 82);
 }

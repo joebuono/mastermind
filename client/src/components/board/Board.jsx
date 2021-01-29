@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from '../styles/board.module.css';
 import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
-import Guesses from './Guesses.jsx';
+import Turns from './Turns.jsx';
 import BWPegsContainer from './BWPegsContainer.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
@@ -102,12 +102,12 @@ class Board extends Component {
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>
-        <div className={styles.guesses}>
-          <Guesses guesses={guesses} totalRounds={totalRounds} guessSize={codeSize} />
+        <div className={styles.rounds}>
+          <Turns guesses={guesses} totalRounds={totalRounds} guessSize={codeSize} />
         </div>
-        <div className={styles.blackAndWhitePegs}>
+        {/* <div className={styles.blackAndWhitePegs}>
           <BWPegsContainer bwPegs={bwPegs} roundsLeft={totalRounds - guesses.length} />
-        </div>
+        </div> */}
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
