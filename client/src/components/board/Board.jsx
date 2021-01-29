@@ -7,6 +7,21 @@ import BWPegsContainer from './BWPegsContainer.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
+const turns = [
+  {
+    guess: [],
+    bwPegs: []
+  },
+  {
+    guess: [],
+    bwPegs: []
+  },
+  {
+    guess: [],
+    bwPegs: []
+  },//...
+];
+
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
 // const secretCode = ['g', 'r', 'b', 'r'];

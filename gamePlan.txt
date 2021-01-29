@@ -1,0 +1,51 @@
+Game Plan
+
+We need to use uniform variable names across the frontend and backend
+
+There is a Board, which consists of a SecretCode, a container of Turns (8, 10 or 12), and a set of ColorOptions
+- Each Turn consists of a Guess and BWPegs (the feedback for the guess)
+
+The primary data structure is the ColorTracker
+
+The ColorTracker is a table that consists of Headers and Rows
+- The Headers include Color, Number, and Position
+- Each Row consists of a color, number, and position data for each available color option
+- Furthermore, position data is displayed similar to each guess, but using check marks, red x's, and question marks to indicate the current knowledge for position
+
+In the View, you can toggle on/off the ColorTracker
+
+Perhaps embed a tutoral video of you explaining the rules of the game, and perhaps some basic strategy
+- Make another video that takes a deep dive into the algorithm
+
+____________________________
+
+Game Play
+
+A game is a sequence of a set number of X rounds in which the player and the computer alternate roles as the code-maker and code-breaker
+
+Game -> Round -> Role -> Turn -> Guess
+
+The code-maker get a point for each guess the code-breaker makes, and a bonus if the code-breaker doesn't correctly guess the code within the specified number of turns
+
+The winner has the most points after X rounds
+
+Difficulty is calculated based on two parameters: code size (4 or 5) and number of guesses per turn (8, 10 or 12)
+From easiest to most difficult, progressively:
+- Size: 4, Turns: 12
+- Size: 4, Turns: 10
+- Size: 4, Turns: 8
+- Size: 5, Turns: 12
+- Size: 5, Turns: 10
+- Size: 5, Turns: 8
+
+These are somewhat arbitrary since the algorithm is still the same, regardless of the number of rounds
+
+Think of funny, cool names for these difficulty levels. 
+- Perhaps change the avatar for each level! (e.g., starts with a baby penguin, and ends with Yoda)
+
+____________________________
+
+Actionable Steps (Trello)
+- Decide how you want to start data for Turns (I'm thinking an array of objects, each index representing the turn - 1);
+- Get the View to display each Turn as a Guess component and a BWPegs component
+
