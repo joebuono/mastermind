@@ -117,7 +117,7 @@ class Board extends Component {
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>
-        <div className={styles.rounds}>
+        <div className={styles.turns}>
           <Turns guesses={guesses} totalRounds={totalRounds} guessSize={codeSize} />
         </div>
         {/* <div className={styles.blackAndWhitePegs}>

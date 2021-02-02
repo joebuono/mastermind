@@ -46,6 +46,46 @@ Think of funny, cool names for these difficulty levels.
 ____________________________
 
 Actionable Steps (Trello)
-- Decide how you want to start data for Turns (I'm thinking an array of objects, each index representing the turn - 1);
+
+* Finish implementing code-breaker mode
+- Decide how you want to start data for Turns (I'm thinking an array of objects, each index representing the turn - 1)
+  - We may have to adjust the solver algorithm to use this same data structure (I think it's an object of objects right now)
 - Get the View to display each Turn as a Guess component and a BWPegs component
+  - You'll need to rewrite your display logic
+- Get the ColorTracker to update in the View after each Turn
+
+* Implement code-maker mode
+- Make a copy of the board component for now. Later, we'll figure out if it is possible to use the same Board component, but use it differently depending on whether
+  the player is the code-maker or code-breaker. 
+- Connect the solver-algorithm logic to the View
+- Make a button that tells the computer to make the next move. 
+
+* Implement Game-level logic
+- Figure out how and where to keep track of Rounds, Roles, and Scores for the player and computer
+
+* Test
+- Get your friends to try it out and offer feedback
+
+* Polish, polish, polish
+- Dynamic board sizing, depending on code size and number of turns, as well as screen size
+- All CSS, animations, styling, etc
+- Figure out how to let the user click and drag color to their spots, and also delete by double-clicking or dragging off the board
+
+* Record videos for tutorial and algorithm walk-through
+- Remember, you're aiming to get a job. 
+
+* Nightmare Mode
+- Implement a simple backend for storing user info and score data
+- Use D3 to display user statistics, progress bars, achievement badges, ranking among all users
+- Implement OAuth for authentication
+- Explore the possibility of using Next.js
+- Implement live two-player mode with Socket.io
+- Explore CircleCI for automated testing
+- Use media queries to format it for phones and screens of all sizes
+- Optimize the algorithm based on Donald Knuth's work
+- Implement practice mode, where you can practice without it affecting your score or ranking
+- Implement graded difficulties, based on how rigorous the filtering/selection is for the best next guess
+
+* Deployment
+- You have some options
 

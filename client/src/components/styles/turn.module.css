@@ -1,0 +1,14 @@
+.rowContainer {
+  display: flex;
+  height: 100%;
+}
+
+.guess {
+  background-color: green;
+  flex-grow: 5;
+}
+
+.bwPegs {
+  background-color: indigo;
+  flex-grow: 1;
+}
