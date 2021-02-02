@@ -1,7 +1,30 @@
 .container {
-  height: 50px;
-  width: 50px;
-  margin-top: 10%;
-  margin-bottom: 8%;
+  display: grid;
+  grid-template-columns: 3;
+  grid-template-rows: 3;
 }
 
+.upperLeft {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.upperRight {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+.bottomLeft {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+.bottomRight {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+}
+
+.middle {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
