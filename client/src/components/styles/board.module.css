@@ -18,7 +18,6 @@
 .turns {
   grid-column: 1 / 6;
   grid-row: 3 / 23;
-  background-color: rgb(213, 154, 82);
 }
 
 .blackAndWhitePegs {
