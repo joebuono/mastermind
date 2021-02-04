@@ -128,7 +128,7 @@ class Board extends Component {
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>

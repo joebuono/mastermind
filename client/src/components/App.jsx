@@ -1,29 +1,19 @@
 import React, { Component } from 'react';
-import Board from './board/Board.jsx';
-import ComputerBoard from './board/ComputerBoard.jsx';
-import ColorTracker from './colorTracker/ColorTracker.jsx';
-import styles from './styles/app.module.css';
+import GameView from './GameView.jsx';
 
+
+// This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      humanPlayerTurn: false
-    };
   }
 
   render() {
-    const { humanPlayerTurn } = this.state;
     return (
-      <div className={styles.container}>
-        <div className={styles.colorTracker}>
-          <ColorTracker />
-        </div>
-        <div className={styles.board}>
-          {humanPlayerTurn ? <Board /> : <ComputerBoard />}
-        </div>
+      <div>
+        <GameView />
       </div>
-    );
+    )
   }
 }
 

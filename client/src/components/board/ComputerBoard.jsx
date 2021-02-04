@@ -3,16 +3,51 @@ import styles from '../styles/board.module.css';
 import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
-import { initializeGame } from '../../solverAlgorithm/globalLogic';
-import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
+import ColorTracker from '../colorTracker/ColorTracker.jsx';
+const { initializeGame } = require('../../solverAlgorithm/globalLogic');
+const { generateAllPermutations } = require('../../solverAlgorithm/generatePermutations');
+const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../../solverAlgorithm/filterPermutations');
+const { updateColorTracker } = require('../../solverAlgorithm/updateColorTracker');
+const { generateNextGuess } = require('../../solverAlgorithm/generateNextGuess');
 
-// TESTING
-// const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
-// const secretCode = ['g', 'r', 'b', 'r'];
-// const guesses = [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']];
-// const bwPegs = [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]];
-// const totalRounds = 10; // later on, we'll have to make the board dynamically size according to the number of rounds
-// const codeSize = secretCode.length;
+/*
+
+This will essentially become a class component of gameLogic.js
+- Without the while loop, so the user can click through to the next computer guess
+- (Later, we can implement autoplay for the computer moves with setTimeout)
+
+
+I think it's better to have ColorTracker be a child component of Board
+
+
+**** GLOBAL VARIABLES ****
+- To be held in state
+  const CODE_SIZE = secretTestCode ? secretTestCode.length : 4;
+
+  let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
+
+  // *** TESTING *** //
+  SECRET_CODE = secretTestCode || SECRET_CODE;
+  // *** TESTING *** //
+
+  let COLORS_TRIED_THUS_FAR = [];
+
+  // To start, our first template is ['x', 'x', 'x', 'x'] or ['x', 'x', 'x', 'x', 'x'], depending on the size of the code
+  let templates = [new Array(CODE_SIZE).fill('x')];
+
+  // This stores our current guess
+  let guess = [];
+
+  let previousGuesses = new Set();
+
+  let priorRounds = {};
+
+  let colorOrColorsUsedToFillTemplate = [];
+
+  let CURRENT_ROUND = 1;
+  const ROUND_LIMIT = 12;
+
+*/
 
 class ComputerBoard extends Component {
   constructor(props) {
@@ -127,7 +162,7 @@ class ComputerBoard extends Component {
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>

@@ -7,6 +7,10 @@
   grid-column: 1 / 7;
 }
 
-.board {
+.boardRight {
   grid-column: 7 / 13;
+}
+
+.boardCenter {
+  grid-column: 4 / 10;
 }
