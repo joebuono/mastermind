@@ -6,20 +6,15 @@ import Turns from './Turns.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
-const turns = [
-  {
-    guess: [],
-    bwPegs: []
-  },
-  {
-    guess: [],
-    bwPegs: []
-  },
-  {
-    guess: [],
-    bwPegs: []
-  },//...
-];
+const turns = [];
+
+// initialize turns to empty
+for (let i = 0; i < 10; i++) {
+  turns.push({
+    guess: ['x', 'x', 'x', 'x'],
+    bwPegs: [0, 0]
+  });
+}
 
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
@@ -117,7 +112,7 @@ class Board extends Component {
           <SecretCode secretCode={secretCode} />
         </div>
         <div className={styles.turns}>
-          <Turns guesses={guesses} totalRounds={totalRounds} guessSize={codeSize} />
+          <Turns turns={turns} codeSize={codeSize} />
         </div>
         {/* <div className={styles.blackAndWhitePegs}>
           <BWPegsContainer bwPegs={bwPegs} roundsLeft={totalRounds - guesses.length} />

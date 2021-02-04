@@ -9,6 +9,9 @@
 }
 
 .bwPegs {
+  display: flex;
   background-color: indigo;
   flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }

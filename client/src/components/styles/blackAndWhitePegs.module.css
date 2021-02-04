@@ -1,7 +1,13 @@
 .container {
   display: grid;
-  grid-template-columns: 3;
-  grid-template-rows: 3;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 80%;
+  width: 80%;
+}
+
+.peg {
+  text-align: center;
 }
 
 .upperLeft {
