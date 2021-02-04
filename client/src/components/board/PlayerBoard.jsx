@@ -6,7 +6,7 @@ import Turns from './Turns.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
-class Board extends Component {
+class PlayerBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -146,4 +146,4 @@ class Board extends Component {
   }
 }
 
-export default Board;
+export default PlayerBoard;

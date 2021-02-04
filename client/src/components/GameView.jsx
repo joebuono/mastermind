@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Board from './board/Board.jsx';
+import PlayerBoard from './board/PlayerBoard.jsx';
 import ComputerBoard from './board/ComputerBoard.jsx';
 import styles from './styles/gameView.module.css';
 import ColorTracker from './colorTracker/ColorTracker.jsx';
@@ -23,7 +23,7 @@ class GameView extends Component {
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
-        <div className={boardStyle}>{humanPlayerTurn ? <Board /> : <ComputerBoard />}</div>
+        <div className={boardStyle}>{humanPlayerTurn ? <PlayerBoard /> : <ComputerBoard />}</div>
       </div>
     );
   }
