@@ -3,7 +3,6 @@ import styles from '../styles/board.module.css';
 import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
-import ColorTracker from '../colorTracker/ColorTracker.jsx';
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
 const { generateAllPermutations } = require('../../solverAlgorithm/generatePermutations');
 const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../../solverAlgorithm/filterPermutations');
@@ -17,11 +16,9 @@ This will essentially become a class component of gameLogic.js
 - (Later, we can implement autoplay for the computer moves with setTimeout)
 
 
-I think it's better to have ColorTracker be a child component of Board
-
-
 **** GLOBAL VARIABLES ****
 - To be held in state
+
   const CODE_SIZE = secretTestCode ? secretTestCode.length : 4;
 
   let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
@@ -47,6 +44,67 @@ I think it's better to have ColorTracker be a child component of Board
   let CURRENT_ROUND = 1;
   const ROUND_LIMIT = 12;
 
+  while (CURRENT_ROUND <= ROUND_LIMIT) {
+    // these variable names are still a bit verbose and confusing. Run them by Ethan, Andrew, Dillon, Alex
+    let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses);
+    guess = bestNextGuess;
+    previousGuesses.add(`${bestNextGuess}`);
+    colorOrColorsUsedToFillTemplate = fillTempateColorOrColors;
+    // addToColorsTriedThusFar could be an empty array, which is totally fine
+    COLORS_TRIED_THUS_FAR = COLORS_TRIED_THUS_FAR.concat(addToColorsTriedThusFar);
+
+    // console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
+    // console.log('Next guess:', guess);
+
+    let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
+    // console.log('Guess Results:', guessResults);
+
+    // check win condition
+    if (guessResults[0] === CODE_SIZE) {
+      // console.log('YOU WIN!!!');
+      return CURRENT_ROUND;
+    }
+
+    priorRounds[CURRENT_ROUND] = {
+      guess: [...bestNextGuess], // not sure if copying the arrays is necessary, just playing it safe
+      results: [...guessResults]
+    }
+
+    // console.log('These are the templates being used to generate all permutations:', templates);
+    let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate); // previously was hard-coded ['r', 'b', 'x']
+    // console.log('All Permutations:', allPermutations);
+    // console.log('Number of all possible permutations:', allPermutations.length);
+
+
+    // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
+    // Filter templates based on ALL PRIOR ROUNDS
+    for (let round in priorRounds) {
+      // console.log('previous round:', priorRounds[round]);
+      // console.log('guess:', priorRounds[round].guess);
+      // console.log('results:', priorRounds[round].results);
+      allPermutations = filterForPossibleSolutions(priorRounds[round].guess, priorRounds[round].results, allPermutations);
+    }
+
+    // possibleSolutions and templates need to be consolidated. Just pick one!
+    let possibleSolutions = allPermutations;
+    // console.log('Possible Solutions:', possibleSolutions);
+    // console.log('Number of possible solutions (templates):', possibleSolutions.length);
+  
+    // FILTER OUT PREVIOUS GUESSES
+    possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
+
+    // set the global variable
+    templates = [...possibleSolutions];
+
+    // updateColorTracker
+    COLOR_TRACKER = updateColorTracker(possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER);
+    // console.log(COLOR_TRACKER);
+    CURRENT_ROUND++;
+  }
+
+  // If the algorithm could not guess the secret code in under ROUND_LIMIT guesses
+  return CURRENT_ROUND;
+};
 */
 
 class ComputerBoard extends Component {
@@ -92,48 +150,11 @@ class ComputerBoard extends Component {
   }
 
   getNextComputerGuess() {
-    console.log('clicked get next computer guess');
-    let currentGuess = this.getCurrentGuess();
-    // check if the guess is completely filled (no x's)
-    if (!currentGuess.includes('x')) {
-      console.log('checking the guess!');
-      const updatedBWPegs = getBlackAndWhitePegs(currentGuess, this.state.secretCode);
-      console.log(updatedBWPegs);
 
-      // update current guess with updatedBWPegs
-      const copyOfTurns = [...this.state.turns];
-      copyOfTurns[this.state.currentRound - 1].bwPegs = updatedBWPegs;
-
-      // check win and lose condition
-      const nextRound = this.state.currentRound + 1;
-
-      const updatedWinCondition = this.checkWinCondition(nextRound, updatedBWPegs);
-
-      this.setState({
-        turns: copyOfTurns,
-        currentRound: nextRound,
-        winCondition: updatedWinCondition,
-        // colorTracker
-      });
-
-    }
   }
 
   checkWinCondition(nextRound, bwPegs) {
-    let updatedWinCondition = null;
 
-    // check lose condition
-    if (nextRound > this.state.totalRounds) {
-      console.log('You lose. Play again?');
-      updatedWinCondition = false;
-    } else {
-      // check win condition
-      if (bwPegs[0] === this.state.codeSize) {
-        console.log('YOU WIN!');
-        updatedWinCondition = true;
-      }
-    }
-    return updatedWinCondition;
   }
 
   componentDidMount() {

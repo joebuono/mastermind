@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PlayerBoard from './board/PlayerBoard.jsx';
 import ComputerBoard from './board/ComputerBoard.jsx';
-import styles from './styles/gameView.module.css';
 import ColorTracker from './colorTracker/ColorTracker.jsx';
+import styles from './styles/gameView.module.css';
 
-// This can also keep track of and display score info and current round
+// This will also keep track of and display score info, current round, etc
 
 class GameView extends Component {
   constructor(props) {
