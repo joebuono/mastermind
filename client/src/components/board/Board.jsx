@@ -26,6 +26,7 @@ class Board extends Component {
       currentRound: 1,
       codeSize: 4, // there has to be a better way to do this
       colorTracker: {},
+      winCondition: null
     };
     this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
     this.submitGuess = this.submitGuess.bind(this);
@@ -60,9 +61,26 @@ class Board extends Component {
   let currentGuess = this.getCurrentGuess();
   // check if the guess is completely filled (no x's)
   if (!currentGuess.includes('x')) {
-    console.log('good to go!');
-    let updatedBWPegs = getBlackAndWhitePegs(currentGuess, this.state.secretCode);
+    console.log('checking the guess!');
+    const updatedBWPegs = getBlackAndWhitePegs(currentGuess, this.state.secretCode);
     console.log(updatedBWPegs);
+
+    // update current guess with updatedBWPegs
+    const copyOfTurns = [...this.state.turns];
+    copyOfTurns[this.state.currentRound - 1].bwPegs = updatedBWPegs;
+
+    // check win and lose condition
+    const nextRound = this.state.currentRound + 1;
+
+    const updatedWinCondition = this.checkWinCondition(nextRound, updatedBWPegs);
+
+    this.setState({
+      turns: copyOfTurns,
+      currentRound: nextRound,
+      winCondition: updatedWinCondition,
+      // colorTracker
+     });
+
   } else {
     console.log('hey get outta here with that incomplete guess!')
   }
@@ -73,12 +91,25 @@ class Board extends Component {
 
   //  let updatedBWPegs = [...bwPegs];
   //  updatedBWPegs[currentRound - 1] = newBWPegs;
-  //  this.setState({
-  //   bwPegs: updatedBWPegs,
-  //   currentGuess: ['x', 'x', 'x', 'x'],
-  //   currentRound: this.state.currentRound + 1,
-    // - setState colorTracker
-  //  });
+
+      // - setState colorTracker
+  }
+
+  checkWinCondition(nextRound, bwPegs) {
+    let updatedWinCondition = null;
+
+    // check lose condition
+    if (nextRound > this.state.totalRounds) {
+      console.log('You lose. Play again?');
+      updatedWinCondition = false;
+    } else {
+      // check win condition
+      if (bwPegs[0] === this.state.codeSize) {
+        console.log('YOU WIN!');
+        updatedWinCondition = true;
+      }
+    }
+    return updatedWinCondition;
   }
 
   componentDidMount() {
@@ -103,7 +134,8 @@ class Board extends Component {
   }
 
   render() {
-    let { colorOptions, secretCode, turns, codeSize } = this.state;
+    const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
+
     return (
       <div className={styles.container}>
         <div className={styles.secretCode}>
@@ -116,6 +148,8 @@ class Board extends Component {
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
         <button onClick={this.submitGuess}>Submit guess</button>
+        {winCondition && <h1>You Win!</h1>}
+        {winCondition === false && <h1>You lose</h1>}
       </div>
     );
   }

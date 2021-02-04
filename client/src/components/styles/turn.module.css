@@ -5,13 +5,13 @@
 
 .guess {
   background-color: burlywood;
-  flex-grow: 5;
+  width: 83%;
 }
 
 .bwPegs {
   display: flex;
   background-color: rgb(152, 88, 4);
-  flex-grow: 1;
+  width: 17%;
   justify-content: center;
   align-items: center;
 }
