@@ -6,16 +6,6 @@ import Turns from './Turns.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
-const turns = [];
-
-// initialize turns to empty
-for (let i = 0; i < 10; i++) {
-  turns.push({
-    guess: ['x', 'x', 'x', 'x'],
-    bwPegs: [0, 0]
-  });
-}
-
 // TESTING
 // const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
 // const secretCode = ['g', 'r', 'b', 'r'];
@@ -29,83 +19,91 @@ class Board extends Component {
     super(props);
     this.state = {
       // default settings just for testing
-      colorOptions: ['r', 'b', 'g', 'y', 'o', 'p'], // 'n', 'w'
-      secretCode: ['g', 'r', 'b', 'r'],
-      guesses: [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']],
-      bwPegs: [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]],
+      colorOptions: [], // 'n', 'w'
+      secretCode: [],
+      turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
       codeSize: 4, // there has to be a better way to do this
       colorTracker: {},
-      currentGuess: ['x', 'x', 'x', 'x']
     };
     this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
     this.submitGuess = this.submitGuess.bind(this);
   }
 
-  updateCurrentGuess(newColor) {
-    let updatedCurrentGuess = this.state.currentGuess;
-    for (let i = 0; i < updatedCurrentGuess.length; i++) {
-      if (updatedCurrentGuess[i] === 'x') {
-        updatedCurrentGuess[i] = newColor;
+  getCurrentGuess() {
+    return [...this.state.turns][this.state.currentRound - 1].guess;
+  }
+
+  updateCurrentGuess(colorToAddToGuess) {
+    console.log('clicked color:', colorToAddToGuess);
+    let currentGuess = this.getCurrentGuess();
+
+    // add color to guess
+    for (let i = 0; i < currentGuess.length; i++) {
+      if (currentGuess[i] === 'x') {
+        currentGuess[i] = colorToAddToGuess;
         break;
       }
-      if (i === updatedCurrentGuess.length - 1) {
-        console.log('too many colors in guess!');
-        return;
-      }
     }
-    console.log('updated guess', updatedCurrentGuess);
-    let updatedGuesses = [...this.state.guesses];
-    updatedGuesses[this.state.currentRound - 1] = updatedCurrentGuess;
 
+    // update turns with current guess
+    let copyOfTurns = [...this.state.turns];
+    copyOfTurns[this.state.currentRound - 1].guess = currentGuess;
     this.setState({
-      currentGuess: updatedCurrentGuess,
-      guesses: updatedGuesses
+      turns: copyOfTurns
     });
   }
 
   submitGuess() {
-    console.log('clicked submit guess');
-   let { currentGuess, secretCode, bwPegs, currentRound } = this.state;
-   let newBWPegs = getBlackAndWhitePegs(currentGuess, secretCode);
-   console.log(bwPegs);
-   // check win condition here
+  console.log('clicked submit guess');
+  let currentGuess = this.getCurrentGuess();
+  // check if the guess is completely filled (no x's)
+  if (!currentGuess.includes('x')) {
+    console.log('good to go!');
+    let updatedBWPegs = getBlackAndWhitePegs(currentGuess, this.state.secretCode);
+    console.log(updatedBWPegs);
+  } else {
+    console.log('hey get outta here with that incomplete guess!')
+  }
+  //  let { currentGuess, secretCode, bwPegs, currentRound } = this.state;
+  //  let newBWPegs = getBlackAndWhitePegs(currentGuess, secretCode);
+  //  console.log(bwPegs);
+  //  // check win condition here
 
-   let updatedBWPegs = [...bwPegs];
-   updatedBWPegs[currentRound - 1] = newBWPegs;
-   this.setState({
-    bwPegs: updatedBWPegs,
-    currentGuess: ['x', 'x', 'x', 'x'],
-    currentRound: this.state.currentRound + 1,
+  //  let updatedBWPegs = [...bwPegs];
+  //  updatedBWPegs[currentRound - 1] = newBWPegs;
+  //  this.setState({
+  //   bwPegs: updatedBWPegs,
+  //   currentGuess: ['x', 'x', 'x', 'x'],
+  //   currentRound: this.state.currentRound + 1,
     // - setState colorTracker
-   });
+  //  });
   }
 
   componentDidMount() {
     let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.codeSize);
-    let initializeEmptyGuesses = [];
-    let emptyGuess = new Array(this.state.codeSize).fill('x');
-    for (let i = 0; i < this.state.totalRounds; i++) {
-      initializeEmptyGuesses.push(emptyGuess);
-    }
+ 
+    const initializedEmptyTurns = [];
 
-    let initializeEmptyBWPegs = [];
-    for (let i = 0; i < this.state.totalRounds; i++) {
-      initializeEmptyBWPegs.push([0, 0]);
+    // initialize turns to empty
+    for (let i = 0; i < 10; i++) {
+      initializedEmptyTurns.push({
+        guess: ['x', 'x', 'x', 'x'],
+        bwPegs: [0, 0]
+      });
     }
 
     this.setState({
       colorOptions,
       secretCode,
       colorTracker,
-      guesses: initializeEmptyGuesses,
-      bwPegs: initializeEmptyBWPegs
+      turns: initializedEmptyTurns
     });
   }
 
   render() {
-    let { colorOptions, secretCode, guesses, bwPegs, totalRounds, codeSize } = this.state;
+    let { colorOptions, secretCode, turns, codeSize } = this.state;
     return (
       <div className={styles.container}>
         <div className={styles.secretCode}>
@@ -114,9 +112,6 @@ class Board extends Component {
         <div className={styles.turns}>
           <Turns turns={turns} codeSize={codeSize} />
         </div>
-        {/* <div className={styles.blackAndWhitePegs}>
-          <BWPegsContainer bwPegs={bwPegs} roundsLeft={totalRounds - guesses.length} />
-        </div> */}
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>

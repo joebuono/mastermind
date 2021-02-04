@@ -15,7 +15,7 @@ function Turns({turns, codeSize}) {
 
   return (
     <div className={styles.container}>
-      {turns.map((turn, index) => <Turn key={index} turn={turn} codeSize={codeSize} />)}
+      {[...turns].reverse().map((turn, index) => <Turn key={index} turn={turn} codeSize={codeSize} />)}
     </div>
   );
 }
