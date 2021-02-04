@@ -6,12 +6,21 @@ import Turns from './Turns.jsx';
 import { initializeGame } from '../../solverAlgorithm/globalLogic';
 import { getBlackAndWhitePegs } from '../../solverAlgorithm/filterPermutations';
 
-class Board extends Component {
+// TESTING
+// const colorOptions = ['r', 'b', 'g', 'y', 'o', 'p']; // 'n', 'w'
+// const secretCode = ['g', 'r', 'b', 'r'];
+// const guesses = [['r', 'r', 'r', 'b'], ['b', 'b', 'b', 'b'], ['b', 'g', 'g', 'g'], ['g', 'b', 'y', 'y'], ['g', 'r', 'b', 'r']];
+// const bwPegs = [[1, 2], [1, 0], [0, 2], [1, 1], [4, 0]];
+// const totalRounds = 10; // later on, we'll have to make the board dynamically size according to the number of rounds
+// const codeSize = secretCode.length;
+
+class ComputerBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       colorOptions: [], // 'n', 'w' for codeSize 5
-      secretCode: [],
+      // hard-coded for now, later, implement modal for human player to select secretCode
+      secretCode: ['b', 'p', 'p', 'r'],
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
@@ -20,7 +29,7 @@ class Board extends Component {
       winCondition: null
     };
     this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
-    this.submitGuess = this.submitGuess.bind(this);
+    this.getNextComputerGuess = this.getNextComputerGuess.bind(this);
   }
 
   getCurrentGuess() {
@@ -47,8 +56,8 @@ class Board extends Component {
     });
   }
 
-  submitGuess() {
-    console.log('clicked submit guess');
+  getNextComputerGuess() {
+    console.log('clicked get next computer guess');
     let currentGuess = this.getCurrentGuess();
     // check if the guess is completely filled (no x's)
     if (!currentGuess.includes('x')) {
@@ -72,18 +81,7 @@ class Board extends Component {
         // colorTracker
       });
 
-    } else {
-      console.log('hey get outta here with that incomplete guess!')
     }
-    //  let { currentGuess, secretCode, bwPegs, currentRound } = this.state;
-    //  let newBWPegs = getBlackAndWhitePegs(currentGuess, secretCode);
-    //  console.log(bwPegs);
-    //  // check win condition here
-
-    //  let updatedBWPegs = [...bwPegs];
-    //  updatedBWPegs[currentRound - 1] = newBWPegs;
-
-        // - setState colorTracker
   }
 
   checkWinCondition(nextRound, bwPegs) {
@@ -104,7 +102,9 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.codeSize);
+    // we don't need the secretCode to be automatically generated
+    // that's only for testing purposes
+    let [colorOptions, colorTracker] = initializeGame(this.state.codeSize);
  
     const initializedEmptyTurns = [];
 
@@ -118,7 +118,6 @@ class Board extends Component {
 
     this.setState({
       colorOptions,
-      secretCode,
       colorTracker,
       turns: initializedEmptyTurns
     });
@@ -138,12 +137,12 @@ class Board extends Component {
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
-        <button onClick={this.submitGuess}>Submit guess</button>
-        {winCondition && <h1>You Win!</h1>}
-        {winCondition === false && <h1>You lose</h1>}
+        <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>
+        {winCondition && <h1>The computer wins!</h1>}
+        {winCondition === false && <h1>The computer loses!</h1>}
       </div>
     );
   }
 }
 
-export default Board;
+export default ComputerBoard;
