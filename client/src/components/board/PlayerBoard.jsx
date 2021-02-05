@@ -104,7 +104,7 @@ class PlayerBoard extends Component {
   }
 
   componentDidMount() {
-    let [colorOptions, secretCode, colorTracker] = initializeGame(this.state.codeSize);
+    let [colorOptions, colorTracker, secretCode] = initializeGame(this.state.codeSize);
  
     const initializedEmptyTurns = [];
 

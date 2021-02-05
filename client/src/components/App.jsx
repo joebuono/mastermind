@@ -4,9 +4,7 @@ import GameView from './GameView.jsx';
 
 // This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // React was complaining about a "useless constructor"
 
   render() {
     return (

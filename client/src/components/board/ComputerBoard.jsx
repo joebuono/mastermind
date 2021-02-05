@@ -15,96 +15,6 @@ This will essentially become a class component of gameLogic.js
 - Without the while loop, so the user can click through to the next computer guess
 - (Later, we can implement autoplay for the computer moves with setTimeout)
 
-
-**** GLOBAL VARIABLES ****
-- To be held in state
-
-  const CODE_SIZE = secretTestCode ? secretTestCode.length : 4;
-
-  let [COLORS, SECRET_CODE, COLOR_TRACKER] = initializeGame(CODE_SIZE);
-
-  // *** TESTING *** //
-  SECRET_CODE = secretTestCode || SECRET_CODE;
-  // *** TESTING *** //
-
-  let COLORS_TRIED_THUS_FAR = [];
-
-  // To start, our first template is ['x', 'x', 'x', 'x'] or ['x', 'x', 'x', 'x', 'x'], depending on the size of the code
-  let templates = [new Array(CODE_SIZE).fill('x')];
-
-  // This stores our current guess
-  let guess = [];
-
-  let previousGuesses = new Set();
-
-  let priorRounds = {};
-
-  let colorOrColorsUsedToFillTemplate = [];
-
-  let CURRENT_ROUND = 1;
-  const ROUND_LIMIT = 12;
-
-  while (CURRENT_ROUND <= ROUND_LIMIT) {
-    // these variable names are still a bit verbose and confusing. Run them by Ethan, Andrew, Dillon, Alex
-    let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses);
-    guess = bestNextGuess;
-    previousGuesses.add(`${bestNextGuess}`);
-    colorOrColorsUsedToFillTemplate = fillTempateColorOrColors;
-    // addToColorsTriedThusFar could be an empty array, which is totally fine
-    COLORS_TRIED_THUS_FAR = COLORS_TRIED_THUS_FAR.concat(addToColorsTriedThusFar);
-
-    // console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
-    // console.log('Next guess:', guess);
-
-    let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
-    // console.log('Guess Results:', guessResults);
-
-    // check win condition
-    if (guessResults[0] === CODE_SIZE) {
-      // console.log('YOU WIN!!!');
-      return CURRENT_ROUND;
-    }
-
-    priorRounds[CURRENT_ROUND] = {
-      guess: [...bestNextGuess], // not sure if copying the arrays is necessary, just playing it safe
-      results: [...guessResults]
-    }
-
-    // console.log('These are the templates being used to generate all permutations:', templates);
-    let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate); // previously was hard-coded ['r', 'b', 'x']
-    // console.log('All Permutations:', allPermutations);
-    // console.log('Number of all possible permutations:', allPermutations.length);
-
-
-    // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
-    // Filter templates based on ALL PRIOR ROUNDS
-    for (let round in priorRounds) {
-      // console.log('previous round:', priorRounds[round]);
-      // console.log('guess:', priorRounds[round].guess);
-      // console.log('results:', priorRounds[round].results);
-      allPermutations = filterForPossibleSolutions(priorRounds[round].guess, priorRounds[round].results, allPermutations);
-    }
-
-    // possibleSolutions and templates need to be consolidated. Just pick one!
-    let possibleSolutions = allPermutations;
-    // console.log('Possible Solutions:', possibleSolutions);
-    // console.log('Number of possible solutions (templates):', possibleSolutions.length);
-  
-    // FILTER OUT PREVIOUS GUESSES
-    possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
-
-    // set the global variable
-    templates = [...possibleSolutions];
-
-    // updateColorTracker
-    COLOR_TRACKER = updateColorTracker(possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER);
-    // console.log(COLOR_TRACKER);
-    CURRENT_ROUND++;
-  }
-
-  // If the algorithm could not guess the secret code in under ROUND_LIMIT guesses
-  return CURRENT_ROUND;
-};
 */
 
 class ComputerBoard extends Component {
@@ -118,43 +28,80 @@ class ComputerBoard extends Component {
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
       codeSize: 4, // there has to be a better way to do this
+      winCondition: null,
+      templates: [],
       colorTracker: {},
-      winCondition: null
+      colorsTriedThusFar: [],
+      previousGuesses: new Set(),
+      currentGuess: [],
+      priorRounds: {},
+      colorOrColorsUsedToFillTemplate: []
     };
-    this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
     this.getNextComputerGuess = this.getNextComputerGuess.bind(this);
   }
 
-  getCurrentGuess() {
-    return [...this.state.turns][this.state.currentRound - 1].guess;
-  }
+  getNextComputerGuess() {
+    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions } = this.state;
+    // debugger;
+    let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
+    console.log('bestNextGuess:', bestNextGuess);
+    console.log('fillTempateColorOrColors:', fillTempateColorOrColors);
+    console.log('addToColorsTriedThusFar:', addToColorsTriedThusFar);
+    let clonedPreviousGuess = new Set(previousGuesses);
+    clonedPreviousGuess.add(`${bestNextGuess}`);
+    let updatedColorsTriedThusFar = [...colorsTriedThusFar].concat(addToColorsTriedThusFar);
+    
 
-  updateCurrentGuess(colorToAddToGuess) {
-    console.log('clicked color:', colorToAddToGuess);
-    let currentGuess = this.getCurrentGuess();
+    let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
+    console.log('guess results:', guessResults);
 
-    // add color to guess
-    for (let i = 0; i < currentGuess.length; i++) {
-      if (currentGuess[i] === 'x') {
-        currentGuess[i] = colorToAddToGuess;
-        break;
-      }
+    // Later, check win condition
+    let nextRound = currentRound + 1;
+
+    let clonedPriorRounds = Object.assign({}, priorRounds);
+    console.log('clonedPriorRounds:', clonedPriorRounds);
+    clonedPriorRounds[currentRound] = {
+      guess: [...bestNextGuess],
+      results: [...guessResults]
+    };
+
+    let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
+    console.log('all permutations:', allPermutations);
+
+    // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
+    // Filter templates based on ALL PRIOR ROUNDS
+    for (let round in clonedPriorRounds) {
+      // console.log('previous round:', clonedPriorRounds[round]);
+      // console.log('guess:', clonedPriorRounds[round].guess);
+      // console.log('results:', clonedPriorRounds[round].results);
+      allPermutations = filterForPossibleSolutions(clonedPriorRounds[round].guess, clonedPriorRounds[round].results, allPermutations);
     }
 
-    // update turns with current guess
-    let copyOfTurns = [...this.state.turns];
-    copyOfTurns[this.state.currentRound - 1].guess = currentGuess;
+    // possibleSolutions and templates need to be consolidated. Just pick one!
+    let possibleSolutions = allPermutations;
+    console.log('possible solutions:', possibleSolutions);
+
+    // FILTER OUT PREVIOUS GUESSES
+    possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
+
+    // updateColorTracker
+    console.log('----------arguments passed into updateColorTracker-----------');
+    console.log('possibleSolutions:', possibleSolutions);
+    console.log('colorOptions:', colorOptions);
+    console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
+    console.log('colorTracker:', colorTracker);
+    let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, updatedColorsTriedThusFar, colorTracker);
+    console.log(updateColorTracker);
+
     this.setState({
-      turns: copyOfTurns
+      currentGuess: bestNextGuess,
+      colorOrColorsUsedToFillTemplate: fillTempateColorOrColors,
+      colorsTriedThusFar: updatedColorsTriedThusFar,
+      templates: [...possibleSolutions],
+      colorTracker: updatedColorTracker,
+      priorRounds: clonedPriorRounds,
+      currentRound: nextRound
     });
-  }
-
-  getNextComputerGuess() {
-
-  }
-
-  checkWinCondition(nextRound, bwPegs) {
-
   }
 
   componentDidMount() {
@@ -172,14 +119,18 @@ class ComputerBoard extends Component {
       });
     }
 
+    const initialTemplate = [new Array(this.state.codeSize).fill('x')];
+
     this.setState({
       colorOptions,
       colorTracker,
-      turns: initializedEmptyTurns
+      turns: initializedEmptyTurns,
+      templates: initialTemplate
     });
   }
 
   render() {
+    console.log(this.state);
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
 
     return (
