@@ -9,13 +9,6 @@ const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../../solv
 const { updateColorTracker } = require('../../solverAlgorithm/updateColorTracker');
 const { generateNextGuess } = require('../../solverAlgorithm/generateNextGuess');
 
-/*
-
-This will essentially become a class component of gameLogic.js
-- Without the while loop, so the user can click through to the next computer guess
-- (Later, we can implement autoplay for the computer moves with setTimeout)
-
-*/
 
 class ComputerBoard extends Component {
   constructor(props) {
@@ -41,7 +34,7 @@ class ComputerBoard extends Component {
   }
 
   getNextComputerGuess() {
-    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions } = this.state;
+    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
     // debugger;
     let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
     console.log('bestNextGuess:', bestNextGuess);
@@ -64,6 +57,25 @@ class ComputerBoard extends Component {
       guess: [...bestNextGuess],
       results: [...guessResults]
     };
+
+    // update turns for display
+    // convert priorRounds to array
+    const updatedTurns = [];
+    for (let round in clonedPriorRounds) {
+      updatedTurns.push({
+        guess: clonedPriorRounds[round].guess,
+        bwPegs: clonedPriorRounds[round].results
+      });
+    }
+
+    while (updatedTurns.length < totalRounds) {
+      updatedTurns.push({
+        guess: ['x', 'x', 'x', 'x'],
+        bwPegs: [0, 0]
+      });
+    }
+
+    console.log('---------------UPDATED TURNS---------------:', updatedTurns);
 
     let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
     console.log('all permutations:', allPermutations);
@@ -100,6 +112,7 @@ class ComputerBoard extends Component {
       templates: [...possibleSolutions],
       colorTracker: updatedColorTracker,
       priorRounds: clonedPriorRounds,
+      turns: updatedTurns,
       currentRound: nextRound
     });
   }
@@ -114,7 +127,7 @@ class ComputerBoard extends Component {
     // initialize turns to empty
     for (let i = 0; i < 10; i++) {
       initializedEmptyTurns.push({
-        guess: ['x', 'x', 'x', 'x'],
+        guess: ['x', 'x', 'x', 'x'], // guess size will need to be dynamic
         bwPegs: [0, 0]
       });
     }
@@ -132,7 +145,8 @@ class ComputerBoard extends Component {
   render() {
     console.log(this.state);
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
-
+    // debugger;
+    console.log('inside ComputerBoard rendering turns', turns);
     return (
       <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
