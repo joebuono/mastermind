@@ -75,6 +75,11 @@ Actionable Steps (Trello)
 - Remember, you're aiming to get a job. 
 
 * Nightmare Mode
+
+- jQuery has a draggable plugin, there should be something equivalent for React
+
+- Write blog post for Hacker News
+
 - Implement a simple backend for storing user info and score data
 - Use D3 to display user statistics, progress bars, achievement badges, ranking among all users
 - Implement OAuth for authentication
@@ -85,6 +90,7 @@ Actionable Steps (Trello)
 - Optimize the algorithm based on Donald Knuth's work
 - Implement practice mode, where you can practice without it affecting your score or ranking
 - Implement graded difficulties, based on how rigorous the filtering/selection is for the best next guess
+- Docker
 
 * Deployment
 - You have some options

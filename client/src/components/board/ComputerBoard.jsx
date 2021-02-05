@@ -16,11 +16,11 @@ class ComputerBoard extends Component {
     this.state = {
       colorOptions: [], // 'n', 'w' for codeSize 5
       // hard-coded for now, later, implement modal for human player to select secretCode
-      secretCode: ['o', 'p', 'y', 'g'],
+      secretCode: [''],
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
-      codeSize: 4, // there has to be a better way to do this
+      codeSize: 5, // there has to be a better way to do this
       winCondition: null,
       templates: [],
       colorTracker: {},
@@ -68,9 +68,10 @@ class ComputerBoard extends Component {
       });
     }
 
+    const emptyGuess = new Array(this.state.codeSize).fill('x');
     while (updatedTurns.length < totalRounds) {
       updatedTurns.push({
-        guess: ['x', 'x', 'x', 'x'],
+        guess: emptyGuess,
         bwPegs: [0, 0]
       });
     }
@@ -126,15 +127,16 @@ class ComputerBoard extends Component {
  
     const initializedEmptyTurns = [];
 
+    const emptyGuess = new Array(this.state.codeSize).fill('x');
     // initialize turns to empty
     for (let i = 0; i < 10; i++) {
       initializedEmptyTurns.push({
-        guess: ['x', 'x', 'x', 'x'], // guess size will need to be dynamic
+        guess: emptyGuess, // guess size will need to be dynamic
         bwPegs: [0, 0]
       });
     }
 
-    const initialTemplate = [new Array(this.state.codeSize).fill('x')];
+    const initialTemplate = [emptyGuess];
 
     this.props.modifyDisplayedColorTracker(colorTracker);
 
