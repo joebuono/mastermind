@@ -4,7 +4,7 @@ import Title from './Title.jsx';
 import Headers from './Headers.jsx';
 import RowsContainer from './RowsContainer.jsx';
 
-const ColorTracker = () => {
+const ColorTracker = ({colorTrackerData}) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -14,7 +14,7 @@ const ColorTracker = () => {
         <Headers />
       </div>
       <div className={styles.rows}>
-        <RowsContainer />
+        <RowsContainer colorTrackerData={colorTrackerData} />
       </div>
     </div>
   );

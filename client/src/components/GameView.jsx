@@ -14,6 +14,15 @@ class GameView extends Component {
       displayColorTracker: true,
       colorTrackerData: {}
     };
+    this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
+  }
+
+  modifyDisplayedColorTracker(updatedColorTrackerData) {
+    console.log('inside game view component');
+    console.log(updatedColorTrackerData);
+    this.setState({
+      colorTrackerData: updatedColorTrackerData
+    });
   }
 
   render() {
@@ -23,7 +32,7 @@ class GameView extends Component {
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
-        <div className={boardStyle}>{humanPlayerTurn ? <PlayerBoard /> : <ComputerBoard />}</div>
+        <div className={boardStyle}>{humanPlayerTurn ? <PlayerBoard /> : <ComputerBoard modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} />}</div>
       </div>
     );
   }

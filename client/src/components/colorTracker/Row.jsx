@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/row.module.css';
 
 const Row = ({colorInfo}) => {
+  console.log('inside ROW component', colorInfo);
   return (
     <div className={styles.container}>
       <div className={styles.color}>{colorInfo.color}</div>

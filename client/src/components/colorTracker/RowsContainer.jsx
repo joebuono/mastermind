@@ -2,40 +2,32 @@ import React from 'react';
 import styles from '../styles/rowsContainer.module.css';
 import Row from './Row.jsx';
 
-const colorData = [
-  {
-    color: 'r',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-  {
-    color: 'g',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-  {
-    color: 'b',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-  {
-    color: 'y',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-  {
-    color: 'o',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-  {
-    color: 'p',
-    number: [0, 1, 2, 3, 4],
-    position: [1, 2, 3, 4]
-  },
-];
+// const colorData = [
+//   {
+//     color: 'r',
+//     number: [0, 1, 2, 3, 4],
+//     position: [1, 2, 3, 4]
+//   },
+//   {
+//     color: 'b',
+//     number: [0, 1, 2, 3, 4],
+//     position: [1, 2, 3, 4]
+//   },
+//   ... etc
+// ];
 
-const RowsContainer = () => {
+const RowsContainer = ({colorTrackerData}) => {
+  // modifying input for component use
+  let colorData = [];
+  for (let color in colorTrackerData) {
+    colorData.push({
+      color,
+      number: colorTrackerData[color].number,
+      position: colorTrackerData[color].position
+    });
+  }
+
+  console.log('inside rows container:', colorTrackerData)
   return (
     <div className={styles.rows}>
       {colorData.map((color, index) => <Row key={index} colorInfo={color} />)}

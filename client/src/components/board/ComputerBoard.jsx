@@ -16,7 +16,7 @@ class ComputerBoard extends Component {
     this.state = {
       colorOptions: [], // 'n', 'w' for codeSize 5
       // hard-coded for now, later, implement modal for human player to select secretCode
-      secretCode: ['b', 'p', 'p', 'r'],
+      secretCode: ['o', 'p', 'y', 'g'],
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
@@ -103,7 +103,9 @@ class ComputerBoard extends Component {
     console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
     console.log('colorTracker:', colorTracker);
     let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, updatedColorsTriedThusFar, colorTracker);
-    console.log(updateColorTracker);
+    console.log(updatedColorTracker);
+
+    this.props.modifyDisplayedColorTracker(updatedColorTracker);
 
     this.setState({
       currentGuess: bestNextGuess,
@@ -134,6 +136,8 @@ class ComputerBoard extends Component {
 
     const initialTemplate = [new Array(this.state.codeSize).fill('x')];
 
+    this.props.modifyDisplayedColorTracker(colorTracker);
+
     this.setState({
       colorOptions,
       colorTracker,
@@ -143,10 +147,8 @@ class ComputerBoard extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
     // debugger;
-    console.log('inside ComputerBoard rendering turns', turns);
     return (
       <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
