@@ -97,6 +97,7 @@ class PlayerBoard extends Component {
     if (bwPegs[0] === this.state.codeSize) {
       console.log('YOU WIN!');
       updatedWinCondition = true;
+      this.props.updateScore('player', this.state.currentRound);
     }
 
     // check lose condition

@@ -12,14 +12,14 @@ class GameView extends Component {
     this.state = {
       humanPlayerTurn: false,
       displayColorTracker: true,
-      colorTrackerData: {}
+      colorTrackerData: {},
+      playerScore: 0,
+      computerScore: 0
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
 
   modifyDisplayedColorTracker = (updatedColorTrackerData) => {
-    console.log('inside game view component');
-    console.log(updatedColorTrackerData);
     this.setState({
       colorTrackerData: updatedColorTrackerData
     });
@@ -32,17 +32,30 @@ class GameView extends Component {
     });
   }
 
-  render() {
-    const { humanPlayerTurn, displayColorTracker, colorTrackerData } = this.state;
-    const boardStyle = displayColorTracker ? styles.boardRight : styles.boardCenter;
+  updateScore = (codeBreaker, pointsScoredInRound) => {
+    console.log('--------------------- inside Update Score ---------------------');
+    let whoScored = codeBreaker === 'player' ? 'computerScore' : 'playerScore';
+    console.log('whoScored:', whoScored);
+    console.log('pointsScored', pointsScoredInRound);
+    this.setState({
+      [whoScored]: this.state[whoScored] + pointsScoredInRound
+    });
+  }
 
+  render() {
+    const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore } = this.state;
+    console.log(`Player Points: ${playerScore}`);
+    console.log(`Computer Points: ${computerScore}`);
     return (
       <div className={styles.container}>
+        <div>
+          Player Points: {playerScore} Computer Points: {computerScore}
+        </div>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
-        <div className={boardStyle}>{humanPlayerTurn ? 
-        <PlayerBoard goToNextRound={this.goToNextRound} /> 
+        <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
+        <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} /> 
         : 
-        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} />}</div>
+        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} />}</div>
       </div>
     );
   }

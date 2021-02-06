@@ -27,7 +27,6 @@ const RowsContainer = ({colorTrackerData}) => {
     });
   }
 
-  console.log('inside rows container:', colorTrackerData)
   return (
     <div className={styles.rows}>
       {colorData.map((color, index) => <Row key={index} colorInfo={color} />)}

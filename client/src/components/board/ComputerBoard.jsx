@@ -42,29 +42,23 @@ class ComputerBoard extends Component {
     const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
     // debugger;
     let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
-    console.log('bestNextGuess:', bestNextGuess);
-    console.log('fillTempateColorOrColors:', fillTempateColorOrColors);
-    console.log('addToColorsTriedThusFar:', addToColorsTriedThusFar);
+    // console.log('bestNextGuess:', bestNextGuess);
+    // console.log('fillTempateColorOrColors:', fillTempateColorOrColors);
+    // console.log('addToColorsTriedThusFar:', addToColorsTriedThusFar);
     let clonedPreviousGuess = new Set(previousGuesses);
     clonedPreviousGuess.add(`${bestNextGuess}`);
     let updatedColorsTriedThusFar = [...colorsTriedThusFar].concat(addToColorsTriedThusFar);
     
 
     let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
-    console.log('guess results:', guessResults);
+    // console.log('guess results:', guessResults);
 
     // Check win condition, put this in a separate function?
-    let updatedWinCondition = null;
-    let nextRound = currentRound + 1;
-    if (guessResults[0] === codeSize) {
-      updatedWinCondition = true;
-    }
-    if (nextRound > totalRounds) {
-      updatedWinCondition = false;
-    }
+    let nextRound = this.state.currentRound + 1;
+    let updatedWinCondition = this.checkWinCondition(guessResults[0], nextRound);
 
     let clonedPriorRounds = Object.assign({}, priorRounds);
-    console.log('clonedPriorRounds:', clonedPriorRounds);
+    // console.log('clonedPriorRounds:', clonedPriorRounds);
     clonedPriorRounds[currentRound] = {
       guess: [...bestNextGuess],
       results: [...guessResults]
@@ -88,10 +82,10 @@ class ComputerBoard extends Component {
       });
     }
 
-    console.log('---------------UPDATED TURNS---------------:', updatedTurns);
+    // console.log('---------------UPDATED TURNS---------------:', updatedTurns);
 
     let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
-    console.log('all permutations:', allPermutations);
+    // console.log('all permutations:', allPermutations);
 
     // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
     // Filter templates based on ALL PRIOR ROUNDS
@@ -104,19 +98,19 @@ class ComputerBoard extends Component {
 
     // possibleSolutions and templates need to be consolidated. Just pick one!
     let possibleSolutions = allPermutations;
-    console.log('possible solutions:', possibleSolutions);
+    // console.log('possible solutions:', possibleSolutions);
 
     // FILTER OUT PREVIOUS GUESSES
     possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
 
     // updateColorTracker
-    console.log('----------arguments passed into updateColorTracker-----------');
-    console.log('possibleSolutions:', possibleSolutions);
-    console.log('colorOptions:', colorOptions);
-    console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
-    console.log('colorTracker:', colorTracker);
+    // console.log('----------arguments passed into updateColorTracker-----------');
+    // console.log('possibleSolutions:', possibleSolutions);
+    // console.log('colorOptions:', colorOptions);
+    // console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
+    // console.log('colorTracker:', colorTracker);
     let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, updatedColorsTriedThusFar, colorTracker);
-    console.log(updatedColorTracker);
+    // console.log(updatedColorTracker);
 
     this.props.modifyDisplayedColorTracker(updatedColorTracker);
 
@@ -131,6 +125,18 @@ class ComputerBoard extends Component {
       currentRound: nextRound,
       winCondition: updatedWinCondition
     });
+  }
+
+  checkWinCondition(blackPegs, nextRound) {
+    let updatedWinCondition = null;
+    if (blackPegs === this.state.codeSize) {
+      updatedWinCondition = true;
+      this.props.updateScore('computer', this.state.currentRound);
+    }
+    if (nextRound > this.state.totalRounds) {
+      updatedWinCondition = false;
+    }
+    return updatedWinCondition;
   }
 
   setSecretCode = (playerSelectedSecretCode) => {

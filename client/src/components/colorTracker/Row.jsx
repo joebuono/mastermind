@@ -23,7 +23,6 @@ const formatNumberData = (numArr) => {
 
 
 const Row = ({colorInfo}) => {
-  console.log('inside ROW component', colorInfo);
 
   return (
     <div className={styles.container}>
