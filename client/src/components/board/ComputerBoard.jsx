@@ -3,6 +3,9 @@ import styles from '../styles/board.module.css';
 import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
+import MakeCode from './MakeCode.jsx';
+
+// Solver algorithm functions
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
 const { generateAllPermutations } = require('../../solverAlgorithm/generatePermutations');
 const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../../solverAlgorithm/filterPermutations');
@@ -16,7 +19,7 @@ class ComputerBoard extends Component {
     this.state = {
       colorOptions: [], // 'n', 'w' for codeSize 5
       // hard-coded for now, later, implement modal for human player to select secretCode
-      secretCode: ['y', 'p', 'g', 'p'],
+      secretCode: [],
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
@@ -164,6 +167,7 @@ class ComputerBoard extends Component {
     // debugger;
     return (
       <div className={styles.boardContainer}>
+        <MakeCode codeSize={codeSize} colorOptions={colorOptions} />
         <div className={styles.secretCode}>
           <SecretCode secretCode={secretCode} />
         </div>
