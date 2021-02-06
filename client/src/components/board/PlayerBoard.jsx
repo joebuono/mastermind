@@ -104,9 +104,14 @@ class PlayerBoard extends Component {
       console.log('You lose. Play again?');
       updatedWinCondition = false;
     }
-    
+
     return updatedWinCondition;
   }
+
+  nextRound = () => {
+    this.props.goToNextRound();
+  }
+
 
   componentDidMount() {
     let [colorOptions, colorTracker, secretCode] = initializeGame(this.state.codeSize);
@@ -135,7 +140,7 @@ class PlayerBoard extends Component {
     return (
       <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
-          <SecretCode secretCode={secretCode} />
+          <SecretCode secretCode={winCondition === null ? new Array(codeSize).fill('x'): secretCode} />
         </div>
         <div className={styles.turns}>
           <Turns turns={turns} codeSize={codeSize} />
@@ -143,9 +148,10 @@ class PlayerBoard extends Component {
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
-        <button onClick={this.submitGuess}>Submit guess</button>
+        {winCondition === null && <button onClick={this.submitGuess}>Submit guess</button>}
         {winCondition && <h1>You Win!</h1>}
         {winCondition === false && <h1>You lose</h1>}
+        {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}
       </div>
     );
   }

@@ -25,6 +25,13 @@ class GameView extends Component {
     });
   }
 
+  goToNextRound = () => {
+    this.setState({
+      humanPlayerTurn: !this.state.humanPlayerTurn,
+      displayColorTracker: !this.state.displayColorTracker
+    });
+  }
+
   render() {
     const { humanPlayerTurn, displayColorTracker, colorTrackerData } = this.state;
     const boardStyle = displayColorTracker ? styles.boardRight : styles.boardCenter;
@@ -32,7 +39,10 @@ class GameView extends Component {
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
-        <div className={boardStyle}>{humanPlayerTurn ? <PlayerBoard /> : <ComputerBoard modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} />}</div>
+        <div className={boardStyle}>{humanPlayerTurn ? 
+        <PlayerBoard goToNextRound={this.goToNextRound} /> 
+        : 
+        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} />}</div>
       </div>
     );
   }

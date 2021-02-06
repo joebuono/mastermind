@@ -139,6 +139,10 @@ class ComputerBoard extends Component {
     });
   }
 
+  nextRound = () => {
+    this.props.goToNextRound();
+  }
+
   componentDidMount() {
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
@@ -185,9 +189,10 @@ class ComputerBoard extends Component {
           <div className={styles.colors}>
             <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
           </div>
-          <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>
+          {winCondition === null && <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>}
           {winCondition && <h1>The computer wins!</h1>}
           {winCondition === false && <h1>The computer loses!</h1>}
+          {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}
         </div>}
       </div>
     );
