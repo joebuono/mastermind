@@ -4,7 +4,7 @@ import styles from '../styles/headers.module.css';
 const Headers = () => {
   return (
     <div className={styles.headers}>
-      Color | Number | Position
+      Color | How Many | Where
     </div>
   );
 };

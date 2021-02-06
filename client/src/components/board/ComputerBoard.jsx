@@ -16,11 +16,11 @@ class ComputerBoard extends Component {
     this.state = {
       colorOptions: [], // 'n', 'w' for codeSize 5
       // hard-coded for now, later, implement modal for human player to select secretCode
-      secretCode: [''],
+      secretCode: ['y', 'p', 'g', 'p'],
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
-      codeSize: 5, // there has to be a better way to do this
+      codeSize: 4, // there has to be a better way to do this
       winCondition: null,
       templates: [],
       colorTracker: {},
@@ -33,7 +33,10 @@ class ComputerBoard extends Component {
     this.getNextComputerGuess = this.getNextComputerGuess.bind(this);
   }
 
+  // this method is too big
+  // separate it out into smaller functions
   getNextComputerGuess() {
+    if (this.state.winCondition !== null) return;
     const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
     // debugger;
     let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
@@ -48,8 +51,15 @@ class ComputerBoard extends Component {
     let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
     console.log('guess results:', guessResults);
 
-    // Later, check win condition
+    // Check win condition, put this in a separate function?
+    let updatedWinCondition = null;
     let nextRound = currentRound + 1;
+    if (guessResults[0] === codeSize) {
+      updatedWinCondition = true;
+    }
+    if (nextRound > totalRounds) {
+      updatedWinCondition = false;
+    }
 
     let clonedPriorRounds = Object.assign({}, priorRounds);
     console.log('clonedPriorRounds:', clonedPriorRounds);
@@ -116,7 +126,8 @@ class ComputerBoard extends Component {
       colorTracker: updatedColorTracker,
       priorRounds: clonedPriorRounds,
       turns: updatedTurns,
-      currentRound: nextRound
+      currentRound: nextRound,
+      winCondition: updatedWinCondition
     });
   }
 

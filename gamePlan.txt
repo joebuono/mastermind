@@ -78,6 +78,8 @@ Actionable Steps (Trello)
 
 - jQuery has a draggable plugin, there should be something equivalent for React
 
+- Deploy on Vercel (ask Ethan, he said the docs are good)
+
 - Write blog post for Hacker News
 
 - Implement a simple backend for storing user info and score data

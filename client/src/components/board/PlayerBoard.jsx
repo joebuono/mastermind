@@ -28,6 +28,8 @@ class PlayerBoard extends Component {
   }
 
   updateCurrentGuess(colorToAddToGuess) {
+    if (this.state.winCondition !== null) return;
+
     console.log('clicked color:', colorToAddToGuess);
     let currentGuess = this.getCurrentGuess();
 
@@ -49,6 +51,8 @@ class PlayerBoard extends Component {
 
   submitGuess() {
     console.log('clicked submit guess');
+    if (this.state.winCondition !== null) return;
+
     let currentGuess = this.getCurrentGuess();
     // check if the guess is completely filled (no x's)
     if (!currentGuess.includes('x')) {
@@ -89,17 +93,18 @@ class PlayerBoard extends Component {
   checkWinCondition(nextRound, bwPegs) {
     let updatedWinCondition = null;
 
+    // check win condition
+    if (bwPegs[0] === this.state.codeSize) {
+      console.log('YOU WIN!');
+      updatedWinCondition = true;
+    }
+
     // check lose condition
     if (nextRound > this.state.totalRounds) {
       console.log('You lose. Play again?');
       updatedWinCondition = false;
-    } else {
-      // check win condition
-      if (bwPegs[0] === this.state.codeSize) {
-        console.log('YOU WIN!');
-        updatedWinCondition = true;
-      }
     }
+    
     return updatedWinCondition;
   }
 
