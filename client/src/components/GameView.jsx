@@ -14,7 +14,8 @@ class GameView extends Component {
       displayColorTracker: true,
       colorTrackerData: {},
       playerScore: 0,
-      computerScore: 0
+      computerScore: 0,
+      codeSize: 5
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
@@ -43,7 +44,7 @@ class GameView extends Component {
   }
 
   render() {
-    const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore } = this.state;
+    const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore, codeSize } = this.state;
     console.log(`Player Points: ${playerScore}`);
     console.log(`Computer Points: ${computerScore}`);
     return (
@@ -53,9 +54,9 @@ class GameView extends Component {
         </div>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
-        <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} /> 
+        <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 
-        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} />}</div>
+        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} codeSize={codeSize} />}</div>
       </div>
     );
   }

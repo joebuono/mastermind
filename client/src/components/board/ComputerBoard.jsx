@@ -23,7 +23,7 @@ class ComputerBoard extends Component {
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
-      codeSize: 4, // there has to be a better way to do this
+      codeSize: this.props.codeSize, 
       winCondition: null,
       templates: [],
       colorTracker: {},
@@ -160,7 +160,7 @@ class ComputerBoard extends Component {
     // initialize turns to empty
     for (let i = 0; i < 10; i++) {
       initializedEmptyTurns.push({
-        guess: emptyGuess, // guess size will need to be dynamic
+        guess: [...emptyGuess],
         bwPegs: [0, 0]
       });
     }

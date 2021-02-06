@@ -15,7 +15,7 @@ class PlayerBoard extends Component {
       turns: [],
       totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
       currentRound: 1,
-      codeSize: 4, // there has to be a better way to do this
+      codeSize: this.props.codeSize, 
       colorTracker: {},
       winCondition: null
     };
@@ -120,9 +120,10 @@ class PlayerBoard extends Component {
     const initializedEmptyTurns = [];
 
     // initialize turns to empty
+    const emptyGuess = new Array(this.state.codeSize).fill('x');
     for (let i = 0; i < 10; i++) {
       initializedEmptyTurns.push({
-        guess: ['x', 'x', 'x', 'x'],
+        guess: [...emptyGuess],
         bwPegs: [0, 0]
       });
     }
