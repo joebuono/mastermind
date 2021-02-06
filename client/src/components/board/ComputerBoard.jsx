@@ -33,12 +33,11 @@ class ComputerBoard extends Component {
       priorRounds: {},
       colorOrColorsUsedToFillTemplate: []
     };
-    this.getNextComputerGuess = this.getNextComputerGuess.bind(this);
   }
 
   // this method is too big
   // separate it out into smaller functions
-  getNextComputerGuess() {
+  getNextComputerGuess = () => {
     if (this.state.winCondition !== null) return;
     const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
     // debugger;
@@ -134,6 +133,12 @@ class ComputerBoard extends Component {
     });
   }
 
+  setSecretCode = (playerSelectedSecretCode) => {
+    this.setState({
+      secretCode: playerSelectedSecretCode
+    });
+  }
+
   componentDidMount() {
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
@@ -164,22 +169,26 @@ class ComputerBoard extends Component {
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
-    // debugger;
+
     return (
-      <div className={styles.boardContainer}>
-        <MakeCode codeSize={codeSize} colorOptions={colorOptions} />
-        <div className={styles.secretCode}>
-          <SecretCode secretCode={secretCode} />
-        </div>
-        <div className={styles.turns}>
-          <Turns turns={turns} codeSize={codeSize} />
-        </div>
-        <div className={styles.colors}>
-          <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
-        </div>
-        <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>
-        {winCondition && <h1>The computer wins!</h1>}
-        {winCondition === false && <h1>The computer loses!</h1>}
+      <div>
+        {!secretCode.length ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
+        :         
+        <div className={styles.boardContainer}>
+          {/* {!secretCode.length && <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} />} */}
+          <div className={styles.secretCode}>
+            <SecretCode secretCode={secretCode} />
+          </div>
+          <div className={styles.turns}>
+            <Turns turns={turns} codeSize={codeSize} />
+          </div>
+          <div className={styles.colors}>
+            <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
+          </div>
+          <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>
+          {winCondition && <h1>The computer wins!</h1>}
+          {winCondition === false && <h1>The computer loses!</h1>}
+        </div>}
       </div>
     );
   }

@@ -28,6 +28,7 @@ class MakeCode extends Component {
       // send up secretCode to ComputerBoard component
       console.log('beam me up, SCORTRRRR!!!');
       console.log(secretCode);
+      this.props.setSecretCode(secretCode);
     } else {
       console.log('incomplete guess');
     }
