@@ -22,11 +22,9 @@ class MakeCode extends Component {
   }
 
   submitSecretCode = () => {
-    console.log('inside submitSecretCode');
     const { secretCode } = this.state;
     if (!secretCode.includes('x')) {
       // send up secretCode to ComputerBoard component
-      console.log('beam me up, SCORTRRRR!!!');
       console.log(secretCode);
       this.props.setSecretCode(secretCode);
     } else {

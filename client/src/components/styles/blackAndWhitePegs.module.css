@@ -7,7 +7,23 @@
 }
 
 .peg {
-  text-align: center;
+  margin: 0 auto;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
+
+.empty {
+  background-color: burlywood;
+  opacity: 0.5;
 }
 
 .upperLeft {

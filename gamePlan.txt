@@ -1,3 +1,25 @@
+Next Steps:
+
+Specific:
+- Double-click to remove color from guess (later, drag off the board)
+- When you click on a color option, it will automatically populate the next guess with that color
+- Make current turn a slightly different background color on the board (lighter?)
+- Make black, white, and empty pegs for the BWPegs
+
+Stylistic stuff:
+- Work on draggable and swappable colors
+- Animate the computer's guesses
+- Make the ColorTracker look pretty
+- In the ColorTracker, display possible permutations
+- In the ColorTracker, display (suggested) bestNextGuess for both player and computer
+- Explore Rodal.js for the MakeCode component (helps with making modals)
+
+Algorithmic stuff
+- Say the code is 'rrrb' and the computer guess 'gggy'. It says that there are EITHER 0 OR 5 possible positions
+  for the other colors. This is incorrect. There are 0 THROUGH 5 possible positions for every other color than r and b. Fix this. 
+- Explore making graded difficulties for the computer
+- Once the computer knows the location of one peg for sure, shift to playing 4-code game (see photos in iPhone for bug)
+
 Game Plan
 
 We need to use uniform variable names across the frontend and backend
