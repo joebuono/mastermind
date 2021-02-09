@@ -10,8 +10,8 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanPlayerTurn: true,
-      displayColorTracker: false,
+      humanPlayerTurn: false,
+      displayColorTracker: true,
       colorTrackerData: {},
       playerScore: 0,
       computerScore: 0,
@@ -34,10 +34,7 @@ class GameView extends Component {
   }
 
   updateScore = (codeBreaker, pointsScoredInRound) => {
-    console.log('--------------------- inside Update Score ---------------------');
     let whoScored = codeBreaker === 'player' ? 'computerScore' : 'playerScore';
-    console.log('whoScored:', whoScored);
-    console.log('pointsScored', pointsScoredInRound);
     this.setState({
       [whoScored]: this.state[whoScored] + pointsScoredInRound
     });
@@ -45,8 +42,7 @@ class GameView extends Component {
 
   render() {
     const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore, codeSize } = this.state;
-    console.log(`Player Points: ${playerScore}`);
-    console.log(`Computer Points: ${computerScore}`);
+    
     return (
       <div className={styles.container}>
         <div>

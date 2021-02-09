@@ -3,6 +3,12 @@
   grid-template-columns: repeat(12, 1fr);
 }
 
+.column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .color {
   grid-column: 1 / 4;
   background-color: indianred;

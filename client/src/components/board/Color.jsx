@@ -6,7 +6,7 @@ import styles from '../styles/color.module.css';
 function Color({color, updateCurrentGuess = () => {}, size}) {
   const classes = `${styles.circle} ${styles[color]}`
   return (
-    <div className={classes} onClick={() => updateCurrentGuess(color)}></div>
+    <div className={classes} onClick={() => updateCurrentGuess(color)} onDoubleClick={() => console.log('Double click!')}></div>
   );
 };
 

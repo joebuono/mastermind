@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/row.module.css';
+import Color from '../board/Color.jsx';
 
 const formatNumberData = (numArr) => {
   if (numArr.length === 1) return numArr[0];
@@ -21,14 +22,13 @@ const formatNumberData = (numArr) => {
   return numArr;
 };
 
-
 const Row = ({colorInfo}) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.color}>{colorInfo.color}</div>
-      <div className={styles.number}>{formatNumberData(colorInfo.number)}</div>
-      <div className={styles.position}>{colorInfo.position}</div>
+      <div className={`${styles.color} ${styles.column}`}><Color color={colorInfo.color} /></div>
+      <div className={`${styles.number} ${styles.column}`}>{formatNumberData(colorInfo.number)}</div>
+      <div className={`${styles.position} ${styles.column}`}>{colorInfo.position}</div>
     </div>
   );
 };
