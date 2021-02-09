@@ -49,7 +49,7 @@ class PlayerBoard extends Component {
     });
   }
 
-  submitGuess() {
+  submitGuess = () => {
     console.log('clicked submit guess');
     if (this.state.winCondition !== null) return;
 
@@ -112,7 +112,6 @@ class PlayerBoard extends Component {
   nextRound = () => {
     this.props.goToNextRound();
   }
-
 
   componentDidMount() {
     let [colorOptions, colorTracker, secretCode] = initializeGame(this.state.codeSize);

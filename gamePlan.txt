@@ -1,9 +1,14 @@
 Next Steps:
 
+Make the '?' red square cover the bwPegs when the user can click to submit their guess
+
 Specific:
 - Double-click to remove color from guess (later, drag off the board)
 - When you click on a color option, it will animate it's motion to the next available position in the guess
 - Make current turn a slightly different background color on the board (lighter?)
+
+Game flow bug:
+- Make sure you can handle the points when either the player or computer loses a round (add a bonus as well)
 
 Stylistic stuff:
 - Work on draggable and swappable colors
@@ -14,10 +19,15 @@ Stylistic stuff:
 - Explore Rodal.js for the MakeCode component (helps with making modals)
 
 Algorithmic stuff
+- See photos in your iPhone documenting algorithmic bugs
 - Say the code is 'rrrb' and the computer guess 'gggy'. It says that there are EITHER 0 OR 5 possible positions
   for the other colors. This is incorrect. There are 0 THROUGH 5 possible positions for every other color than r and b. Fix this. 
 - Explore making graded difficulties for the computer
 - Once the computer knows the location of one peg for sure, shift to playing 4-code game (see photos in iPhone for bug)
+- Perhaps the computer doesn't need to split the first guess into 3 and 1 or 2. For example, instead of guessing
+  'rrrbb', it could guess 'rbrrb', or something like that. I just split it the same way because it's visually easier
+  for my human brain to keep track of where the colors need to go. But this adjustment might prove to be an optimization
+  BUT... this wouldn't be as good for teaching people how to play the game
 
 Game Plan
 

@@ -41,3 +41,16 @@
 .x {
   background-color: grey
 }
+
+.maybe {
+  background-color: pink
+}
+
+.impossible {
+  background-color: rgb(52, 48, 48);
+}
+
+.certain {
+  background-color: chartreuse;
+}
+

@@ -42,13 +42,13 @@ class GameView extends Component {
 
   render() {
     const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore, codeSize } = this.state;
-    
+
     return (
       <div className={styles.container}>
         <div>
           Player Points: {playerScore} Computer Points: {computerScore}
         </div>
-        {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData}/></div>}
+        {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>}
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
         <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 
