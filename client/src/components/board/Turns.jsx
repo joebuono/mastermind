@@ -4,7 +4,7 @@ import Turn from './Turn.jsx';
 
 // Guesses will need to know how many rounds there are
 // in order to fill the next rounds with empty spots
-function Turns({turns, codeSize}) {
+function Turns({turns, codeSize, turnIndex}) {
   // let emptyRounds = [];
   // let emptyRound = new Array(guessSize).fill('x');
   // let roundsLeft = totalRounds - guesses.length;
@@ -15,7 +15,7 @@ function Turns({turns, codeSize}) {
 
   return (
     <div className={styles.container}>
-      {[...turns].reverse().map((turn, index) => <Turn key={index} turn={turn} codeSize={codeSize} />)}
+      {[...turns].reverse().map((turn, index) => <Turn key={index} turn={turn} codeSize={codeSize} turnIndex={turnIndex} currentTurn={turnIndex === index} />)}
     </div>
   );
 }

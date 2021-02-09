@@ -136,7 +136,7 @@ class PlayerBoard extends Component {
   }
 
   render() {
-    const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
+    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, totalRounds } = this.state;
 
     return (
       <div className={styles.boardContainer}>
@@ -144,7 +144,7 @@ class PlayerBoard extends Component {
           <SecretCode secretCode={winCondition === null ? new Array(codeSize).fill('x'): secretCode} />
         </div>
         <div className={styles.turns}>
-          <Turns turns={turns} codeSize={codeSize} />
+          <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound}/>
         </div>
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
