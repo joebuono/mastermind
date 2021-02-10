@@ -3,6 +3,7 @@ import Color from './Color.jsx';
 import styles from '../styles/secretCode.module.css';
 
 function SecretCode({secretCode, currentTurn}) {
+
   return (
     <div className={styles.container}>
       <div className={styles.secretCode}>
