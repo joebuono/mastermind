@@ -5,13 +5,9 @@ import styles from '../styles/color.module.css';
 // Will likely need to take color and size as props
 function Color({color, updateCurrentGuess = () => {}, removeColorFromGuess = () => {}, size}) {
   const classes = `${styles.circle} ${styles[color]}`;
-  const test = () => {
-    console.log('double click!!')
-    removeColorFromGuess();
-  }
 
   return (
-    <div className={classes} onClick={() => updateCurrentGuess(color)} onDoubleClick={test}></div>
+    <div className={classes} onClick={() => updateCurrentGuess(color)} onDoubleClick={removeColorFromGuess}></div>
   );
 };
 

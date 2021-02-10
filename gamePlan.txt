@@ -1,7 +1,7 @@
 Next Steps:
 
 Next 2 hours:
-- Remove color from guess on double-click
+- Format secretCode component to display round number in right hand corner
 
 Specific:
 - Double-click to remove color from guess (later, drag off the board)
