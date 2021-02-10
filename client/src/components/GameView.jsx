@@ -10,8 +10,8 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanPlayerTurn: true,
-      displayColorTracker: false,
+      humanPlayerTurn: false,
+      displayColorTracker: true,
       colorTrackerData: {},
       playerScore: 0,
       computerScore: 0,

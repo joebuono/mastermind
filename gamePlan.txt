@@ -2,6 +2,7 @@ Next Steps:
 
 Next 2 hours:
 - Investigate click and drag functionality
+- Make currentTurn, currentRound terminology consistent
 
 Specific:
 - Double-click to remove color from guess (later, drag off the board)

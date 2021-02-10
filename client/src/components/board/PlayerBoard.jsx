@@ -147,7 +147,7 @@ class PlayerBoard extends Component {
     return (
       <div className={styles.boardContainer}>
         <div className={styles.secretCode}>
-          <SecretCode secretCode={winCondition === null ? new Array(codeSize).fill('x'): secretCode} currentTurn={currentRound} />
+          <SecretCode secretCode={winCondition === null ? new Array(codeSize).fill('x'): secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} />
         </div>
         <div className={styles.turns}>
           <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitGuess={this.submitGuess} removeColorFromGuess={this.removeColorFromGuess} />

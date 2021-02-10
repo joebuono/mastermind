@@ -179,16 +179,15 @@ class ComputerBoard extends Component {
   }
 
   render() {
-    const { colorOptions, secretCode, turns, codeSize, winCondition } = this.state;
+    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound } = this.state;
 
     return (
       <div>
         {!secretCode.length ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
         :         
         <div className={styles.boardContainer}>
-          {/* {!secretCode.length && <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} />} */}
           <div className={styles.secretCode}>
-            <SecretCode secretCode={secretCode} />
+            <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} />
           </div>
           <div className={styles.turns}>
             <Turns turns={turns} codeSize={codeSize} />
