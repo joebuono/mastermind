@@ -135,6 +135,7 @@ class ComputerBoard extends Component {
     }
     if (nextRound > this.state.totalRounds) {
       updatedWinCondition = false;
+      this.props.updateScore('computer', this.state.currentRound + 1); // plus one for the bonus
     }
     return updatedWinCondition;
   }

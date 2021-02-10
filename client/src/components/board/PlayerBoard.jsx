@@ -79,15 +79,6 @@ class PlayerBoard extends Component {
     } else {
       console.log('hey get outta here with that incomplete guess!')
     }
-    //  let { currentGuess, secretCode, bwPegs, currentRound } = this.state;
-    //  let newBWPegs = getBlackAndWhitePegs(currentGuess, secretCode);
-    //  console.log(bwPegs);
-    //  // check win condition here
-
-    //  let updatedBWPegs = [...bwPegs];
-    //  updatedBWPegs[currentRound - 1] = newBWPegs;
-
-        // - setState colorTracker
   }
 
   checkWinCondition(nextRound, bwPegs) {
@@ -104,13 +95,28 @@ class PlayerBoard extends Component {
     if (nextRound > this.state.totalRounds) {
       console.log('You lose. Play again?');
       updatedWinCondition = false;
+      this.props.updateScore('player', this.state.currentRound + 1); // plus one for the bonus
     }
 
     return updatedWinCondition;
   }
 
+  // Does this really need to be its own function?
   nextRound = () => {
     this.props.goToNextRound();
+  }
+
+  // This needs to only work for the current guess
+  removeColorFromGuess = (colorIndex) => () => {
+    // remove color from current guess
+    let currentGuess = this.getCurrentGuess();
+    currentGuess[colorIndex] = 'x';
+    // update turns with current guess
+    let copyOfTurns = [...this.state.turns];
+    copyOfTurns[this.state.currentRound - 1].guess = currentGuess;
+    this.setState({
+      turns: copyOfTurns
+    });
   }
 
   componentDidMount() {
@@ -144,12 +150,12 @@ class PlayerBoard extends Component {
           <SecretCode secretCode={winCondition === null ? new Array(codeSize).fill('x'): secretCode} />
         </div>
         <div className={styles.turns}>
-          <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound}/>
+          <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitGuess={this.submitGuess} removeColorFromGuess={this.removeColorFromGuess} />
         </div>
         <div className={styles.colors}>
           <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
         </div>
-        {winCondition === null && <button onClick={this.submitGuess}>Submit guess</button>}
+        {/* {winCondition === null && <button onClick={this.submitGuess}>Submit guess</button>} */}
         {winCondition && <h1>You Win!</h1>}
         {winCondition === false && <h1>You lose</h1>}
         {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}

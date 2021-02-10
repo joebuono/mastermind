@@ -1,6 +1,7 @@
 Next Steps:
 
-Make the '?' red square cover the bwPegs when the user can click to submit their guess
+Next 2 hours:
+- Remove color from guess on double-click
 
 Specific:
 - Double-click to remove color from guess (later, drag off the board)
@@ -113,6 +114,7 @@ Actionable Steps (Trello)
 
 - Write blog post for Hacker News
 
+- GraphQL?
 - Implement a simple backend for storing user info and score data
 - Use D3 to display user statistics, progress bars, achievement badges, ranking among all users
 - Implement OAuth for authentication
