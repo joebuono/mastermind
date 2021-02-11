@@ -3,6 +3,7 @@ import styles from '../styles/colorTracker.module.css';
 import Title from './Title.jsx';
 import Headers from './Headers.jsx';
 import RowsContainer from './RowsContainer.jsx';
+import Colors from '../board/Colors.jsx';
 
 const ColorTracker = ({colorTrackerData, codeSize}) => {
   return (
@@ -15,6 +16,10 @@ const ColorTracker = ({colorTrackerData, codeSize}) => {
       </div>
       <div className={styles.rows}>
         <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} />
+      </div>
+      <div className={styles.suggestedGuess}>
+        Suggested next guess:
+        <Colors colors={new Array(codeSize).fill('x')}/>
       </div>
     </div>
   );

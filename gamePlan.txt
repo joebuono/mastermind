@@ -1,8 +1,20 @@
 Next Steps:
 
-Next 2 hours:
+2/11/21
+- Factor out getNextComputerGuess logic into its own folder (frontendLogic)
+- Display ColorTracker data and suggested best next guess for player
+- Possibly: Consolidate player and computer boards
+- Make ColorTracker a child component of Board
+
 - Investigate click and drag functionality
 - Make currentTurn, currentRound terminology consistent
+
+- I think I know what the bug is with the solver algorithm. 
+  After the first guess, we want to select the valid permutations that contains only the color which MATCHES the color we know the least about
+
+- At the end of three rounds, display some kind of message saying that you're a fullstack software engineer looking for a job. 
+  - And link to your GitHub for the project, as well as LinkedIn!
+  - And your lecture on the solver algorithm!
 
 Specific:
 - Double-click to remove color from guess (later, drag off the board)

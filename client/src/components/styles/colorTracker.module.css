@@ -23,7 +23,13 @@
 
 .rows {
   grid-column: 1 / 6;
-  grid-row: 5 / 25;
+  grid-row: 5 / 20;
   background-color: goldenrod;
+}
+
+.suggestedGuess {
+  grid-column: 1 / 6;
+  grid-row: 20 / 25;
+  background-color: rgb(5, 167, 167);
   border-radius: 0 0 20px 20px;
 }

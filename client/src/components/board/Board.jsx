@@ -13,18 +13,18 @@ const { updateColorTracker } = require('../../solverAlgorithm/updateColorTracker
 const { generateNextGuess } = require('../../solverAlgorithm/generateNextGuess');
 
 
-class ComputerBoard extends Component {
+class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // game state
       humanPlayerTurn: false,
       displayColorTracker: true, // toggle-able
-      colorOptions: [], // 'n', 'w' for codeSize 5
-      // hard-coded for now, later, implement modal for human player to select secretCode
       secretCode: [],
+      colorOptions: [], // 'n', 'w' for codeSize 5
       turns: [],
-      totalRounds: 10, // later on, we'll have to make the board dynamically size according to the number of rounds
-      currentRound: 1,
+      currentRound: 1, // change to currentTurn
+      totalRounds: 10, // change to totalTurns
       codeSize: this.props.codeSize, 
       winCondition: null,
       templates: [],
@@ -40,11 +40,8 @@ class ComputerBoard extends Component {
   // this method is too big
   // separate it out into smaller functions
   getNextComputerGuess = () => {
-    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds, winCondition } = this.state;
-    
-    if (winCondition !== null) return;
-    // getNextComputerGuess(this.state) ---- Do we need to pass a deep copy of state?
-
+    if (this.state.winCondition !== null) return;
+    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
     // debugger;
     let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
     // console.log('bestNextGuess:', bestNextGuess);
@@ -133,15 +130,14 @@ class ComputerBoard extends Component {
   }
 
   checkWinCondition(blackPegs, nextRound) {
-    const { codeSize, currentRound, totalRounds } = this.state;
     let updatedWinCondition = null;
-    if (blackPegs === codeSize) {
+    if (blackPegs === this.state.codeSize) {
       updatedWinCondition = true;
-      this.props.updateScore('computer', currentRound);
+      this.props.updateScore('computer', this.state.currentRound);
     }
-    if (nextRound > totalRounds) {
+    if (nextRound > this.state.totalRounds) {
       updatedWinCondition = false;
-      this.props.updateScore('computer', currentRound + 1); // plus one for the bonus
+      this.props.updateScore('computer', this.state.currentRound + 1); // plus one for the bonus
     }
     return updatedWinCondition;
   }
@@ -211,4 +207,4 @@ class ComputerBoard extends Component {
   }
 }
 
-export default ComputerBoard;
+export default Board;

@@ -15,7 +15,7 @@ class GameView extends Component {
       colorTrackerData: {},
       playerScore: 0,
       computerScore: 0,
-      codeSize: 4
+      codeSize: 5
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
