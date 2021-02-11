@@ -5,7 +5,7 @@ import Headers from './Headers.jsx';
 import RowsContainer from './RowsContainer.jsx';
 import Colors from '../board/Colors.jsx';
 
-const ColorTracker = ({colorTrackerData, codeSize}) => {
+const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -19,7 +19,7 @@ const ColorTracker = ({colorTrackerData, codeSize}) => {
       </div>
       <div className={styles.suggestedGuess}>
         Suggested next guess:
-        <Colors colors={new Array(codeSize).fill('x')}/>
+        <Colors colors={bestNextGuess}/>
       </div>
     </div>
   );

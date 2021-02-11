@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import PlayerBoard from './board/PlayerBoard.jsx';
-import ComputerBoard from './board/ComputerBoard.jsx';
-import ColorTracker from './colorTracker/ColorTracker.jsx';
-import styles from './styles/gameView.module.css';
+// import PlayerBoard from './board/PlayerBoard.jsx';
+// import ComputerBoard from './board/ComputerBoard.jsx';
+// import ColorTracker from './colorTracker/ColorTracker.jsx';
+// import styles from './styles/gameView.module.css';
+import Board from './board/Board.jsx';
 
 // This will also keep track of and display score info, current round, etc
 
@@ -17,7 +18,6 @@ class GameView extends Component {
     this.state = {
       humanPlayerTurn: false,
       displayColorTracker: true,
-      colorTrackerData: {},
       playerScore: 0,
       computerScore: 0,
       codeSize: 5
@@ -46,18 +46,19 @@ class GameView extends Component {
   }
 
   render() {
-    const { humanPlayerTurn, displayColorTracker, colorTrackerData, playerScore, computerScore, codeSize } = this.state;
+    const { playerScore, computerScore, codeSize } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div>
         <div>
           Player Points: {playerScore} Computer Points: {computerScore}
         </div>
-        {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>}
-        <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
+        {/* {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>} */}
+        <Board codeSize={codeSize} />
+        {/* <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
         <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 
-        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} codeSize={codeSize} />}</div>
+        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} codeSize={codeSize} />}</div> */}
       </div>
     );
   }

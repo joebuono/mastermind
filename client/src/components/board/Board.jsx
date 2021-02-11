@@ -4,17 +4,19 @@ import Colors from './Colors.jsx';
 import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
 import MakeCode from './MakeCode.jsx';
+import ColorTracker from '../colorTracker/ColorTracker.jsx';
+import getComputerGuessAndState from '../../frontendLogic/getComputerGuessAndState.js';
+import submitComputerGuess from '../../frontendLogic/submitComputerGuess.js';
 
 // Solver algorithm functions (do we need to use require, or can we use import syntax?)
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
-const { getNextComputerGuess } = require('../../frontendLogic/getNextComputerGuess');
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // game state (shared by player and computer)
-      humanPlayerTurn: true,
+      humanPlayerTurn: false,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
@@ -25,7 +27,7 @@ class Board extends Component {
       winCondition: null,
 
       // computer state needed for calculating bestNextGuess and updating colorTracker
-      bestNextGuess,
+      bestNextGuess: [],
       colorTracker: {},
       templates: [],
       colorsTriedThusFar: [],
@@ -47,28 +49,24 @@ class Board extends Component {
   }
 
   submitComputerGuess = () => {
+    submitComputerGuess();
 
+    console.log('clicked submit computer guess');
+
+    // this.getNextComputerGuess();
   }
-  
 
-  // this method is too big
-  // separate it out into smaller functions
   getNextComputerGuess = () => {
-    if (this.state.winCondition !== null) return;
-    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound } = this.state;
-
-
+    // if (this.state.winCondition !== null) return;
+    // debugger;
+    const g = getComputerGuessAndState(this.state);
 
     this.setState({
-      currentGuess: bestNextGuess,
-      colorOrColorsUsedToFillTemplate: fillTempateColorOrColors,
-      colorsTriedThusFar: updatedColorsTriedThusFar,
-      templates: [...possibleSolutions],
-      colorTracker: updatedColorTracker,
-      priorRounds: clonedPriorRounds,
-      turns: updatedTurns,
-      currentRound: nextRound,
-      winCondition: updatedWinCondition
+      bestNextGuess: g.bestNextGuess,
+      colorOrColorsUsedToFillTemplate: g.colorOrColorsUsedToFillTemplate,
+      colorsTriedThusFar: g.colorsTriedThusFar,
+      templates: g.templates,
+      priorRounds: g.priorRounds
     });
   }
 
@@ -88,7 +86,7 @@ class Board extends Component {
   setSecretCode = (playerSelectedSecretCode) => {
     this.setState({
       secretCode: playerSelectedSecretCode
-    });
+    }, () => this.getNextComputerGuess());
   }
 
   nextRound = () => {
@@ -113,38 +111,41 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
-    this.props.modifyDisplayedColorTracker(colorTracker);
-
     this.setState({
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
       templates: initialTemplate
-    });
+    }, () => this.state.humanPlayerTurn && this.getNextComputerGuess());
   }
 
   render() {
-    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound } = this.state;
+    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess } = this.state;
 
+    console.log('best next guess:', bestNextGuess);
     return (
-      <div>
-        {!secretCode.length ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
-        :         
-        <div className={styles.boardContainer}>
-          <div className={styles.secretCode}>
-            <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} />
-          </div>
-          <div className={styles.turns}>
-            <Turns turns={turns} codeSize={codeSize} />
-          </div>
-          <div className={styles.colors}>
-            <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
-          </div>
-          {winCondition === null && <button onClick={this.getNextComputerGuess}>Next Computer Guess</button>}
-          {winCondition && <h1>The computer wins!</h1>}
-          {winCondition === false && <h1>The computer loses!</h1>}
-          {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}
-        </div>}
+      <div className={styles.container}>
+        {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
+
+        <div className={displayColorTracker ? styles.boardRight : styles.boardCenter} >
+          {!secretCode.length ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
+          :         
+          <div className={styles.boardContainer}>
+            <div className={styles.secretCode}>
+              <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} />
+            </div>
+            <div className={styles.turns}>
+              <Turns turns={turns} codeSize={codeSize} />
+            </div>
+            <div className={styles.colors}>
+              <Colors colors={colorOptions} updateCurrentGuess={this.updateCurrentGuess} />
+            </div>
+            {winCondition === null && <button onClick={this.submitComputerGuess}>Next Computer Guess</button>}
+            {winCondition && <h1>The computer wins!</h1>}
+            {winCondition === false && <h1>The computer loses!</h1>}
+            {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}
+          </div>}
+        </div>
       </div>
     );
   }

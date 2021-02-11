@@ -25,7 +25,6 @@ class MakeCode extends Component {
     const { secretCode } = this.state;
     if (!secretCode.includes('x')) {
       // send up secretCode to ComputerBoard component
-      console.log(secretCode);
       this.props.setSecretCode(secretCode);
     } else {
       console.log('incomplete guess');
