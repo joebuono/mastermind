@@ -42,6 +42,10 @@ class Board extends Component {
 
     // else (if computer's turn)
 
+    // this function will be responsible for:
+    // - checking the win condition
+    // - incrementing to the next round
+    // - updating the score
   }
 
   submitPlayerGuess = () => {
@@ -49,7 +53,8 @@ class Board extends Component {
   }
 
   submitComputerGuess = () => {
-    submitComputerGuess();
+    const { priorRounds } = this.state;
+    submitComputerGuess(priorRounds);
 
     console.log('clicked submit computer guess');
 
@@ -63,10 +68,9 @@ class Board extends Component {
 
     this.setState({
       bestNextGuess: g.bestNextGuess,
+      previousGuesses: g.previousGuesses,
       colorOrColorsUsedToFillTemplate: g.colorOrColorsUsedToFillTemplate,
-      colorsTriedThusFar: g.colorsTriedThusFar,
-      templates: g.templates,
-      priorRounds: g.priorRounds
+      colorsTriedThusFar: g.colorsTriedThusFar
     });
   }
 
@@ -122,7 +126,7 @@ class Board extends Component {
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess } = this.state;
 
-    console.log('best next guess:', bestNextGuess);
+    console.log('-------Board State-------', this.state);
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}

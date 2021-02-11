@@ -5,6 +5,7 @@ Next Steps:
 - Display ColorTracker data and suggested best next guess for player
 - Possibly: Consolidate player and computer boards
 - Make ColorTracker a child component of Board
+- Make all the functions modular (no bloated functions!)
 
 - Investigate click and drag functionality
 - Make currentTurn, currentRound terminology consistent
