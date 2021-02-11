@@ -3,21 +3,30 @@ const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../solverA
 const { updateColorTracker } = require('../solverAlgorithm/updateColorTracker');
 const { generateNextGuess } = require('../solverAlgorithm/generateNextGuess');
 
-const checkWinCondition = (blackPegs, nextRound, codeSize, totalRounds) => {
-  let updatedWinCondition = null;
-  if (blackPegs === codeSize) {
-    updatedWinCondition = true;
-    this.props.updateScore('computer', this.state.currentRound);
-  }
-  if (nextRound > this.state.totalRounds) {
-    updatedWinCondition = false;
-    this.props.updateScore('computer', this.state.currentRound + 1); // plus one for the bonus
-  }
-  return updatedWinCondition;
-};
+/* getNextComputerGuess needs to return this information to update state:
+  - bestNextGuess
+    colorOrColorsUsedToFillTemplate
+    colorsTriedThusFar
+    templates
+    colorTracker
+    priorRounds
+
+It will run at the beginning of each round 
+- In componentDidMount
+- Whenever submitGuess gets executed
+
+submitGuess will move the computerState into the game state
+for example, submitGuess will:
+- update turns
+- update colorTracker
+- update the currentRound (should be currentTurn)
+- checkWinCondition
+
+*/
 
 
-const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds}) => {
+
+const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound}) => {
   
   let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
 
@@ -28,8 +37,8 @@ const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, code
   let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
 
   // Check win condition, put this in a separate function?
-  let nextRound = this.state.currentRound + 1;
-  let updatedWinCondition = this.checkWinCondition(guessResults[0], nextRound, codeSize, totalRounds);
+  // let nextRound = this.state.currentRound + 1;
+  // let updatedWinCondition = this.checkWinCondition(guessResults[0], nextRound, codeSize, totalRounds);
 
   let clonedPriorRounds = Object.assign({}, priorRounds);
 
@@ -37,6 +46,9 @@ const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, code
     guess: [...bestNextGuess],
     results: [...guessResults]
   };
+
+
+  /* ------- This logic is for submitGuess -------
 
   // update turns for display
   // convert priorRounds to array
@@ -56,7 +68,7 @@ const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, code
     });
   }
 
-  // console.log('---------------UPDATED TURNS---------------:', updatedTurns);
+  */
 
   let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
   // console.log('all permutations:', allPermutations);
@@ -77,28 +89,19 @@ const getNextComputerGuess = ({templates, colorTracker, colorsTriedThusFar, code
   // FILTER OUT PREVIOUS GUESSES
   possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
 
-  // updateColorTracker
-  // console.log('----------arguments passed into updateColorTracker-----------');
-  // console.log('possibleSolutions:', possibleSolutions);
-  // console.log('colorOptions:', colorOptions);
-  // console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
-  // console.log('colorTracker:', colorTracker);
+
+  /* ----- This functionality will get executed in submitGuess
   let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, updatedColorsTriedThusFar, colorTracker);
-  // console.log(updatedColorTracker);
 
   this.props.modifyDisplayedColorTracker(updatedColorTracker);
-
+  */
 
   return {
-    currentGuess: bestNextGuess,
+    bestNextGuess: bestNextGuess,
     colorOrColorsUsedToFillTemplate: fillTempateColorOrColors,
     colorsTriedThusFar: updatedColorsTriedThusFar,
     templates: [...possibleSolutions],
-    colorTracker: updatedColorTracker,
-    priorRounds: clonedPriorRounds,
-    turns: updatedTurns,
-    currentRound: nextRound,
-    winCondition: updatedWinCondition
+    priorRounds: clonedPriorRounds
   };
 };
 

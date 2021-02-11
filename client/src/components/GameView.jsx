@@ -6,6 +6,11 @@ import styles from './styles/gameView.module.css';
 
 // This will also keep track of and display score info, current round, etc
 
+
+// Buttons for pop-up modal videos on:
+// Basic tutorial (maybe strategy too, or how to use suggested next guess)
+// *** How I built it *** (in deep technical detail, CAR framework), get a nice microphone for this
+
 class GameView extends Component {
   constructor(props) {
     super(props);

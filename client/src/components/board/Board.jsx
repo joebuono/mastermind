@@ -5,20 +5,16 @@ import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
 import MakeCode from './MakeCode.jsx';
 
-// Solver algorithm functions
+// Solver algorithm functions (do we need to use require, or can we use import syntax?)
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
-const { generateAllPermutations } = require('../../solverAlgorithm/generatePermutations');
-const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../../solverAlgorithm/filterPermutations');
-const { updateColorTracker } = require('../../solverAlgorithm/updateColorTracker');
-const { generateNextGuess } = require('../../solverAlgorithm/generateNextGuess');
-
+const { getNextComputerGuess } = require('../../frontendLogic/getNextComputerGuess');
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // game state
-      humanPlayerTurn: false,
+      // game state (shared by player and computer)
+      humanPlayerTurn: true,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
@@ -27,94 +23,41 @@ class Board extends Component {
       totalRounds: 10, // change to totalTurns
       codeSize: this.props.codeSize, 
       winCondition: null,
-      templates: [],
+
+      // computer state needed for calculating bestNextGuess and updating colorTracker
+      bestNextGuess,
       colorTracker: {},
+      templates: [],
       colorsTriedThusFar: [],
       previousGuesses: new Set(),
-      currentGuess: [],
-      priorRounds: {},
+      priorRounds: {}, // is this really necessary, or can we write a function that converts this.state.turns into the object we need?
       colorOrColorsUsedToFillTemplate: []
     };
   }
+
+  submitGuess = () => {
+    // if humanPlayerTurn === true
+
+    // else (if computer's turn)
+
+  }
+
+  submitPlayerGuess = () => {
+
+  }
+
+  submitComputerGuess = () => {
+
+  }
+  
 
   // this method is too big
   // separate it out into smaller functions
   getNextComputerGuess = () => {
     if (this.state.winCondition !== null) return;
-    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound, colorOptions, totalRounds } = this.state;
-    // debugger;
-    let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
-    // console.log('bestNextGuess:', bestNextGuess);
-    // console.log('fillTempateColorOrColors:', fillTempateColorOrColors);
-    // console.log('addToColorsTriedThusFar:', addToColorsTriedThusFar);
-    let clonedPreviousGuess = new Set(previousGuesses);
-    clonedPreviousGuess.add(`${bestNextGuess}`);
-    let updatedColorsTriedThusFar = [...colorsTriedThusFar].concat(addToColorsTriedThusFar);
-    
+    const { templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, secretCode, priorRounds, currentRound } = this.state;
 
-    let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
-    // console.log('guess results:', guessResults);
 
-    // Check win condition, put this in a separate function?
-    let nextRound = this.state.currentRound + 1;
-    let updatedWinCondition = this.checkWinCondition(guessResults[0], nextRound);
-
-    let clonedPriorRounds = Object.assign({}, priorRounds);
-    // console.log('clonedPriorRounds:', clonedPriorRounds);
-    clonedPriorRounds[currentRound] = {
-      guess: [...bestNextGuess],
-      results: [...guessResults]
-    };
-
-    // update turns for display
-    // convert priorRounds to array
-    const updatedTurns = [];
-    for (let round in clonedPriorRounds) {
-      updatedTurns.push({
-        guess: clonedPriorRounds[round].guess,
-        bwPegs: clonedPriorRounds[round].results
-      });
-    }
-
-    const emptyGuess = new Array(this.state.codeSize).fill('x');
-    while (updatedTurns.length < totalRounds) {
-      updatedTurns.push({
-        guess: emptyGuess,
-        bwPegs: [0, 0]
-      });
-    }
-
-    // console.log('---------------UPDATED TURNS---------------:', updatedTurns);
-
-    let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
-    // console.log('all permutations:', allPermutations);
-
-    // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
-    // Filter templates based on ALL PRIOR ROUNDS
-    for (let round in clonedPriorRounds) {
-      // console.log('previous round:', clonedPriorRounds[round]);
-      // console.log('guess:', clonedPriorRounds[round].guess);
-      // console.log('results:', clonedPriorRounds[round].results);
-      allPermutations = filterForPossibleSolutions(clonedPriorRounds[round].guess, clonedPriorRounds[round].results, allPermutations);
-    }
-
-    // possibleSolutions and templates need to be consolidated. Just pick one!
-    let possibleSolutions = allPermutations;
-    // console.log('possible solutions:', possibleSolutions);
-
-    // FILTER OUT PREVIOUS GUESSES
-    possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
-
-    // updateColorTracker
-    // console.log('----------arguments passed into updateColorTracker-----------');
-    // console.log('possibleSolutions:', possibleSolutions);
-    // console.log('colorOptions:', colorOptions);
-    // console.log('updatedColorsTriedThusFar:', updatedColorsTriedThusFar);
-    // console.log('colorTracker:', colorTracker);
-    let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, updatedColorsTriedThusFar, colorTracker);
-    // console.log(updatedColorTracker);
-
-    this.props.modifyDisplayedColorTracker(updatedColorTracker);
 
     this.setState({
       currentGuess: bestNextGuess,
