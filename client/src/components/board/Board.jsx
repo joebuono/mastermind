@@ -37,6 +37,10 @@ class Board extends Component {
     };
   }
 
+  getCurrentGuess = () => {
+    return [...this.state.turns][this.state.currentRound - 1].guess;
+  }
+
   submitGuess = () => {
     // if humanPlayerTurn === true
 
@@ -53,12 +57,17 @@ class Board extends Component {
   }
 
   submitComputerGuess = () => {
-    const { priorRounds } = this.state;
-    submitComputerGuess(priorRounds);
-
     console.log('clicked submit computer guess');
 
-    // this.getNextComputerGuess();
+    const s = submitComputerGuess(this.state);
+
+    // What state do we want back?
+    this.setState({
+      turns: s.turns,
+      priorRounds: s.priorRounds,
+      templates: s.templates,
+      colorTracker: s.colorTracker
+    }, this.checkWinCondition);
   }
 
   getNextComputerGuess = () => {
@@ -74,23 +83,34 @@ class Board extends Component {
     });
   }
 
-  checkWinCondition(blackPegs, nextRound) {
+  checkWinCondition = () => {
+    const { codeSize, currentRound, totalRounds } = this.state;
+    console.log('inside checkWinCondition');
+    const blackPegs = [...this.state.turns][this.state.currentRound - 1].bwPegs[0];
+    console.log(blackPegs);
+    const nextRound = currentRound + 1
+    
+    // not sure about the conditionals and state yet...
     let updatedWinCondition = null;
-    if (blackPegs === this.state.codeSize) {
+    if (blackPegs === codeSize) {
       updatedWinCondition = true;
-      this.props.updateScore('computer', this.state.currentRound);
+      this.props.updateScore('computer', currentRound);
     }
-    if (nextRound > this.state.totalRounds) {
+    if (nextRound > totalRounds) {
       updatedWinCondition = false;
-      this.props.updateScore('computer', this.state.currentRound + 1); // plus one for the bonus
+      this.props.updateScore('computer', nextRound); // plus one for the bonus
     }
-    return updatedWinCondition;
+
+    this.setState({
+      currentRound: nextRound,
+      winCondition: updatedWinCondition
+    }, this.getNextComputerGuess);
   }
 
   setSecretCode = (playerSelectedSecretCode) => {
     this.setState({
       secretCode: playerSelectedSecretCode
-    }, () => this.getNextComputerGuess());
+    }, this.getNextComputerGuess);
   }
 
   nextRound = () => {

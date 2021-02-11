@@ -26,7 +26,7 @@ const getComputerGuessAndState = ({templates, colorTracker, colorsTriedThusFar, 
     previousGuesses: clonedPreviousGuess,
     colorOrColorsUsedToFillTemplate: fillTempateColorOrColors,
     colorsTriedThusFar: updatedColorsTriedThusFar
-  };
+  }
 };
 
 export default getComputerGuessAndState;

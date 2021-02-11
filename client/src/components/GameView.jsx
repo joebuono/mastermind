@@ -54,7 +54,7 @@ class GameView extends Component {
           Player Points: {playerScore} Computer Points: {computerScore}
         </div>
         {/* {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>} */}
-        <Board codeSize={codeSize} />
+        <Board codeSize={codeSize} updateScore={this.updateScore} />
         {/* <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
         <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 

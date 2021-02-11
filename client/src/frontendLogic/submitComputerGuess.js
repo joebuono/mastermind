@@ -1,11 +1,7 @@
 const { generateAllPermutations } = require('../solverAlgorithm/generatePermutations');
 const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../solverAlgorithm/filterPermutations');
+const { updateColorTracker } = require('../solverAlgorithm/updateColorTracker');
 
-/*
-Params:
-currentRound (should be currentTurn)
-
-*/
 
   /* ------- This logic is for submitGuess -------
 
@@ -42,56 +38,55 @@ currentRound (should be currentTurn)
 //  for example, submitGuess will:
 //  - update turns
 //  - update colorTracker
-//  - update the currentRound (should be currentTurn)
-//  - checkWinCondition
 
-const submitComputerGuess = (priorRounds, currentRound, bestNextGuess) => {
-  // check guess
-  // let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
+const submitComputerGuess = ({bestNextGuess, secretCode, priorRounds, currentRound, templates, previousGuesses, codeSize, totalRounds, colorOptions, colorTracker, colorsTriedThusFar, colorOrColorsUsedToFillTemplate}) => {
+  let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
 
-  // let clonedPriorRounds = Object.assign({}, priorRounds);
+  let clonedPriorRounds = Object.assign({}, priorRounds);
 
-  // clonedPriorRounds[currentRound] = {
-  //   guess: [...bestNextGuess],
-  //   results: [...guessResults]
-  // };
+  clonedPriorRounds[currentRound] = {
+    guess: [...bestNextGuess],
+    results: [...guessResults]
+  };
 
-  // let allPermutations = generateAllPermutations(templates, fillTempateColorOrColors);
+  let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate);
 
-  // for (let round in clonedPriorRounds) {
-  //   allPermutations = filterForPossibleSolutions(clonedPriorRounds[round].guess, clonedPriorRounds[round].results, allPermutations);
-  // }
+  for (let round in clonedPriorRounds) {
+    allPermutations = filterForPossibleSolutions(clonedPriorRounds[round].guess, clonedPriorRounds[round].results, allPermutations);
+  }
 
-  // // possibleSolutions and templates need to be consolidated. Just pick one!
-  // let possibleSolutions = allPermutations;
+  // possibleSolutions and templates need to be consolidated. Just pick one!
+  let possibleSolutions = allPermutations;
 
-  // // FILTER OUT PREVIOUS GUESSES
-  // possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
+  // FILTER OUT PREVIOUS GUESSES
+  possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
 
-  // let clonedPriorRounds = Object.assign({}, priorRounds);
-  // // console.log('clonedPriorRounds:', clonedPriorRounds);
-  // clonedPriorRounds[currentRound] = {
-  //   guess: [...bestNextGuess],
-  //   results: [...guessResults]
-  // };
+  // update turns for display
+  // convert priorRounds to array (this seems redundant, refactor to a better data structure)
+  const updatedTurns = [];
+  for (let round in clonedPriorRounds) {
+    updatedTurns.push({
+      guess: clonedPriorRounds[round].guess,
+      bwPegs: clonedPriorRounds[round].results
+    });
+  }
 
-  // // update turns for display
-  // // convert priorRounds to array
-  // const updatedTurns = [];
-  // for (let round in clonedPriorRounds) {
-  //   updatedTurns.push({
-  //     guess: clonedPriorRounds[round].guess,
-  //     bwPegs: clonedPriorRounds[round].results
-  //   });
-  // }
+  const emptyGuess = new Array(codeSize).fill('x');
+  while (updatedTurns.length < totalRounds) {
+    updatedTurns.push({
+      guess: emptyGuess,
+      bwPegs: [0, 0]
+    });
+  }
 
-  // const emptyGuess = new Array(this.state.codeSize).fill('x');
-  // while (updatedTurns.length < totalRounds) {
-  //   updatedTurns.push({
-  //     guess: emptyGuess,
-  //     bwPegs: [0, 0]
-  //   });
-  // }
+  let updatedColorTracker = updateColorTracker(possibleSolutions, colorOptions, colorsTriedThusFar, colorTracker);
+
+  return {
+    turns: updatedTurns,
+    priorRounds: clonedPriorRounds,
+    templates: [...possibleSolutions],
+    colorTracker: updatedColorTracker
+  }
 };
 
 export default submitComputerGuess;
