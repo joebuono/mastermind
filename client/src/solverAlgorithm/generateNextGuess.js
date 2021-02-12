@@ -11,8 +11,12 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   //  debugger;
   
   // Make local copy of templates
-   let templates = [...globalTemplates];
-
+  let templates = [...globalTemplates];
+  if (!templates || !templates.length) {
+    console.log('weird template error');
+    return;
+  }
+  
 
   // *********************** REVISE THIS PART ***********************
   // Basically, if you're playing a game of codeSize 5 and you have four x's in your template, 

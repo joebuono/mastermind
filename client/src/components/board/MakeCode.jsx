@@ -10,15 +10,26 @@ class MakeCode extends Component {
   }
 
   updateSecretCode = (colorToAddToGuess) => {
-    const { secretCode } = this.state;
-    for (let i = 0; i < secretCode.length; i++) {
-      if (secretCode[i] === 'x') {
-        secretCode[i] = colorToAddToGuess;
+    const updatedSecretCode = [...this.state.secretCode];
+    for (let i = 0; i < updatedSecretCode.length; i++) {
+      if (updatedSecretCode[i] === 'x') {
+        updatedSecretCode[i] = colorToAddToGuess;
         break;
       }
     }
 
-    this.setState({secretCode});
+    this.setState({secretCode: updatedSecretCode});
+  }
+
+    // This needs to only work for the current guess
+  removeColorFromGuess = (colorIndex) => () => {
+    // remove color from current guess
+    let updatedSecretCode = [...this.state.secretCode];
+    updatedSecretCode[colorIndex] = 'x';
+
+    this.setState({
+      secretCode: updatedSecretCode
+    });
   }
 
   submitSecretCode = () => {
@@ -41,7 +52,7 @@ class MakeCode extends Component {
     return (
       <div>
         {/* Secret Code */}
-        <Colors colors={this.state.secretCode} />
+        <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
         {/* Color Options */}
         <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
         <button onClick={this.submitSecretCode}>Make Secret Code</button>

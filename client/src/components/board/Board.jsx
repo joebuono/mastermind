@@ -16,7 +16,7 @@ class Board extends Component {
     super(props);
     this.state = {
       // game state (shared by player and computer)
-      humanPlayerTurn: false,
+      humanPlayerTurn: this.props.humanStarts,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
@@ -26,6 +26,7 @@ class Board extends Component {
       codeSize: this.props.codeSize, 
       winCondition: null,
       role: 1, // alterating between who plays code-maker and code-breaker
+      makeSecretCode: true,
 
       // computer state needed for calculating bestNextGuess and updating colorTracker
       bestNextGuess: [],
@@ -170,7 +171,8 @@ class Board extends Component {
 
   setSecretCode = (playerSelectedSecretCode) => {
     this.setState({
-      secretCode: playerSelectedSecretCode
+      secretCode: playerSelectedSecretCode,
+      makeSecretCode: false
     }, this.getNextComputerGuess);
   }
 
@@ -178,7 +180,7 @@ class Board extends Component {
     console.log('inside startNewRound');
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
-    const { codeSize } = this.state;
+    const { codeSize, humanPlayerTurn } = this.state;
     let [colorOptions, colorTracker, secretCode] = initializeGame(codeSize);
  
     const initializedEmptyTurns = [];
@@ -194,8 +196,11 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
+    console.log('----------------it is the human\'s turn', humanPlayerTurn);
+
     this.setState({
       secretCode,
+      makeSecretCode: true,
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
@@ -207,24 +212,27 @@ class Board extends Component {
       colorOrColorsUsedToFillTemplate: [],
       currentRound: 1, // change to currentTurn
       winCondition: null
-    }, this.getNextComputerGuess);
+    }, () => humanPlayerTurn && this.getNextComputerGuess());
   }
 
   switchRoles = () => {
+    debugger;
     console.log('inside switchRoles');
+    const toggleCodeBreaker = !this.state.humanPlayerTurn;
+    console.log('TOGGLE CODE BREAKER', toggleCodeBreaker);
     // debugger;
     // toggle who is playing: human or computer
     // also keep track of round in state so that we can increment round every two roles
     if (this.state.role) {
       this.setState({
-        humanPlayerTurn: !this.state.humanPlayerTurn,
+        humanPlayerTurn: toggleCodeBreaker,
         role: 0
       }, this.startNewRound);
     } else {
-      // increment round in gamevie
+      // increment round in game view
       this.props.nextRound();
       this.setState({
-        humanPlayerTurn: !this.state.humanPlayerTurn,
+        humanPlayerTurn: toggleCodeBreaker,
         role: 1
       }, this.startNewRound);
     }
@@ -235,14 +243,16 @@ class Board extends Component {
   }
 
   render() {
-    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds } = this.state;
+    const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode } = this.state;
     console.log('secretCode', secretCode);
+    console.log("It is the human's turn:", humanPlayerTurn);
+    console.log("They can make the secret code now", makeSecretCode);
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
 
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter} >
-          {!humanPlayerTurn && !secretCode.length ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
+          {!humanPlayerTurn && makeSecretCode ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
           :         
           <div className={styles.boardContainer}>
             <div className={styles.secretCode}>

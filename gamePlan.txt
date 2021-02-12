@@ -1,9 +1,7 @@
 Next Steps:
 
 2/12/21
-- The question now is why is templates sometimes undefined?
-- I think it's at least in part because the colorTracker doesn't always update correctly for player guesses
-- colorsTriedThusFar is sometimes incorrect (incomplete)
+- When exactly do I want to display the code maker modal?
 
 2/11/21
 - Factor out getNextComputerGuess logic into its own folder (frontendLogic)

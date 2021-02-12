@@ -16,6 +16,7 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      humanStarts: false,
       playerScore: 0,
       computerScore: 0,
       codeSize: 5,
@@ -53,7 +54,7 @@ class GameView extends Component {
   }
 
   render() {
-    const { playerScore, computerScore, codeSize, round } = this.state;
+    const { playerScore, computerScore, codeSize, round, humanStarts } = this.state;
     console.log('Rendering from GameView');
     return (
       <div>
@@ -61,7 +62,7 @@ class GameView extends Component {
           Player Points: {playerScore} Computer Points: {computerScore} Round: {round}
         </div>
         {/* {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>} */}
-        <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} />
+        <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} />
         {/* <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
         <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 
