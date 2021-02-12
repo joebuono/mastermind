@@ -4,6 +4,18 @@ Next Steps:
 - Implement difficulty levels!!
 - Button to toggle color tracker
 
+Manual testing:
+- Ten rounds each with the same code:
+Easy:   8, 8, 8, 8, 8, 5, 6, 5, 6, 9
+Medium: 7, 7, 8, 7, 7, 6, 6, 7, 8, 7
+Hard:   7, 8, 9, 8, 7, 8, 4, 7, 9, 9
+
+What the hell?!?!
+
+I need to write some actual tests for the difficulty levels
+
+
+
 2/11/21
 - Factor out getNextComputerGuess logic into its own folder (frontendLogic)
 - Display ColorTracker data and suggested best next guess for player
