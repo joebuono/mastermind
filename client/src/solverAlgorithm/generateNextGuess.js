@@ -134,7 +134,9 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
     // let randomTemplate = bestTemplates[Math.floor(Math.random() * bestTemplates.length)];
     // console.log('Best template (randomly selected):', randomTemplate);
-    
+    if (!randomTemplate || !randomTemplate.length) {
+      debugger;
+    }
     // Make copy to avoid passing by reference
     bestNextGuess = [...randomTemplate];
     

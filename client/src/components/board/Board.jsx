@@ -6,7 +6,7 @@ import Turns from './Turns.jsx';
 import MakeCode from './MakeCode.jsx';
 import ColorTracker from '../colorTracker/ColorTracker.jsx';
 import getComputerGuessAndState from '../../frontendLogic/getComputerGuessAndState.js';
-import submitComputerGuess from '../../frontendLogic/submitComputerGuess.js';
+import submitGuess from '../../frontendLogic/submitGuess.js';
 
 // Solver algorithm functions (do we need to use require, or can we use import syntax?)
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
@@ -58,47 +58,23 @@ class Board extends Component {
     stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
     stateCopy.templates = [['x', 'x', 'x', 'x']];
     
-    const s = submitComputerGuess(stateCopy);
+    const s = submitGuess(stateCopy);
 
     // What state do we want back?
     this.setState({
       turns: s.turns,
       priorRounds: s.priorRounds,
-      templates: stateCopy.templates,
+      templates: s.templates,
       colorTracker: s.colorTracker
     }, this.checkWinCondition);
-    // let currentGuess = this.getCurrentGuess();
-    // // check if the guess is completely filled (no x's)
-    // if (!currentGuess.includes('x')) {
-    //   console.log('checking the guess!');
-    //   const updatedBWPegs = getBlackAndWhitePegs(currentGuess, this.state.secretCode);
-    //   console.log(updatedBWPegs);
-
-    //   // update current guess with updatedBWPegs
-    //   const copyOfTurns = [...this.state.turns];
-    //   copyOfTurns[this.state.currentRound - 1].bwPegs = updatedBWPegs;
-
-    //   // check win and lose condition
-    //   const nextRound = this.state.currentRound + 1;
-
-    //   const updatedWinCondition = this.checkWinCondition(nextRound, updatedBWPegs);
-
-    //   this.setState({
-    //     turns: copyOfTurns,
-    //     currentRound: nextRound,
-    //     winCondition: updatedWinCondition,
-    //     // colorTracker
-    //   });
-    // } else {
-    //   console.log('hey get outta here with that incomplete guess!')
-    // }
   }
 
   updateCurrentGuess = (colorToAddToGuess) => {
+    // debugger;
     if (this.state.winCondition !== null) return;
 
     console.log('clicked color:', colorToAddToGuess);
-    let currentGuess = this.getCurrentGuess();
+    let currentGuess = [...this.getCurrentGuess()];
 
     // add color to guess
     for (let i = 0; i < currentGuess.length; i++) {
@@ -148,14 +124,7 @@ class Board extends Component {
   submitComputerGuess = () => {
     console.log('clicked submit computer guess');
 
-    const stateCopy = Object.assign({}, this.state);
-    // This won't be necessary if we separate submitPlayerGuess and submitComputerGuess
-    // if (this.state.humanPlayerTurn) {
-    //   stateCopy.bestNextGuess = this.getCurrentGuess();
-    // }
-    console.log(stateCopy);
-
-    const s = submitComputerGuess(stateCopy);
+    const s = submitGuess(this.state);
 
     // What state do we want back?
     this.setState({
@@ -168,7 +137,12 @@ class Board extends Component {
 
   getNextComputerGuess = () => {
     // if (this.state.winCondition !== null) return;
-    // debugger;
+    // if (this.state.humanPlayerTurn) debugger;
+    console.log('STATE inside getNextComputerGuess:', this.state);
+    if (!this.state.templates) {
+      console.log('templates are undefined');
+      console.log('templates:', this.state.templates);
+    }
     const g = getComputerGuessAndState(this.state);
 
     this.setState({
@@ -215,6 +189,7 @@ class Board extends Component {
   }
 
   startNewRound = () => {
+    console.log('inside startNewRound');
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
     const { codeSize, humanPlayerTurn } = this.state;
@@ -241,12 +216,19 @@ class Board extends Component {
       colorTracker,
       turns: initializedEmptyTurns,
       templates: initialTemplate,
+      bestNextGuess: [],
+      colorsTriedThusFar: [],
+      previousGuesses: new Set(),
+      priorRounds: {}, // is this really necessary, or can we write a function that converts this.state.turns into the object we need?
+      colorOrColorsUsedToFillTemplate: [],
       currentRound: 1, // change to currentTurn
       winCondition: null
-    }, () => humanPlayerTurn && this.getNextComputerGuess());
+    }, this.getNextComputerGuess);
   }
 
   switchRoles = () => {
+    console.log('inside switchRoles');
+    // debugger;
     // toggle who is playing: human or computer
     // also keep track of round in state so that we can increment round every two roles
     if (this.state.role) {
@@ -256,6 +238,7 @@ class Board extends Component {
       }, this.startNewRound);
     } else {
       // increment round in gameview
+      console.log('Round Over! (from switchRoles)');
     }
   }
 
@@ -265,8 +248,6 @@ class Board extends Component {
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds } = this.state;
-
-    console.log('secretCode:', secretCode);
 
     return (
       <div className={styles.container}>
@@ -287,8 +268,8 @@ class Board extends Component {
               <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
             </div>
             {!humanPlayerTurn && winCondition === null && <button onClick={this.submitComputerGuess}>Next Computer Guess</button>}
-            {winCondition && <h1>The computer wins!</h1>}
-            {winCondition === false && <h1>The computer loses!</h1>}
+            {winCondition && <h1>{humanPlayerTurn ? 'You win!' : 'The computer wins'}</h1>}
+            {winCondition === false && <h1>{humanPlayerTurn ? 'You lose' : 'The computer loses!'}</h1>}
             {winCondition !== null && <button onClick={this.switchRoles}>Click to switch roles</button>}
           </div>}
         </div>

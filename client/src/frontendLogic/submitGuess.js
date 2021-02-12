@@ -2,7 +2,7 @@ const { generateAllPermutations } = require('../solverAlgorithm/generatePermutat
 const { getBlackAndWhitePegs, filterForPossibleSolutions } = require('../solverAlgorithm/filterPermutations');
 const { updateColorTracker } = require('../solverAlgorithm/updateColorTracker');
 
-const submitComputerGuess = ({bestNextGuess, secretCode, priorRounds, currentRound, templates, previousGuesses, codeSize, totalRounds, colorOptions, colorTracker, colorsTriedThusFar, colorOrColorsUsedToFillTemplate}) => {
+const submitGuess = ({bestNextGuess, secretCode, priorRounds, currentRound, templates, previousGuesses, codeSize, totalRounds, colorOptions, colorTracker, colorsTriedThusFar, colorOrColorsUsedToFillTemplate}) => {
   let guessResults = getBlackAndWhitePegs(bestNextGuess, secretCode);
 
   let clonedPriorRounds = Object.assign({}, priorRounds);
@@ -57,7 +57,6 @@ const submitComputerGuess = ({bestNextGuess, secretCode, priorRounds, currentRou
 
   */
   // let updatedColorTracker = updateColorTracker(bestNextGuess, colorOptions, colorsTriedThusFar, colorTracker);
-
   let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate);
 
   for (let round in clonedPriorRounds) {
@@ -80,4 +79,4 @@ const submitComputerGuess = ({bestNextGuess, secretCode, priorRounds, currentRou
   }
 };
 
-export default submitComputerGuess;
+export default submitGuess;
