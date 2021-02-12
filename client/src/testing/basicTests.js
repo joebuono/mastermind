@@ -1,8 +1,9 @@
-const { gameLogic } = require('../gameLogic');
+const { difficultyLevels } = require('./difficultyLevels');
 
-
-let secretCode = ['b', 'g', 'o', 'g', 'w'];
-let roundsToSolve = gameLogic(secretCode);
+// debugger;
+let secretCode = ['b', 'g', 'o', 'g'];
+let difficulty = 'easy';
+let roundsToSolve = difficultyLevels(secretCode, difficulty);
 console.log(`Rounds to solve [${secretCode}]`, roundsToSolve);
 
 

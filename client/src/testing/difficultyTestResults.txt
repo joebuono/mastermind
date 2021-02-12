@@ -1,0 +1,31 @@
+
+
+
+**** Code Size 4 ****
+
+500 iterations per permutation, average cases
+- Ran each test twice to be sure results are accurate
+
+EASY
+Global average: 5.754
+
+MEDIUM
+Global average: 5.030
+
+HARD
+Global average: 5.538
+
+
+***** Code Size 5 *****
+
+10 iterations per permutation, average cases
+- I ran it for 100 iterations and the results were almost identical
+
+EASY
+Global average: 7.625
+
+MEDIUM
+Global average: 6.662
+
+HARD
+Global average: 6.951
