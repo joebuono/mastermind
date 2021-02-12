@@ -17,13 +17,13 @@ It will run at the beginning of each round
 const getComputerGuessAndState = ({templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses}) => {
   let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
 
-  let clonedPreviousGuess = new Set(previousGuesses);
-  clonedPreviousGuess.add(`${bestNextGuess}`);
+  let clonedPreviousGuesses = new Set(previousGuesses);
+  clonedPreviousGuesses.add(`${bestNextGuess}`);
   let updatedColorsTriedThusFar = [...colorsTriedThusFar].concat(addToColorsTriedThusFar);
 
   return {
     bestNextGuess,
-    previousGuesses: clonedPreviousGuess,
+    previousGuesses: clonedPreviousGuesses,
     colorOrColorsUsedToFillTemplate: fillTempateColorOrColors,
     colorsTriedThusFar: updatedColorsTriedThusFar
   }

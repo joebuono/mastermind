@@ -16,7 +16,7 @@ class Board extends Component {
     super(props);
     this.state = {
       // game state (shared by player and computer)
-      humanPlayerTurn: true,
+      humanPlayerTurn: false,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
@@ -39,23 +39,30 @@ class Board extends Component {
   }
 
   submitPlayerGuess = () => {
-    const currentGuess = this.getCurrentGuess();
-    if (currentGuess.includes('x')) {
-      console.log('incomplete guess');
-      return;
-    };
-
     console.log('clicked submit player guess');
+    const currentGuess = this.getCurrentGuess();
+
+    /* This section is to accomodate for how getNextComputerGuess sets state */
     const stateCopy = Object.assign({}, this.state);
     stateCopy.bestNextGuess = currentGuess;
     // refactor this functionality later
-    for (let color of currentGuess) {
-      if (!stateCopy.colorsTriedThusFar.includes(color)) {
-        stateCopy.colorsTriedThusFar.push(color);
+    stateCopy.colorsTriedThusFar = [];
+    stateCopy.previousGuesses = new Set();
+
+    for (let i = 0; i < stateCopy.currentRound; i++) {
+      stateCopy.previousGuesses.add(`${stateCopy.turns[i].guess}`);
+      for (let color of stateCopy.turns[i].guess) {
+        if (!stateCopy.colorsTriedThusFar.includes(color)) {
+          stateCopy.colorsTriedThusFar.push(color);
+        }
       }
     }
+
     stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
-    // stateCopy.templates = [['x', 'x', 'x', 'x']];
+    /* There is certainly a more elegant way of doing this */
+    
+    console.log('State inside submitPlayerGuess', stateCopy);
+    // debugger;
 
     const s = submitGuess(stateCopy);
 
@@ -108,17 +115,6 @@ class Board extends Component {
     return [...this.state.turns][this.state.currentRound - 1].guess;
   }
 
-  submitGuess = () => {
-    // if humanPlayerTurn === true
-
-    // else (if computer's turn)
-
-    // this function will be responsible for:
-    // - checking the win condition
-    // - incrementing to the next round
-    // - updating the score
-  }
-
   // I really have to think about how to generalize this functionality for both computer and human guesses
   submitComputerGuess = () => {
     console.log('clicked submit computer guess');
@@ -158,13 +154,12 @@ class Board extends Component {
     // not sure about the conditionals and state yet...
     let updatedWinCondition = null;
     const whoScored = humanPlayerTurn ? 'computer' : 'player';
-    let pointsScored = 0;
     if (blackPegs === codeSize) {
       updatedWinCondition = true;
-      pointsScored += currentRound;
+      this.props.updateScore(whoScored, currentRound);
     } else if (nextRound > totalRounds) {
       updatedWinCondition = false;
-      pointsScored += nextRound; // plus one for the bonus
+      this.props.updateScore(whoScored, nextRound); // plus one for the bonus
     }
 
     this.setState({
@@ -179,16 +174,11 @@ class Board extends Component {
     }, this.getNextComputerGuess);
   }
 
-  // Is this still necessary?
-  nextRound = () => {
-    this.props.goToNextRound();
-  }
-
   startNewRound = () => {
     console.log('inside startNewRound');
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
-    const { codeSize, humanPlayerTurn } = this.state;
+    const { codeSize } = this.state;
     let [colorOptions, colorTracker, secretCode] = initializeGame(codeSize);
  
     const initializedEmptyTurns = [];
@@ -231,8 +221,12 @@ class Board extends Component {
         role: 0
       }, this.startNewRound);
     } else {
-      // increment round in gameview
-      console.log('Round Over! (from switchRoles)');
+      // increment round in gamevie
+      this.props.nextRound();
+      this.setState({
+        humanPlayerTurn: !this.state.humanPlayerTurn,
+        role: 1
+      }, this.startNewRound);
     }
   }
 

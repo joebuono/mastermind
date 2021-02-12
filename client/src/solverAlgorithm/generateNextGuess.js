@@ -8,7 +8,9 @@ const g = require('./guessHelperFunctions');
 // filterTemplatesForLeastNumberOfUniqueColors, filterTemplatesForLeastNumberOfWildcards
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
 exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses) => {
-   // Make local copy of templates
+  //  debugger;
+  
+  // Make local copy of templates
    let templates = [...globalTemplates];
 
 
@@ -21,7 +23,15 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // If there are 4 x's, fill in the template (don't create a new template!) with two new colors
 
   // check if template is all 'x's
-  if (templates.length === 1 && checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))) {
+  // checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))
+
+  console.log(templates[0]);
+  let numberOfWildCards = 0;
+  for (let color of templates[0]) {
+    if (color === 'x') numberOfWildCards++;
+  }
+
+  if (templates.length === 1 && numberOfWildCards >= 4) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
@@ -49,11 +59,27 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     //   colorsUsedToFillTemplate.push(color);
     // }
 
-    let bestNextGuess = new Array(3).fill(colorsUsedToFillTemplate[0]);
-    // to account for both 4 and 5 code games
-    while (bestNextGuess.length < CODE_SIZE) {
-      bestNextGuess.push(colorsUsedToFillTemplate[1]);
+    let bestNextGuess = [...templates[0]];
+    let numberOfFirstColor = 3;
+    for (let i = 0; i < bestNextGuess.length; i++) {
+      if (bestNextGuess[i] === 'x') {
+        bestNextGuess[i] = colorsUsedToFillTemplate[0];
+        numberOfFirstColor--;
+        if (!numberOfFirstColor) break;
+      }
     }
+
+    for (let i = 0; i < bestNextGuess.length; i++) {
+      if (bestNextGuess[i] === 'x') {
+        bestNextGuess[i] = colorsUsedToFillTemplate[1];
+      }
+    }
+
+    // let bestNextGuess = new Array(3).fill(colorsUsedToFillTemplate[0]);
+    // // to account for both 4 and 5 code games
+    // while (bestNextGuess.length < CODE_SIZE) {
+    //   bestNextGuess.push(colorsUsedToFillTemplate[1]);
+    // }
 
     // perhaps an unnecessary reassignment, just for clarity
     let addToColorsTriedThusFar = colorsUsedToFillTemplate;
@@ -139,6 +165,14 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     }
     // Make copy to avoid passing by reference
     bestNextGuess = [...randomTemplate];
+
+    let numberOfWildCards = 0;
+    for (let color of bestNextGuess) {
+      if (color === 'x') numberOfWildCards++;
+    }
+    if (numberOfWildCards === 4) {
+      return exports.generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
+    }
     
     // and fill it with the fillGuessTemplateWithThisColor
     for (let i = 0; i < bestNextGuess.length; i++) {

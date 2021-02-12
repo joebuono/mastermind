@@ -16,11 +16,12 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanPlayerTurn: false,
-      displayColorTracker: true,
       playerScore: 0,
       computerScore: 0,
-      codeSize: 4
+      codeSize: 5,
+      round: 1,
+      roundLimit: 3,
+      gameOver: false
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
@@ -31,11 +32,17 @@ class GameView extends Component {
     });
   }
 
-  goToNextRound = () => {
-    this.setState({
-      humanPlayerTurn: !this.state.humanPlayerTurn,
-      displayColorTracker: !this.state.displayColorTracker
-    });
+  nextRound = () => {
+    const { round, roundLimit } = this.state;
+    if (round > roundLimit) {
+      this.setState({
+        gameOver: true
+      });
+    } else {
+      this.setState({
+        round: round + 1
+      });
+    }
   }
 
   updateScore = (codeBreaker, pointsScoredInRound) => {
@@ -46,15 +53,15 @@ class GameView extends Component {
   }
 
   render() {
-    const { playerScore, computerScore, codeSize } = this.state;
+    const { playerScore, computerScore, codeSize, round } = this.state;
     console.log('Rendering from GameView');
     return (
       <div>
         <div>
-          Player Points: {playerScore} Computer Points: {computerScore}
+          Player Points: {playerScore} Computer Points: {computerScore} Round: {round}
         </div>
         {/* {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>} */}
-        <Board codeSize={codeSize} updateScore={this.updateScore} />
+        <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} />
         {/* <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
         <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
         : 
