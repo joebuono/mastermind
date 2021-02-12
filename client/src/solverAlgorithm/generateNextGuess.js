@@ -16,7 +16,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     console.log('weird template error');
     return;
   }
-  
+
 
   // *********************** REVISE THIS PART ***********************
   // Basically, if you're playing a game of codeSize 5 and you have four x's in your template, 
@@ -34,8 +34,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   for (let color of templates[0]) {
     if (color === 'x') numberOfWildCards++;
   }
-
-  if (templates.length === 1 && numberOfWildCards >= 4) {
+  
+  // Removed this condition in pursuit of optimization!
+  // && numberOfWildCards >= 3
+  if (templates.length === 1) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
@@ -63,6 +65,8 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     //   colorsUsedToFillTemplate.push(color);
     // }
 
+    // OPTIMIZATION
+    // let bestNextGuess = numberOfWildCards === 1 ? new Array(CODE_SIZE).fill('x') : [...templates[0]];
     let bestNextGuess = [...templates[0]];
     let numberOfFirstColor = 3;
     for (let i = 0; i < bestNextGuess.length; i++) {
@@ -174,7 +178,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     for (let color of bestNextGuess) {
       if (color === 'x') numberOfWildCards++;
     }
-    if (numberOfWildCards === 4) {
+    if (numberOfWildCards > 2) {
       return exports.generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
     }
     

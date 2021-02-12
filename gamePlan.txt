@@ -1,7 +1,8 @@
 Next Steps:
 
 2/12/21
-- When exactly do I want to display the code maker modal?
+- Implement difficulty levels!!
+- Button to toggle color tracker
 
 2/11/21
 - Factor out getNextComputerGuess logic into its own folder (frontendLogic)

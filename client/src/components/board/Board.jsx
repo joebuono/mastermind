@@ -216,7 +216,7 @@ class Board extends Component {
   }
 
   switchRoles = () => {
-    debugger;
+    // debugger;
     console.log('inside switchRoles');
     const toggleCodeBreaker = !this.state.humanPlayerTurn;
     console.log('TOGGLE CODE BREAKER', toggleCodeBreaker);
