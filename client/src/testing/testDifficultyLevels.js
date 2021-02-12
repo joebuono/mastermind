@@ -50,8 +50,8 @@ const getAverageTurnsPerPermutation = (codeSize, iterations, difficulty) => {
 //   return worstCases.sort((a, b) => b[0] - a[0]);
 // };
 
-let codeSize = 5;
-let iterations = 10;
+let codeSize = 4;
+let iterations = 100;
 let difficulty = 'hard'; // ********************************************** This line matters the most
 
 

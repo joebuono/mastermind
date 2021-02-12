@@ -7,13 +7,13 @@
 - Ran each test twice to be sure results are accurate
 
 EASY
-Global average: 5.754
+Global average: 5.761
 
 MEDIUM
-Global average: 5.030
+Global average: 5.535
 
 HARD
-Global average: 5.538
+Global average: 4.928
 
 
 ***** Code Size 5 *****
@@ -25,7 +25,26 @@ EASY
 Global average: 7.625
 
 MEDIUM
-Global average: 6.662
+Global average: 6.955
 
 HARD
-Global average: 6.951
+Global average: 6.451
+
+
+
+Messing around with howStringent:
+Easy: 5.751 // 0
+Medium: 5.530 // 1
+Hard: 4.930 // 3
+
+
+Messing around with fillCondition:
+Easy: 5.760030864197552
+Medium: 5.541589506172831
+Hard: 4.9239969135802655
+
+
+Messing around with number of wildcards recursive call:
+Easy: inconsequential
+Medium: ''
+Hard: ''
