@@ -19,15 +19,13 @@ class PlayerBoard extends Component {
       colorTracker: {},
       winCondition: null
     };
-    this.updateCurrentGuess = this.updateCurrentGuess.bind(this);
-    this.submitGuess = this.submitGuess.bind(this);
   }
 
   getCurrentGuess() {
     return [...this.state.turns][this.state.currentRound - 1].guess;
   }
 
-  updateCurrentGuess(colorToAddToGuess) {
+  updateCurrentGuess = (colorToAddToGuess) => {
     if (this.state.winCondition !== null) return;
 
     console.log('clicked color:', colorToAddToGuess);
