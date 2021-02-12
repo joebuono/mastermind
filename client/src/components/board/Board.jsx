@@ -204,10 +204,8 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
-    let newSecretCode = humanPlayerTurn ? secretCode : this.state.secretCode;
-
     this.setState({
-      secretCode: newSecretCode,
+      secretCode,
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
@@ -244,7 +242,7 @@ class Board extends Component {
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds } = this.state;
-
+    console.log('secretCode', secretCode);
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
@@ -254,7 +252,7 @@ class Board extends Component {
           :         
           <div className={styles.boardContainer}>
             <div className={styles.secretCode}>
-              <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} />
+              <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
             </div>
             <div className={styles.turns}>
               {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
