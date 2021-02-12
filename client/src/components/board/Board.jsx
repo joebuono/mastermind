@@ -49,15 +49,14 @@ class Board extends Component {
     const stateCopy = Object.assign({}, this.state);
     stateCopy.bestNextGuess = currentGuess;
     // refactor this functionality later
-    stateCopy.colorsTriedThusFar = [];
     for (let color of currentGuess) {
       if (!stateCopy.colorsTriedThusFar.includes(color)) {
         stateCopy.colorsTriedThusFar.push(color);
       }
     }
     stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
-    stateCopy.templates = [['x', 'x', 'x', 'x']];
-    
+    // stateCopy.templates = [['x', 'x', 'x', 'x']];
+
     const s = submitGuess(stateCopy);
 
     // What state do we want back?
@@ -139,10 +138,7 @@ class Board extends Component {
     // if (this.state.winCondition !== null) return;
     // if (this.state.humanPlayerTurn) debugger;
     console.log('STATE inside getNextComputerGuess:', this.state);
-    if (!this.state.templates) {
-      console.log('templates are undefined');
-      console.log('templates:', this.state.templates);
-    }
+    console.log('Templates', this.state.templates);
     const g = getComputerGuessAndState(this.state);
 
     this.setState({
