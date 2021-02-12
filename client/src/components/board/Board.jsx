@@ -16,7 +16,7 @@ class Board extends Component {
     super(props);
     this.state = {
       // game state (shared by player and computer)
-      humanPlayerTurn: false,
+      humanPlayerTurn: true,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
@@ -39,10 +39,34 @@ class Board extends Component {
   }
 
   submitPlayerGuess = () => {
+    const currentGuess = this.getCurrentGuess();
+    if (currentGuess.includes('x')) {
+      console.log('incomplete guess');
+      return;
+    };
+
     console.log('clicked submit player guess');
     const stateCopy = Object.assign({}, this.state);
-    stateCopy.bestNextGuess = this.getCurrentGuess();
-    this.submitComputerGuess()
+    stateCopy.bestNextGuess = currentGuess;
+    // refactor this functionality later
+    stateCopy.colorsTriedThusFar = [];
+    for (let color of currentGuess) {
+      if (!stateCopy.colorsTriedThusFar.includes(color)) {
+        stateCopy.colorsTriedThusFar.push(color);
+      }
+    }
+    stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
+    stateCopy.templates = [['x', 'x', 'x', 'x']];
+    
+    const s = submitComputerGuess(stateCopy);
+
+    // What state do we want back?
+    this.setState({
+      turns: s.turns,
+      priorRounds: s.priorRounds,
+      templates: stateCopy.templates,
+      colorTracker: s.colorTracker
+    }, this.checkWinCondition);
     // let currentGuess = this.getCurrentGuess();
     // // check if the guess is completely filled (no x's)
     // if (!currentGuess.includes('x')) {
@@ -125,9 +149,10 @@ class Board extends Component {
     console.log('clicked submit computer guess');
 
     const stateCopy = Object.assign({}, this.state);
-    if (this.state.humanPlayerTurn) {
-      stateCopy.bestNextGuess = this.getCurrentGuess();
-    }
+    // This won't be necessary if we separate submitPlayerGuess and submitComputerGuess
+    // if (this.state.humanPlayerTurn) {
+    //   stateCopy.bestNextGuess = this.getCurrentGuess();
+    // }
     console.log(stateCopy);
 
     const s = submitComputerGuess(stateCopy);
@@ -184,6 +209,7 @@ class Board extends Component {
     }, this.getNextComputerGuess);
   }
 
+  // Is this still necessary?
   nextRound = () => {
     this.props.goToNextRound();
   }
@@ -192,7 +218,7 @@ class Board extends Component {
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
     const { codeSize, humanPlayerTurn } = this.state;
-    let [colorOptions, colorTracker] = initializeGame(codeSize);
+    let [colorOptions, colorTracker, secretCode] = initializeGame(codeSize);
  
     const initializedEmptyTurns = [];
 
@@ -207,7 +233,10 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
+    let newSecretCode = humanPlayerTurn ? secretCode : this.state.secretCode;
+
     this.setState({
+      secretCode: newSecretCode,
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
@@ -237,10 +266,8 @@ class Board extends Component {
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds } = this.state;
 
-    if (winCondition !== null) {
-      console.log('HEYYYYY!', this.state);
-    }
-    // console.log('-------Board State-------', this.state);
+    console.log('secretCode:', secretCode);
+
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
@@ -254,7 +281,7 @@ class Board extends Component {
             </div>
             <div className={styles.turns}>
               {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
-              <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitComputerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
+              <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
             </div>
             <div className={styles.colors}>
               <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
