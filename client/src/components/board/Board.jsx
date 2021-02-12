@@ -17,13 +17,14 @@ class Board extends Component {
     this.state = {
       // game state (shared by player and computer)
       humanPlayerTurn: this.props.humanStarts,
+      codeSize: this.props.codeSize, 
+      difficulty: this.props.difficulty,
       displayColorTracker: true, // toggle-able
       secretCode: [],
       colorOptions: [], // 'n', 'w' for codeSize 5
       turns: [],
       currentRound: 1, // change to currentTurn
       totalRounds: 10, // change to totalTurns
-      codeSize: this.props.codeSize, 
       winCondition: null,
       role: 1, // alterating between who plays code-maker and code-breaker
       makeSecretCode: true,

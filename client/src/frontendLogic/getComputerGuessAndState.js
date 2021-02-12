@@ -14,8 +14,8 @@ It will run at the beginning of each round
 
 */
 
-const getComputerGuessAndState = ({templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses}) => {
-  let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses);
+const getComputerGuessAndState = ({templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, difficulty = 'hard'}) => {
+  let [bestNextGuess, fillTempateColorOrColors, addToColorsTriedThusFar] = generateNextGuess(templates, colorTracker, colorsTriedThusFar, codeSize, previousGuesses, difficulty);
 
   let clonedPreviousGuesses = new Set(previousGuesses);
   clonedPreviousGuesses.add(`${bestNextGuess}`);

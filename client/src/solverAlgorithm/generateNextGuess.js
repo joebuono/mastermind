@@ -7,7 +7,7 @@ const g = require('./guessHelperFunctions');
 // Required functions: checkIfArraysMatch, checkForKnownNumberOfAnyColor, pickNewColorToIntroduce, leastAmountKnown
 // filterTemplatesForLeastNumberOfUniqueColors, filterTemplatesForLeastNumberOfWildcards
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
-exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses) => {
+exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses, difficulty = 'hard') => {
   //  debugger;
   
   // Make local copy of templates
@@ -29,15 +29,23 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // check if template is all 'x's
   // checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))
 
-  console.log(templates[0]);
-  let numberOfWildCards = 0;
-  for (let color of templates[0]) {
-    if (color === 'x') numberOfWildCards++;
-  }
+
   
+  let fillCondition;
+  if (difficulty === 'easy') {
+    fillCondition = false;
+  } else if (difficulty === 'medium') {
+    let numberOfWildCards = 0;
+    for (let color of templates[0]) {
+      if (color === 'x') numberOfWildCards++;
+    }
+    fillCondition = numberOfWildCards >= 4;
+  } else if (difficulty === 'hard') {
+    fillCondition = true;
+  }
   // Removed this condition in pursuit of optimization!
   // && numberOfWildCards >= 3
-  if (templates.length === 1) {
+  if (templates.length === 1 && fillCondition) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
@@ -108,7 +116,15 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
   let fillGuessTemplateWithThisColor;
   // If TOTAL number of known colors is <==> to the number of colors tried thus far (if the difference is less than 1)
-  if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= 1) {
+  let howStringent;
+  if (difficulty === 'easy') {
+    howStringent = 3;
+  } else if (difficulty === 'medium') {
+    howStringent = 2;
+  } else if (difficulty === 'hard') {
+    howStringent = 1;
+  }
+  if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= howStringent) {
     // introduce new color
     // I think that this is the sticking point for Green
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select one of them
@@ -120,13 +136,17 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   } else {
     // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
     // Edge case: What if there's a tie?
-    fillGuessTemplateWithThisColor = g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
+    if (difficulty === 'easy') {
+      fillGuessTemplateWithThisColor = COLORS_TRIED_THUS_FAR[Math.floor(Math.random() * COLORS_TRIED_THUS_FAR.length)];
+    } else {
+      fillGuessTemplateWithThisColor = g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
+    }
   }
 
   let colorUsedToFillTemplate = [fillGuessTemplateWithThisColor];
   
 
-  let bestNextGuess = []
+  let bestNextGuess = [];
 
   while (true) {
 
@@ -141,12 +161,16 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // Then filter for unique colors? Try it. 
     // Initially, this appears to fix the problem!
 
-    let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
-    // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
+    let bestTemplates = templates;
 
-    let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
-
-    let bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+    if (difficulty !== 'easy') {
+      let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
+      // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
+  
+      let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
+  
+      bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+    }
     
     /*
     let templatesWithLeastNumberOfUniqueColors = g.filterTemplatesForLeastNumberOfUniqueColors(templates);
@@ -174,12 +198,14 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // Make copy to avoid passing by reference
     bestNextGuess = [...randomTemplate];
 
-    let numberOfWildCards = 0;
-    for (let color of bestNextGuess) {
-      if (color === 'x') numberOfWildCards++;
-    }
-    if (numberOfWildCards > 2) {
-      return exports.generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
+    if (difficulty !== 'easy') {
+      let numberOfWildCards = 0;
+      for (let color of bestNextGuess) {
+        if (color === 'x') numberOfWildCards++;
+      }
+      if (numberOfWildCards > 2) {
+        return exports.generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
+      }
     }
     
     // and fill it with the fillGuessTemplateWithThisColor
