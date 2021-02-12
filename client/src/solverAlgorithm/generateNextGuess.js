@@ -35,6 +35,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (difficulty === 'easy') {
     fillCondition = false;
   } else if (difficulty === 'medium') {
+    fillCondition = true;
     let numberOfWildCards = 0;
     for (let color of templates[0]) {
       if (color === 'x') numberOfWildCards++;
@@ -116,13 +117,15 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
   let fillGuessTemplateWithThisColor;
   // If TOTAL number of known colors is <==> to the number of colors tried thus far (if the difference is less than 1)
-  let howStringent;
+  let howStringent; // How conservative are we about introducing new colors? 
+  // 1 is very stringent (we only introduce new colors once we have knowledge of the colors we've tried thus far)
+  // 3 is liberal (we are ready to introduce new colors (variables) at the same time, which happens to be to our benefit)
   if (difficulty === 'easy') {
-    howStringent = 3;
+    howStringent = 0;
   } else if (difficulty === 'medium') {
-    howStringent = 2;
-  } else if (difficulty === 'hard') {
     howStringent = 1;
+  } else if (difficulty === 'hard') {
+    howStringent = 3;
   }
   if (COLORS_TRIED_THUS_FAR.length - g.checkForHowManyColorsWeKnowTheNumberOf(COLOR_TRACKER) <= howStringent) {
     // introduce new color
@@ -136,15 +139,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   } else {
     // of the COLORS_TRIED_THUS_FAR, identify the one we know the least about
     // Edge case: What if there's a tie?
-    if (difficulty === 'easy') {
-      fillGuessTemplateWithThisColor = COLORS_TRIED_THUS_FAR[Math.floor(Math.random() * COLORS_TRIED_THUS_FAR.length)];
-    } else {
-      fillGuessTemplateWithThisColor = g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
-    }
+    fillGuessTemplateWithThisColor = g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
   }
 
   let colorUsedToFillTemplate = [fillGuessTemplateWithThisColor];
-  
 
   let bestNextGuess = [];
 

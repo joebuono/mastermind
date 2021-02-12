@@ -1,19 +1,15 @@
 Next Steps:
 
 2/12/21
-- Implement difficulty levels!!
 - Button to toggle color tracker
+- During player mode, click on suggested next guess element to reveal it, and also give an additional point to the computer
+- What happens when all 3 rounds have been played? Play again?
+- Implement different modes: learning mode
 
-Manual testing:
-- Ten rounds each with the same code:
-Easy:   8, 8, 8, 8, 8, 5, 6, 5, 6, 9
-Medium: 7, 7, 8, 7, 7, 6, 6, 7, 8, 7
-Hard:   7, 8, 9, 8, 7, 8, 4, 7, 9, 9
-
-What the hell?!?!
-
-I need to write some actual tests for the difficulty levels
-
+After that, it's all UI, UX
+- Make it look incredible, beautiful colors
+- Smooth animations too, enhancing it
+- Click and drag color to guess is important
 
 
 2/11/21
