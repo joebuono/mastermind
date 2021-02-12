@@ -25,7 +25,7 @@ class Board extends Component {
       totalRounds: 10, // change to totalTurns
       codeSize: this.props.codeSize, 
       winCondition: null,
-      role: 0, // alterating between who plays code-maker and code-breaker
+      role: 1, // alterating between who plays code-maker and code-breaker
 
       // computer state needed for calculating bestNextGuess and updating colorTracker
       bestNextGuess: [],
@@ -141,13 +141,22 @@ class Board extends Component {
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
-      templates: initialTemplate
+      templates: initialTemplate,
+      winCondition: null
     }, () => humanPlayerTurn && this.getNextComputerGuess());
   }
 
   switchRoles = () => {
     // toggle who is playing: human or computer
     // also keep track of round in state so that we can increment round every two roles
+    if (this.state.role) {
+      this.setState({
+        humanPlayerTurn: !this.state.humanPlayerTurn,
+        role: 0
+      }, this.startNewRound);
+    } else {
+      // increment round in gameview
+    }
   }
 
   componentDidMount = () => {
@@ -181,7 +190,7 @@ class Board extends Component {
             {winCondition === null && <button onClick={this.submitComputerGuess}>Next Computer Guess</button>}
             {winCondition && <h1>The computer wins!</h1>}
             {winCondition === false && <h1>The computer loses!</h1>}
-            {winCondition !== null && <button onClick={this.nextRound}>Click for next round</button>}
+            {winCondition !== null && <button onClick={this.switchRoles}>Click to switch roles</button>}
           </div>}
         </div>
       </div>
