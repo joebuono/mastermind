@@ -1,5 +1,7 @@
 Next Steps:
 
+Figure out how to handle win condition and next round
+
 2/11/21
 - Factor out getNextComputerGuess logic into its own folder (frontendLogic)
 - Display ColorTracker data and suggested best next guess for player

@@ -25,6 +25,7 @@ class Board extends Component {
       totalRounds: 10, // change to totalTurns
       codeSize: this.props.codeSize, 
       winCondition: null,
+      role: 0, // alterating between who plays code-maker and code-breaker
 
       // computer state needed for calculating bestNextGuess and updating colorTracker
       bestNextGuess: [],
@@ -84,27 +85,27 @@ class Board extends Component {
   }
 
   checkWinCondition = () => {
-    const { codeSize, currentRound, totalRounds } = this.state;
+    const { codeSize, currentRound, totalRounds, humanPlayerTurn } = this.state;
     console.log('inside checkWinCondition');
     const blackPegs = [...this.state.turns][this.state.currentRound - 1].bwPegs[0];
-    console.log(blackPegs);
     const nextRound = currentRound + 1
     
     // not sure about the conditionals and state yet...
     let updatedWinCondition = null;
+    const whoScored = humanPlayerTurn ? 'computer' : 'player';
+    let pointsScored = 0;
     if (blackPegs === codeSize) {
       updatedWinCondition = true;
-      this.props.updateScore('computer', currentRound);
-    }
-    if (nextRound > totalRounds) {
+      pointsScored += currentRound;
+    } else if (nextRound > totalRounds) {
       updatedWinCondition = false;
-      this.props.updateScore('computer', nextRound); // plus one for the bonus
+      pointsScored += nextRound; // plus one for the bonus
     }
 
     this.setState({
       currentRound: nextRound,
       winCondition: updatedWinCondition
-    }, this.getNextComputerGuess);
+    }, () => updatedWinCondition === null && this.getNextComputerGuess());
   }
 
   setSecretCode = (playerSelectedSecretCode) => {
@@ -117,14 +118,15 @@ class Board extends Component {
     this.props.goToNextRound();
   }
 
-  componentDidMount() {
+  startNewRound = () => {
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
-    let [colorOptions, colorTracker] = initializeGame(this.state.codeSize);
+    const { codeSize, humanPlayerTurn } = this.state;
+    let [colorOptions, colorTracker] = initializeGame(codeSize);
  
     const initializedEmptyTurns = [];
 
-    const emptyGuess = new Array(this.state.codeSize).fill('x');
+    const emptyGuess = new Array(codeSize).fill('x');
     // initialize turns to empty
     for (let i = 0; i < 10; i++) {
       initializedEmptyTurns.push({
@@ -140,13 +142,25 @@ class Board extends Component {
       colorTracker,
       turns: initializedEmptyTurns,
       templates: initialTemplate
-    }, () => this.state.humanPlayerTurn && this.getNextComputerGuess());
+    }, () => humanPlayerTurn && this.getNextComputerGuess());
+  }
+
+  switchRoles = () => {
+    // toggle who is playing: human or computer
+    // also keep track of round in state so that we can increment round every two roles
+  }
+
+  componentDidMount = () => {
+    this.startNewRound();
   }
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess } = this.state;
 
-    console.log('-------Board State-------', this.state);
+    if (winCondition !== null) {
+      console.log('HEYYYYY!', this.state);
+    }
+    // console.log('-------Board State-------', this.state);
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}

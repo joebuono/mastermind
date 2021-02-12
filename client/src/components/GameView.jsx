@@ -39,7 +39,7 @@ class GameView extends Component {
   }
 
   updateScore = (codeBreaker, pointsScoredInRound) => {
-    let whoScored = codeBreaker === 'player' ? 'computerScore' : 'playerScore';
+    let whoScored = codeBreaker + 'Score';
     this.setState({
       [whoScored]: this.state[whoScored] + pointsScoredInRound
     });
@@ -47,7 +47,7 @@ class GameView extends Component {
 
   render() {
     const { playerScore, computerScore, codeSize } = this.state;
-
+    console.log('Rendering from GameView');
     return (
       <div>
         <div>
