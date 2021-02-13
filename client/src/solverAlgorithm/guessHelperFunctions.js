@@ -30,8 +30,27 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
   }
 
   if (numberOfNewColors === 1) {
+    // check if there are no new colors
+    // if so, select a color we've already tried that we don't yet have complete data for
+    if (!unusedColors.length) {
+      for (let color in COLOR_TRACKER) {
+        if (COLOR_TRACKER[color].number[0] !== COLOR_TRACKER[color].position.length) {
+          unusedColors.push(color);
+        }
+      }
+    }
+
     return unusedColors[Math.floor(Math.random() * unusedColors.length)];
   } else {
+    // correct undefined error
+    if (unusedColors.length < 2 || unusedColors.includes(undefined)) {
+      for (let color in COLOR_TRACKER) {
+        if (COLOR_TRACKER[color].number[0] !== COLOR_TRACKER[color].position.length) {
+          unusedColors.push(color);
+        }
+      }
+    }
+
     let twoNewColors = [];
     let randomColor1 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
     twoNewColors.push(randomColor1);
@@ -90,26 +109,44 @@ const filterTemplatesForLeastNumberOfUniqueColors = (templates) => {
 
 // Requires templates
 const filterForTemplatesWithAtLeastOneWildcard = (templates) => {
-  // Unless ALL the templates have no wildcards!
-  let templatesWithAtLeastOneWildcard = [];
-  let templatesWithNoWildcards = [];
+  // I know this is inefficient, but I'm just trying to patch a bug right now
 
+  // check if none of the templates have wildcards
+  let noWildcards = true;
   for (let template of templates) {
-    let numWildcards = 0;
     for (let color of template) {
       if (color === 'x') {
-        numWildcards++;
+        noWildcards = false;
         break;
       }
     }
-    if (numWildcards) {
+  }
+
+  if (noWildcards) return templates;
+
+  let templatesWithAtLeastOneWildcard = [];
+  for (let template of templates) {
+    if (template.includes('x')) {
       templatesWithAtLeastOneWildcard.push(template);
-    } else {
-      templatesWithNoWildcards.push(template);
     }
   }
 
-  return templatesWithAtLeastOneWildcard.length ? templatesWithAtLeastOneWildcard : templatesWithNoWildcards;
+  return templatesWithAtLeastOneWildcard;
+
+  
+  // Unless ALL the templates have no wildcards!
+  // let templatesWithAtLeastOneWildcard = [];
+  // let templatesWithNoWildcards = [];
+
+  // for (let template of templates) {
+  //   if (template.includes('x')) {
+  //     templatesWithAtLeastOneWildcard.push(template);
+  //   } else {
+  //     templatesWithNoWildcards.push(template);
+  //   }
+  // }
+
+  // return templatesWithAtLeastOneWildcard.length ? templatesWithAtLeastOneWildcard : templatesWithNoWildcards;
 };
 
 // Requires templates

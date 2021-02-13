@@ -17,6 +17,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     return;
   }
 
+  console.log('Copy of global templates:', templates);
 
   // *********************** REVISE THIS PART ***********************
   // Basically, if you're playing a game of codeSize 5 and you have four x's in your template, 
@@ -101,6 +102,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // perhaps an unnecessary reassignment, just for clarity
     let addToColorsTriedThusFar = colorsUsedToFillTemplate;
 
+    if (bestNextGuess.includes(undefined)) {
+      debugger;
+    }
+
     return [bestNextGuess, colorsUsedToFillTemplate, addToColorsTriedThusFar];
   }
 
@@ -159,15 +164,20 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // Then filter for unique colors? Try it. 
     // Initially, this appears to fix the problem!
 
-    let bestTemplates = templates;
+    let bestTemplates = [...templates];
+
+    console.log('Copy of best templates:', bestNextGuess);
 
     if (difficulty !== 'easy') {
-      let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(templates);
+      let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(bestTemplates);
       // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
   
+      console.log('Templates with at least one wilcard OR ZERO wildcards:', templatesWithAtLeastOneWildcard);
       let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
   
+      console.log('Templates with least number of wilcards:', templatesWithLeastNumberofWildcards);
       bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
+      console.log('Best templates (filtered again by filterTemplatesForLeastNumberOfUniqueColors', bestTemplates);
     }
     
     /*
@@ -221,6 +231,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     } else {
       break;
     }
+  }
+
+  if (bestNextGuess.includes(undefined)) {
+    debugger;
   }
 
   // console.log('Best next guess:', bestNextGuess);

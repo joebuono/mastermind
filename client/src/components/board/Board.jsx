@@ -41,7 +41,6 @@ class Board extends Component {
   }
 
   submitPlayerGuess = () => {
-    console.log('clicked submit player guess');
     const currentGuess = this.getCurrentGuess();
 
     /* This section is to accomodate for how getNextComputerGuess sets state */
@@ -63,7 +62,6 @@ class Board extends Component {
     stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
     /* There is certainly a more elegant way of doing this */
     
-    console.log('State inside submitPlayerGuess', stateCopy);
     // debugger;
 
     const s = submitGuess(stateCopy);
@@ -81,7 +79,6 @@ class Board extends Component {
     // debugger;
     if (this.state.winCondition !== null) return;
 
-    console.log('clicked color:', colorToAddToGuess);
     let currentGuess = [...this.getCurrentGuess()];
 
     // add color to guess
@@ -119,8 +116,6 @@ class Board extends Component {
 
   // I really have to think about how to generalize this functionality for both computer and human guesses
   submitComputerGuess = () => {
-    console.log('clicked submit computer guess');
-
     const s = submitGuess(this.state);
 
     // What state do we want back?
@@ -135,8 +130,6 @@ class Board extends Component {
   getNextComputerGuess = () => {
     // if (this.state.winCondition !== null) return;
     // if (this.state.humanPlayerTurn) debugger;
-    console.log('STATE inside getNextComputerGuess:', this.state);
-    console.log('Templates', this.state.templates);
     const g = getComputerGuessAndState(this.state);
 
     this.setState({
@@ -149,7 +142,6 @@ class Board extends Component {
 
   checkWinCondition = () => {
     const { codeSize, currentRound, totalRounds, humanPlayerTurn } = this.state;
-    console.log('inside checkWinCondition');
     const blackPegs = [...this.state.turns][this.state.currentRound - 1].bwPegs[0];
     const nextRound = currentRound + 1
     
@@ -178,7 +170,6 @@ class Board extends Component {
   }
 
   startNewRound = () => {
-    console.log('inside startNewRound');
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
     const { codeSize, humanPlayerTurn } = this.state;
@@ -196,8 +187,6 @@ class Board extends Component {
     }
 
     const initialTemplate = [emptyGuess];
-
-    console.log('----------------it is the human\'s turn', humanPlayerTurn);
 
     this.setState({
       secretCode,
@@ -218,10 +207,7 @@ class Board extends Component {
 
   switchRoles = () => {
     // debugger;
-    console.log('inside switchRoles');
     const toggleCodeBreaker = !this.state.humanPlayerTurn;
-    console.log('TOGGLE CODE BREAKER', toggleCodeBreaker);
-    // debugger;
     // toggle who is playing: human or computer
     // also keep track of round in state so that we can increment round every two roles
     if (this.state.role) {
@@ -245,9 +231,6 @@ class Board extends Component {
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode } = this.state;
-    console.log('secretCode', secretCode);
-    console.log("It is the human's turn:", humanPlayerTurn);
-    console.log("They can make the secret code now", makeSecretCode);
     return (
       <div className={styles.container}>
         {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
