@@ -45,7 +45,7 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
     // correct undefined error
     if (unusedColors.length < 2 || unusedColors.includes(undefined)) {
       for (let color in COLOR_TRACKER) {
-        if (COLOR_TRACKER[color].number[0] !== COLOR_TRACKER[color].position.length) {
+        if (COLOR_TRACKER[color].number.length > 1 || COLOR_TRACKER[color].number[0] !== COLOR_TRACKER[color].position.length) {
           unusedColors.push(color);
         }
       }

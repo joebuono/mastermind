@@ -5,7 +5,14 @@ import PositionTracker from './PositionTracker.jsx';
 
 const formatNumberData = (numArr) => {
   if (numArr.length === 1) return numArr[0];
-  if (numArr.length === 2) return `${numArr[0]} or ${numArr[1]}`;
+  // This is compensating for a possible bug in the algorithm
+  if (numArr.length === 2) {
+    if (numArr[1] - numArr[0] === 1) {
+      return `${numArr[0]} or ${numArr[1]}`;
+    }
+    return `${numArr[0]}-${numArr[1]}`;
+  }
+  
 
   // determine if the numbers are increasing in numerical order
   let sequence = true;

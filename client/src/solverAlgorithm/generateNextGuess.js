@@ -166,13 +166,13 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
     let bestTemplates = [...templates];
 
-    console.log('Copy of best templates:', bestNextGuess);
+    console.log('Copy of best templates:', bestTemplates);
 
     if (difficulty !== 'easy') {
       let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(bestTemplates);
       // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
   
-      console.log('Templates with at least one wilcard OR ZERO wildcards:', templatesWithAtLeastOneWildcard);
+      console.log('Templates with at least one wildcard OR ZERO wildcards:', templatesWithAtLeastOneWildcard);
       let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
   
       console.log('Templates with least number of wilcards:', templatesWithLeastNumberofWildcards);

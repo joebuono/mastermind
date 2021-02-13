@@ -1,6 +1,10 @@
 Next Steps:
 
 2/12/21
+- Instead of Headers in the ColorTracker, have a component that displays global information for what we know about the SecretCode thus far
+  - Each position is either a question mark, or the color itself which is 'certain' to go in that position
+  - Importantly, it tracks through each position (1-4 or 5), and if there is only one 'maybe', then it triggers that to become a 'certain',
+  colors it appropriately, and displays the information in the global tracker
 - Button to toggle color tracker
 - During player mode, click on suggested next guess element to reveal it, and also give an additional point to the computer
 - What happens when all 3 rounds have been played? Play again?
