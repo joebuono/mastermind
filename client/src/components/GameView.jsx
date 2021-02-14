@@ -17,7 +17,7 @@ class GameView extends Component {
     super(props);
     this.state = {
       humanStarts: false,
-      difficulty: 'hard',
+      difficulty: 'easy',
       playerScore: 0,
       computerScore: 0,
       codeSize: 5,

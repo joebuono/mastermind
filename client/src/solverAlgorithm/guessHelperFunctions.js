@@ -78,7 +78,9 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
     let randomColor2 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
     twoNewColors.push(randomColor2);
 
-    if (twoNewColors.includes(undefined)) debugger;
+    if (twoNewColors.includes(undefined)) {
+      twoNewColors[1] = twoNewColors[0];
+    };
     return twoNewColors;
   }
 };

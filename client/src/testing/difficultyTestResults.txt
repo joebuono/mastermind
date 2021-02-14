@@ -14,6 +14,7 @@ Global average: 5.535
 
 HARD
 Global average: 4.928
+5.228 after pre-filtering for fully filled-in templates
 
 
 ***** Code Size 5 *****
@@ -29,7 +30,7 @@ Global average: 6.955
 
 HARD
 Global average: 6.451
-
+6.688 after pre-filtering for fully filled-in templates
 
 
 Messing around with howStringent:

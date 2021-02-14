@@ -12,10 +12,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   
   // Make local copy of templates
   let templates = [...globalTemplates];
-  if (!templates || !templates.length) {
-    console.log('weird template error');
-    return;
-  }
+  // if (!templates || !templates.length) {
+  //   console.log('weird template error');
+  //   return;
+  // }
 
   // This short-circuits a lot of pain and heartache lol
   // I'll have to refactor some of the helper functions that pick new colors to introduce
@@ -23,14 +23,16 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
   // TEST THE DIFFICULLY LEVELS HERE
   // if (templates.length < X) /// X can be any number, or maybe we always check if any of the templates are completely filled
+  // if (templates.length < 5 && difficulty !== 'easy') {
   for (let template of templates) {
     if (!template.includes('x')) {
-      debugger;
+      // debugger;
       return [template, [], []];
     }
   }
+  // }
 
-  console.log('Copy of global templates:', templates);
+  // console.log('Copy of global templates:', templates);
 
   // *********************** REVISE THIS PART ***********************
   // Basically, if you're playing a game of codeSize 5 and you have four x's in your template, 
@@ -64,10 +66,10 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
 
-    if (!templates[0].includes('x')) {
-      debugger;
-      return [templates[0], [], []];
-    }
+    // if (!templates[0].includes('x')) {
+    //   debugger;
+    //   return [templates[0], [], []];
+    // }
 
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
     
@@ -185,18 +187,18 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
 
     let bestTemplates = [...templates];
 
-    console.log('Copy of best templates:', bestTemplates);
+    // console.log('Copy of best templates:', bestTemplates);
 
     if (difficulty !== 'easy') {
       let templatesWithAtLeastOneWildcard = g.filterForTemplatesWithAtLeastOneWildcard(bestTemplates);
       // console.log('Templates with at least one wildcard, or all templates with ZERO wildcards:', templatesWithAtLeastOneWildcard);
   
-      console.log('Templates with at least one wildcard OR ZERO wildcards:', templatesWithAtLeastOneWildcard);
+      // console.log('Templates with at least one wildcard OR ZERO wildcards:', templatesWithAtLeastOneWildcard);
       let templatesWithLeastNumberofWildcards = g.filterTemplatesForLeastNumberOfWildcards(templatesWithAtLeastOneWildcard);
   
-      console.log('Templates with least number of wilcards:', templatesWithLeastNumberofWildcards);
+      // console.log('Templates with least number of wilcards:', templatesWithLeastNumberofWildcards);
       bestTemplates = g.filterTemplatesForLeastNumberOfUniqueColors(templatesWithLeastNumberofWildcards);
-      console.log('Best templates (filtered again by filterTemplatesForLeastNumberOfUniqueColors', bestTemplates);
+      // console.log('Best templates (filtered again by filterTemplatesForLeastNumberOfUniqueColors', bestTemplates);
     }
     
     /*
