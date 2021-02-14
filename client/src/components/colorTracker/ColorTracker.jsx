@@ -18,7 +18,6 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
         <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} />
       </div>
       <div className={styles.suggestedGuess}>
-        Suggested next guess:
         <Colors colors={bestNextGuess}/>
       </div>
     </div>
