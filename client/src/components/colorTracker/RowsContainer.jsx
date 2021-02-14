@@ -16,7 +16,7 @@ import Row from './Row.jsx';
 //   ... etc
 // ];
 
-const RowsContainer = ({colorTrackerData, codeSize}) => {
+const RowsContainer = ({colorTrackerData, codeSize, certainties}) => {
   // modifying input for component use
   let colorData = [];
   for (let color in colorTrackerData) {
@@ -29,7 +29,7 @@ const RowsContainer = ({colorTrackerData, codeSize}) => {
 
   return (
     <div className={styles.rows}>
-      {colorData.map((color, index) => <Row key={index} colorInfo={color} codeSize={codeSize} />)}
+      {colorData.map((color, index) => <Row key={index} colorInfo={color} codeSize={codeSize} certainties={certainties}/>)}
     </div>
   );
 };

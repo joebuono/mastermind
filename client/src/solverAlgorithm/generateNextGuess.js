@@ -17,6 +17,19 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     return;
   }
 
+  // This short-circuits a lot of pain and heartache lol
+  // I'll have to refactor some of the helper functions that pick new colors to introduce
+  // Those functions got pretty hairy as a result of trying to solve this bug
+
+  // TEST THE DIFFICULLY LEVELS HERE
+  // if (templates.length < X) /// X can be any number, or maybe we always check if any of the templates are completely filled
+  for (let template of templates) {
+    if (!template.includes('x')) {
+      debugger;
+      return [template, [], []];
+    }
+  }
+
   console.log('Copy of global templates:', templates);
 
   // *********************** REVISE THIS PART ***********************
@@ -50,6 +63,12 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   if (templates.length === 1 && fillCondition) {
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
+
+    if (!templates[0].includes('x')) {
+      debugger;
+      return [templates[0], [], []];
+    }
+
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
     
     // Before randomization:
@@ -137,7 +156,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // I think that this is the sticking point for Green
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select one of them
     fillGuessTemplateWithThisColor = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR) || g.leastAmountKnown(COLOR_TRACKER, COLORS_TRIED_THUS_FAR);
-    
+    if (!fillGuessTemplateWithThisColor) debugger;
     // !!! WARNING !!! This function is modifying the outside world. Avoid side effects
     // COLORS_TRIED_THUS_FAR.push(fillGuessTemplateWithThisColor);
     addToColorsTriedThusFar.push(fillGuessTemplateWithThisColor);

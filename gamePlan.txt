@@ -14,7 +14,9 @@ After that, it's all UI, UX
 - Make it look incredible, beautiful colors
 - Smooth animations too, enhancing it
 - Click and drag color to guess is important
+- React Tooltips to explain the columns, etc
 
+Only re-render the color tracker when a guess is submitted
 
 2/11/21
 - Factor out getNextComputerGuess logic into its own folder (frontendLogic)

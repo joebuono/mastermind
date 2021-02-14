@@ -1,7 +1,7 @@
 import React from 'react';
 import Colors from '../board/Colors.jsx';
 
-const PositionTracker = ({numberData, positionData, codeSize}) => {
+const PositionTracker = ({color, numberData, positionData, codeSize, certainties}) => {
   let positions = new Array(codeSize).fill('impossible');
   if (numberData.length === 1 && numberData[0] !== 0 && positionData.length === numberData[0]) {
     // certain knowledge
@@ -11,6 +11,12 @@ const PositionTracker = ({numberData, positionData, codeSize}) => {
   } else {
     for (let position of positionData) {
       positions[position - 1] = 'maybe';
+    }
+  }
+
+  if (certainties[color]) {
+    for (let index of certainties[color]) {
+      positions[index] = 'certain';
     }
   }
 

@@ -40,6 +40,17 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
       }
     }
 
+    // if it's still empty, just pick a random color
+    if (!unusedColors.length) {
+      let possibleColors = [];
+      for (let color in COLOR_TRACKER) {
+        if (COLOR_TRACKER[color].number[0] !== 0) {
+          possibleColors.push(color);
+        }
+      }
+      unusedColors.push(Math.floor(Math.random() * possibleColors.length));
+    }
+    if (unusedColors.includes(undefined)) debugger;
     return unusedColors[Math.floor(Math.random() * unusedColors.length)];
   } else {
     // correct undefined error
@@ -51,12 +62,23 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
       }
     }
 
+    // if it's still empty, just pick a random color
+    if (unusedColors.length < 2) {
+      for (let color in COLOR_TRACKER) {
+        if (COLOR_TRACKER[color].number[0] !== 0 && COLOR_TRACKER[color].number[0] > 1) {
+          unusedColors.push(color);
+        }
+      }
+    }
+
     let twoNewColors = [];
     let randomColor1 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
     twoNewColors.push(randomColor1);
     unusedColors = unusedColors.filter(color => color !== randomColor1);
     let randomColor2 = unusedColors[Math.floor(Math.random() * unusedColors.length)];
     twoNewColors.push(randomColor2);
+
+    if (twoNewColors.includes(undefined)) debugger;
     return twoNewColors;
   }
 };
@@ -84,6 +106,18 @@ const leastAmountKnown = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
       amountKnown = info;
     }
   }
+
+  if (color === undefined) debugger;
+
+  // kludge way around returning undefined
+  if (!color) {
+    for (let color in COLOR_TRACKER) {
+      if (COLOR_TRACKER[color].number[0] > 1) {
+        return color;
+      }
+    }
+  }
+
   return color;
 };
 

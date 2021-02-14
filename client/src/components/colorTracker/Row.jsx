@@ -30,13 +30,13 @@ const formatNumberData = (numArr) => {
   return numArr;
 };
 
-const Row = ({colorInfo, codeSize}) => {
+const Row = ({colorInfo, codeSize, certainties}) => {
 
   return (
     <div className={styles.container}>
       <div className={`${styles.color} ${styles.column}`}><Color color={colorInfo.color} /></div>
       <div className={`${styles.number} ${styles.column}`}>{formatNumberData(colorInfo.number)}</div>
-      <div className={`${styles.position} ${styles.column}`}><PositionTracker numberData={colorInfo.number} positionData={colorInfo.position} codeSize={codeSize} /></div>
+      <div className={`${styles.position} ${styles.column}`}><PositionTracker color={colorInfo.color} numberData={colorInfo.number} positionData={colorInfo.position} codeSize={codeSize} certainties={certainties} /></div>
     </div>
   );
 };
