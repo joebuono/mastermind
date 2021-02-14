@@ -99,7 +99,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     // OPTIMIZATION
     // let bestNextGuess = numberOfWildCards === 1 ? new Array(CODE_SIZE).fill('x') : [...templates[0]];
     let bestNextGuess = [...templates[0]];
-    let numberOfFirstColor = 3;
+    let numberOfFirstColor = 2; // testing 2 or 3 as an ideal split
     for (let i = 0; i < bestNextGuess.length; i++) {
       if (bestNextGuess[i] === 'x') {
         bestNextGuess[i] = colorsUsedToFillTemplate[0];

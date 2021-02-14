@@ -52,7 +52,7 @@
 }
 
 .x {
-  background-color: grey
+  background: linear-gradient(135deg,rgba(0,0,0,0.22),rgba(255,255,255,0.25));
 }
 
 .maybe {

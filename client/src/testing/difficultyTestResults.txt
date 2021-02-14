@@ -1,6 +1,18 @@
 
 
 
+WOW!
+- I experimented with splitting the first guess 2/2 vs 3/1. 
+- Here are the results (average number of turns to solve per permutation):
+
+3/1 - 5.231
+
+2/2 - 4.895
+
+The 2/2 split is the way to go! It's provably better!
+
+
+
 **** Code Size 4 ****
 
 500 iterations per permutation, average cases
@@ -15,6 +27,7 @@ Global average: 5.535
 HARD
 Global average: 4.928
 5.228 after pre-filtering for fully filled-in templates
+4.889 after splitting 2/2 instead of 3/1
 
 
 ***** Code Size 5 *****
@@ -31,6 +44,7 @@ Global average: 6.955
 HARD
 Global average: 6.451
 6.688 after pre-filtering for fully filled-in templates
+6.548 after splitting 2/3 instead of 3/2 (wth?)
 
 
 Messing around with howStringent:

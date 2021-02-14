@@ -7,7 +7,7 @@ function SecretCode({secretCode, currentTurn, showSecretCode}) {
   return (
     <div className={styles.container}>
       <div className={styles.secretCode}>
-        {showSecretCode && secretCode.map((color, index) => <Color key={index} color={color} />)}
+        {showSecretCode ? secretCode.map((color, index) => <Color key={index} color={color} />) : <div className={styles.text}>Secret Code</div>}
       </div>
       <div className={styles.currentTurn}>
         {currentTurn}
