@@ -16,14 +16,14 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanStarts: false,
+      humanStarts: true,
       difficulty: 'hard',
       playerScore: 0,
       computerScore: 0,
       codeSize: 5,
       round: 1,
       roundLimit: 3,
-      turnsPerRound: 8,
+      turnsPerRound: 10,
       gameOver: false
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);

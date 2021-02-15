@@ -8,7 +8,7 @@ const Turn = ({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGu
   return (
   <div className={styles.rowContainer}>
     <div className={styles.guess}><Colors colors={turn.guess} removeColorFromGuess={currentTurn ? removeColorFromGuess : () => {}} /></div>
-    {currentTurn && !turn.guess.includes('x') ? <div className={styles.submitGuessButton} onClick={submitPlayerGuess}>Submit Guess</div> : 
+    {currentTurn && !turn.guess.includes('x') ? <div className={styles.submitGuessButton} onClick={submitPlayerGuess}>?</div> : 
     <div className={styles.bwPegs}><BlackAndWhitePegs bwPegs={turn.bwPegs} codeSize={codeSize}/></div>}
   </div>
   );
