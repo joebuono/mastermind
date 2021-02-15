@@ -71,6 +71,28 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
     //   return [templates[0], [], []];
     // }
 
+    // check if we already have complete knowledge about any of the colors
+    // for (let color in COLOR_TRACKER) {
+    //   if (COLOR_TRACKER[color].number.length === 1 && COLOR_TRACKER[color].number[0] > 0) {
+    //     for (let position of COLOR_TRACKER[color].position) {
+    //       bestNextGuess[position - 1] = color;
+    //     }
+    //   }
+    // }
+
+    // if (!bestNextGuess.includes('x')) {
+    //   return [bestNextGuess, [], []];
+    // }
+
+    // let numberOfWildcards = 0;
+    // for (let color of bestNextGuess) {
+    //   if (color === 'x') {
+    //     numberOfWildcards++;
+    //   }
+    // }
+
+    // let numColorsToIntroduce = numberOfWildcards === 1 ? 1 : 2;
+
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
     
     // Before randomization:
