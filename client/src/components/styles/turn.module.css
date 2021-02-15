@@ -6,20 +6,24 @@
 .guess {
   /* background-color: burlywood; */
   width: 83%;
+  height: 100%;
 }
 
 .bwPegs {
   display: flex;
+  height: 100%;
   width: 17%;
   justify-content: center;
   align-items: center;
 }
 
 .submitGuessButton {
-  background-color: orangered;
+  background-color: rgb(192,108,44);
   width: 17%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  border-radius: 10px 0 0 10px;
 }

@@ -16,7 +16,7 @@ function BlackAndWhitePegs({bwPegs, codeSize}) {
   // Use that transformed array to fill the pegs
   const pegs = convert(bwPegs, codeSize);
   return (
-    <div className={styles.container}>
+    <div className={styles.grid}>
       {/* Later, pass the pegs[index] data into a component responsible for displaying black, white, and empty pegs */}
       <div className={`${styles.upperLeft} ${styles.peg} ${styles[pegs[0]]}`}></div> 
       <div className={`${styles.upperRight} ${styles.peg} ${styles[pegs[1]]}`}></div>

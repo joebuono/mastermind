@@ -11,6 +11,7 @@
   background-size: cover;
   border-radius: 38.5px;
   box-shadow: -60px 0px 100px -90px #000000, 60px 0px 100px -90px #000000;
+  border: 1px solid rgb(65, 38, 15);
 }
 
 .title {

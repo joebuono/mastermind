@@ -1,16 +1,25 @@
-.container {
+/* .container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+} */
+
+.grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  height: 65%;
-  width: 65%;
+  height: 50px;
+  width: 50px;
+  /* padding-top: 15%; */
 }
 
 .peg {
   margin: 0 auto;
   border-radius: 50%;
-  height: 15px;
-  width: 15px;
+  height: 100%;
+  width: 100%;
 }
 
 .black {
