@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import GameView from './GameView.jsx';
+import Particles from 'react-particles-js';
+import styles from './styles/app.module.css';
 
+// const particlesOptions = {
+//   particles: {
+//     number: {
+//       value: 50,
+//       density: {
+//         enable: true,
+//         value_area: 800
+//       }
+//     }
+//   }
+// };
 
 // This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 class App extends Component {
@@ -9,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        {/* <Particles className={styles.particles} params={particlesOptions} /> */}
         <GameView />
       </div>
     )

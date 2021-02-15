@@ -16,7 +16,7 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanStarts: false,
+      humanStarts: true,
       difficulty: 'hard',
       playerScore: 0,
       computerScore: 0,

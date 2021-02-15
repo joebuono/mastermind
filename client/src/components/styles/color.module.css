@@ -1,3 +1,49 @@
+/* .stage {
+  width: 50px;
+  height: 50px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.ball {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #000000 100%);
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.ball:before {
+  content: "";
+  position: absolute;
+  background: radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  bottom: 2.5%;
+  left: 5%;
+  opacity: 0.6;
+  height: 100%;
+  width: 90%;
+  filter: blur(5px);
+  z-index: 2;
+}
+/* .ball:after {
+  content: "";
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 100%;
+  left: 160%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+  transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+  filter: blur(10px);
+} */
+
+
 .circle {
   border-radius: 50%;
   height: 50px;
@@ -6,49 +52,41 @@
   margin-bottom: 2%;
 }
 
-/* .circle:before {
-  content: "";
-  position: absolute;
-  top: 1%;
-  left: 5%;
-  width: 90%;
-  height: 90%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
-  filter: blur(5px);
-  z-index: 2;
-} */
-
 .r {
-  background: radial-gradient(circle at 18px 18px, rgb(255, 0, 0), rgb(0, 0, 0));
+  background: radial-gradient(circle at 30% 30%, rgb(255, 60, 0) 0px, rgb(254, 6, 6) 3%, rgb(157, 0, 0) 50%, rgb(255, 0, 0) 100%); 
 }
 
 .b {
-  background: radial-gradient(circle at 18px 18px, rgb(0, 60, 255), #000);
+  /* background: -webkit-radial-gradient(65% 15%, circle, white 1px, aqua 3%, darkblue 60%, aqua 100%); 
+  background: -moz-radial-gradient(65% 15%, circle, white 1px, aqua 3%, darkblue 60%, aqua 100%); 
+  background: -o-radial-gradient(65% 15%, circle, white 1px, aqua 3%, darkblue 60%, aqua 100%); */
+  background: radial-gradient(circle at 30% 30%, rgb(0, 123, 255) 0px, rgb(0, 115, 255) 3%, darkblue 50%, rgb(0, 0, 255) 100%); 
+  /* background: radial-gradient(circle at 18px 18px, rgb(0, 60, 255), #000); */
 }
 
 .g {
-  background: radial-gradient(circle at 18px 18px, green, #000);
+  background: radial-gradient(circle at 30% 30%, rgb(0, 150, 0) 0px, rgb(0, 184, 0) 3%, darkgreen 50%, darkgreen 100%); 
 }
 
 .y {
-  background: radial-gradient(circle at 18px 18px, yellow, #000);
+  background: radial-gradient(circle at 30% 30%, yellow 0px, rgb(230, 230, 0) 3%, rgb(172, 158, 0) 50%, rgb(187, 187, 0) 100%); 
+
 }
 
 .o {
-  background: radial-gradient(circle at 18px 18px, orange, #000);
+  background: radial-gradient(circle at 30% 30%, orange 0px, rgb(255, 153, 28) 3%, rgb(169, 110, 0) 50%, rgb(210, 115, 0) 100%); 
 }
 
 .p {
-  background: radial-gradient(circle at 18px 18px, purple, #000);
+  background: radial-gradient(circle at 30% 30%, rgb(235, 14, 255) 0px, rgb(234, 0, 255) 3%, purple 50%, rgb(234, 0, 255) 100%); 
 }
 
 .n {
-  background: radial-gradient(circle at 18px 18px, brown, #000);
+  background: radial-gradient(circle at 30% 30%, brown 0px, rgb(184, 47, 47) 3%, rgb(89, 23, 23) 50%, brown 100%); 
 }
 
 .w {
-  background: radial-gradient(circle at 18px 18px, white, #000);
+  background: radial-gradient(circle at 30% 30%, white 0px, white 3%, rgb(160, 160, 160) 50%, rgb(169, 169, 169) 100%); 
 }
 
 .x {
