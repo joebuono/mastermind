@@ -27,6 +27,8 @@
   background-color: rgb(218, 170, 108); /* Used if the image is unavailable */
   background-size: cover;
   border-radius: 38.5px;
+  background-position: right;
+  box-shadow: -60px 0px 100px -90px #000000, 60px 0px 100px -90px #000000;
 }
 
 .secretCode {

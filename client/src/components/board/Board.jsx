@@ -24,7 +24,7 @@ class Board extends Component {
       colorOptions: [], // 'n', 'w' for codeSize 5
       turns: [],
       currentRound: 1, // change to currentTurn
-      totalRounds: 10, // change to totalTurns
+      totalRounds: this.props.turnsPerRound, // change to totalTurns
       winCondition: null,
       role: 1, // alterating between who plays code-maker and code-breaker
       makeSecretCode: true,
@@ -172,14 +172,14 @@ class Board extends Component {
   startNewRound = () => {
     // we don't need the secretCode to be automatically generated
     // that's only for testing purposes
-    const { codeSize, humanPlayerTurn } = this.state;
+    const { codeSize, humanPlayerTurn, totalRounds } = this.state;
     let [colorOptions, colorTracker, secretCode] = initializeGame(codeSize);
  
     const initializedEmptyTurns = [];
 
     const emptyGuess = new Array(codeSize).fill('x');
     // initialize turns to empty
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < totalRounds; i++) {
       initializedEmptyTurns.push({
         guess: [...emptyGuess],
         bwPegs: [0, 0]

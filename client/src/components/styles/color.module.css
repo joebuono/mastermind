@@ -94,7 +94,7 @@
 }
 
 .maybe {
-  background: linear-gradient(135deg,rgb(177, 177, 177),rgb(70, 70, 70));
+  background: linear-gradient(135deg,rgba(0,0,0,0.22),rgba(255,255,255,0.25));
 }
 
 .impossible {

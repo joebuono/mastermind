@@ -3,6 +3,8 @@ import GameView from './GameView.jsx';
 // import Particles from 'react-particles-js';
 // import styles from './styles/app.module.css';
 
+
+// Maybe make a brain filled with these particles! That's the AI
 // const particlesOptions = {
 //   particles: {
 //     number: {
