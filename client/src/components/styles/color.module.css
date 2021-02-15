@@ -94,11 +94,11 @@
 }
 
 .maybe {
-  background-color: pink;
+  background: linear-gradient(135deg,rgb(177, 177, 177),rgb(70, 70, 70));
 }
 
 .impossible {
-  background-color: rgb(52, 48, 48);
+  background: linear-gradient(135deg,rgba(0,0,0),rgb(70, 70, 70));
 }
 
 .certain {

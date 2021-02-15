@@ -12,15 +12,12 @@
 
 .color {
   grid-column: 1 / 3;
-  background-color: indianred;
 }
 
 .number {
   grid-column: 3 / 5;
-  background-color: royalblue;
 }
 
 .position {
   grid-column: 5 / 13;
-  background-color: green;
 }

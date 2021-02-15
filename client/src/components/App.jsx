@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GameView from './GameView.jsx';
-import Particles from 'react-particles-js';
-import styles from './styles/app.module.css';
+// import Particles from 'react-particles-js';
+// import styles from './styles/app.module.css';
 
 // const particlesOptions = {
 //   particles: {
