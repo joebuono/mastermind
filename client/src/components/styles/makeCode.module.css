@@ -1,0 +1,95 @@
+.container {
+  margin: 30px auto;
+  padding-top: 10px;
+  font-size: 2em;
+  height: 500px;
+  width: 620px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
+  background-repeat: no-repeat;
+  background-color: rgb(218, 170, 108); /* Used if the image is unavailable */
+  background-size: cover;
+  border-radius: 38.5px;
+  box-shadow: 10px 10px 20px rgba(65, 38, 15, 0.6);
+  border: 1px solid rgb(65, 38, 15);
+}
+/* Can we rotate the wood background to go horizontal? */
+
+.title {
+  grid-column: 1 / 13;
+  grid-row: 1 / 2;
+  font-size: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.secretCode {
+  margin-top: 30px;
+  grid-column: 3 / 11;
+  grid-row: 2 / 3;
+}
+
+.colorOptions {
+  margin-top: 30px;
+  grid-column: 2 / 12;
+  grid-row: 3 / 4;
+}
+
+.buttons {
+  grid-column: 2 / 12;
+  grid-row: 4 / 9;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.submitCode {
+  border-radius: 10px;
+  background-color: rgb(65, 38, 15);
+  color: rgb(228, 198, 162);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgb(228, 198, 162);
+  box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+}
+
+.randomCode {
+  border-radius: 10px;
+  background-color: rgb(228, 198, 162);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgb(65, 38, 15);
+  box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+}
+
+/* .submitCode {
+  grid-column: 4 / 10;
+  grid-row: 6 / 7;
+  background-color: blue;
+  height: 100%;
+}
+
+.randomCode {
+  grid-column: 4 / 10;
+  grid-row: 7 / 9;
+  background-color: yellow;
+} */
+
+
+/* .submitCode {
+  grid-column: 2 / 9;
+  grid-row: 6 / 9;
+  background-color: rgb(228, 198, 162);;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgb(65, 38, 15);
+  box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+  font-size: 1em;
+} */

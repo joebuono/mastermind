@@ -233,11 +233,10 @@ class Board extends Component {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode } = this.state;
     return (
       <div className={styles.container}>
-        {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}
-
-        <div className={displayColorTracker ? styles.boardRight : styles.boardCenter} >
-          {!humanPlayerTurn && makeSecretCode ? <MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /> 
-          :         
+        {(!humanPlayerTurn && makeSecretCode) && <div className={styles.makeCode}><MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /></div>}
+        {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}  
+        <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
+          {!makeSecretCode &&
           <div className={styles.boardContainer}>
             <div className={styles.secretCode}>
               <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />

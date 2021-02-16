@@ -15,6 +15,10 @@
   grid-column: 4 / 10;
 }
 
+.makeCode {
+  grid-column: 4 / 10;
+}
+
 .boardContainer {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

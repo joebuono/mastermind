@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Colors from './Colors.jsx';
+import styles from '../styles/makeCode.module.css';
 
 class MakeCode extends Component {
   constructor(props) {
@@ -50,12 +51,21 @@ class MakeCode extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         {/* Secret Code */}
-        <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
+        <div className={styles.title}>Codemaker</div>
+        <div className={styles.secretCode}>
+          <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
+        </div>
         {/* Color Options */}
-        <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
-        <button onClick={this.submitSecretCode}>Make Secret Code</button>
+        <div className={styles.colorOptions}>
+          <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
+        </div>
+        {/* Buttons */}
+        <div className={styles.buttons}>
+          <div className={styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
+          <div className={styles.randomCode} onClick={this.generateRandomCode}>Random Code</div>
+        </div>
       </div>
     );
   }
