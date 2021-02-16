@@ -3,6 +3,8 @@ Next Steps:
 2/16/21
 - Console in the middle
 
+*** The algorithm needs to use the ColorTracker data to not make stupid guesses
+  - Instead of calculating what we know on the client side, put that logic somewhere in the algorithm so that we avoid stupid guess that break the game flow
 
 Comb through all the code and make the variable, module, and css style names consistent
 - Rounds, Turns, ATTEMPTS, Guesses, BWPegs, human or player, computer/ai/algorithm

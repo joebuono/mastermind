@@ -243,7 +243,7 @@ class Board extends Component {
       <div className={styles.container}>
         {(!humanPlayerTurn && makeSecretCode) && <div className={styles.makeCode}><MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /></div>}
         {!makeSecretCode && <div className={displayColorTracker ? styles.consoleCenter : styles.consoleLeft}>
-          <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} />
+          <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} switchRoles={this.switchRoles} />
         </div>}
         {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}  
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
@@ -259,10 +259,6 @@ class Board extends Component {
             <div className={styles.colors}>
               <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
             </div>
-            {/* {!humanPlayerTurn && winCondition === null && <button onClick={this.submitComputerGuess}>Next Computer Guess</button>} */}
-            {winCondition && <h1>{humanPlayerTurn ? 'You win!' : 'The computer wins'}</h1>}
-            {winCondition === false && <h1>{humanPlayerTurn ? 'You lose' : 'The computer loses!'}</h1>}
-            {winCondition !== null && <button onClick={this.switchRoles}>Click to switch roles</button>}
           </div>}
         </div>
       </div>
