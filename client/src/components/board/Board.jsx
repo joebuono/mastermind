@@ -188,9 +188,10 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
+    const nextRole = !this.state.humanPlayerTurn;
+
     this.setState({
       secretCode,
-      makeSecretCode: true,
       colorOptions,
       colorTracker,
       turns: initializedEmptyTurns,
@@ -213,6 +214,7 @@ class Board extends Component {
     if (this.state.role) {
       this.setState({
         humanPlayerTurn: toggleCodeBreaker,
+        makeSecretCode: false,
         role: 0
       }, this.startNewRound);
     } else {
@@ -220,6 +222,7 @@ class Board extends Component {
       this.props.nextRound();
       this.setState({
         humanPlayerTurn: toggleCodeBreaker,
+        makeSecretCode: true,
         role: 1
       }, this.startNewRound);
     }
