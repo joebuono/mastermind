@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import ColorTracker from './colorTracker/ColorTracker.jsx';
 // import styles from './styles/gameView.module.css';
 import Board from './board/Board.jsx';
+import InitGame from './InitGame.jsx';
 
 // This will also keep track of and display score info, current round, etc
 
@@ -16,6 +17,7 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      initGame: true,
       humanStarts: false,
       difficulty: 'hard',
       playerScore: 0,
@@ -27,6 +29,20 @@ class GameView extends Component {
       gameOver: false
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
+  }
+
+  initializeGame = (codeSize, rounds, attempts, difficulty) => {
+    // set state to all the options selected, and set initGame to false
+    // Note: difficulty is passed in as Naive or Optimal
+    console.log('inside initializeGame');
+    console.log(codeSize, rounds, attempts, difficulty);
+    this.setState({
+      codeSize,
+      roundLimit: rounds,
+      turnsPerRound: attempts,
+      difficulty: difficulty === 'Naive' ? 'easy' : 'hard',
+      initGame: false
+    });
   }
 
   modifyDisplayedColorTracker = (updatedColorTrackerData) => {
@@ -56,19 +72,18 @@ class GameView extends Component {
   }
 
   render() {
-    const { playerScore, computerScore, codeSize, round, humanStarts, difficulty, turnsPerRound } = this.state;
+    const { playerScore, computerScore, codeSize, round, humanStarts, difficulty, turnsPerRound, initGame } = this.state;
     console.log('Rendering from GameView');
     return (
       <div>
+        {initGame ? <InitGame initializeGame={this.initializeGame} /> : 
         <div>
-          Player Points: {playerScore} Computer Points: {computerScore} Round: {round}
+          <div>
+            Player Points: {playerScore} Computer Points: {computerScore} Round: {round}
+          </div>
+          <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} difficulty={difficulty} turnsPerRound={turnsPerRound} />
         </div>
-        {/* {displayColorTracker && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTrackerData} codeSize={codeSize} /></div>} */}
-        <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} difficulty={difficulty} turnsPerRound={turnsPerRound} />
-        {/* <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>{humanPlayerTurn ? 
-        <PlayerBoard goToNextRound={this.goToNextRound} updateScore={this.updateScore} codeSize={codeSize} /> 
-        : 
-        <ComputerBoard goToNextRound={this.goToNextRound} modifyDisplayedColorTracker={this.modifyDisplayedColorTracker} updateScore={this.updateScore} codeSize={codeSize} />}</div> */}
+      }
       </div>
     );
   }

@@ -1,0 +1,48 @@
+.container {
+  margin: 100px auto;
+  font-size: 3em;
+  height: 600px;
+  width: 620px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
+  background-repeat: no-repeat;
+  background-color: rgb(218, 170, 108); /* Used if the image is unavailable */
+  background-size: cover;
+  border-radius: 38.5px;
+  box-shadow: -60px 0px 100px -90px #000000, 60px 0px 100px -90px #000000;
+  border: 1px solid rgb(65, 38, 15);
+}
+
+/* .option {
+  display: flex;
+} */
+
+.left {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.right {
+  grid-column: 4 / 9;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.center {
+  grid-column: 3 / 7;
+  grid-row: 7 / 8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(228, 198, 162);;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgb(65, 38, 15);
+}
