@@ -2,11 +2,10 @@ Next Steps:
 
 2/16/21
 - Console in the middle
-- 
 
 
 Comb through all the code and make the variable, module, and css style names consistent
-- Rounds, Turns, ATTEMPTS, Guesses, BWPegs
+- Rounds, Turns, ATTEMPTS, Guesses, BWPegs, human or player, computer/ai/algorithm
 
 2/15/21
 - Modal for making code
@@ -25,6 +24,8 @@ Other
 - Highlight current turn
 - CSS animations
 - React Tooltips
+- Media queries
+- Consider exploring Redux
 
 
 - During player mode, click on suggested next guess element to reveal it, and also give an additional point to the computer

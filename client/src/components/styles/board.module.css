@@ -1,22 +1,38 @@
 .container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  margin-top: 10px;
 }
 
 .colorTracker {
-  grid-column: 1 / 7;
+  grid-column: 1 / 6;
+  grid-row: 1 / 13;
+}
+
+.consoleCenter {
+  grid-column: 6 / 8;
+  grid-row: 4 / 10;
+}
+
+.consoleLeft {
+  grid-column: 2 / 4;
+  grid-row: 4 / 10;
 }
 
 .boardRight {
-  grid-column: 7 / 13;
+  grid-column: 8 / 13;
+  grid-row: 1 / 13;
 }
 
 .boardCenter {
   grid-column: 4 / 10;
+  grid-row: 1 / 13;
 }
 
 .makeCode {
   grid-column: 4 / 10;
+  grid-row: 1 / 13;
 }
 
 .boardContainer {
