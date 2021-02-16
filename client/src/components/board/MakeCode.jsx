@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Colors from './Colors.jsx';
 import styles from '../styles/makeCode.module.css';
+import { generateSecretCode } from '../../solverAlgorithm/globalLogic.js';
 
 class MakeCode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      secretCode: []
+      secretCode: [],
+      codeSize: this.props.codeSize
     }
   }
 
@@ -41,6 +43,11 @@ class MakeCode extends Component {
     } else {
       console.log('incomplete guess');
     }
+  }
+
+  generateRandomCode = () => {
+    const randomCode = generateSecretCode(this.state.codeSize);
+    this.setState({secretCode: randomCode});
   }
 
   componentDidMount() {
