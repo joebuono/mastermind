@@ -4,6 +4,10 @@ Next Steps:
 - Console in the middle
 - 
 
+
+Comb through all the code and make the variable, module, and css style names consistent
+- Rounds, Turns, ATTEMPTS, Guesses, BWPegs
+
 2/15/21
 - Modal for making code
  - Also, have another button that will generate a random SecretCode automatically

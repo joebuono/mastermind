@@ -18,11 +18,11 @@ class GameView extends Component {
     super(props);
     this.state = {
       initGame: false, // set to true once finished developing/testing
-      humanStarts: false,
+      humanStarts: true,
       difficulty: 'hard',
       playerScore: 0,
       computerScore: 0,
-      codeSize: 5,
+      codeSize: 4,
       round: 1,
       roundLimit: 3,
       turnsPerRound: 10,

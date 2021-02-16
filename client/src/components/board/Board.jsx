@@ -27,7 +27,7 @@ class Board extends Component {
       totalRounds: this.props.turnsPerRound, // change to totalTurns
       winCondition: null,
       role: 1, // alterating between who plays code-maker and code-breaker
-      makeSecretCode: true,
+      makeSecretCode: !this.props.humanStarts,
 
       // computer state needed for calculating bestNextGuess and updating colorTracker
       bestNextGuess: [],
@@ -188,8 +188,6 @@ class Board extends Component {
 
     const initialTemplate = [emptyGuess];
 
-    const nextRole = !this.state.humanPlayerTurn;
-
     this.setState({
       secretCode,
       colorOptions,
@@ -214,7 +212,7 @@ class Board extends Component {
     if (this.state.role) {
       this.setState({
         humanPlayerTurn: toggleCodeBreaker,
-        makeSecretCode: false,
+        makeSecretCode: !toggleCodeBreaker,
         role: 0
       }, this.startNewRound);
     } else {
@@ -222,7 +220,7 @@ class Board extends Component {
       this.props.nextRound();
       this.setState({
         humanPlayerTurn: toggleCodeBreaker,
-        makeSecretCode: true,
+        makeSecretCode: !this.props.humanStarts,
         role: 1
       }, this.startNewRound);
     }

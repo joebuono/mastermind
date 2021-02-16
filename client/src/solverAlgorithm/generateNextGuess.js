@@ -24,6 +24,9 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // TEST THE DIFFICULLY LEVELS HERE
   // if (templates.length < X) /// X can be any number, or maybe we always check if any of the templates are completely filled
   // if (templates.length < 5 && difficulty !== 'easy') {
+
+  // Considering adding this filter so that the algorithm doesn't suggest guesses that we've already made
+  // && !previousGuesses.has(`${template}`)
   for (let template of templates) {
     if (!template.includes('x')) {
       // debugger;
