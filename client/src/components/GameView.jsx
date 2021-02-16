@@ -17,7 +17,7 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initGame: true,
+      initGame: false, // set to true once finished developing/testing
       humanStarts: false,
       difficulty: 'hard',
       playerScore: 0,
@@ -36,6 +36,8 @@ class GameView extends Component {
     // Note: difficulty is passed in as Naive or Optimal
     console.log('inside initializeGame');
     console.log(codeSize, rounds, attempts, difficulty);
+
+    // perhaps randomize (flip a coin, essentially) for who starts
     this.setState({
       codeSize,
       roundLimit: rounds,

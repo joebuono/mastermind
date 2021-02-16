@@ -19,7 +19,7 @@ import styles from './styles/app.module.css';
 
 // This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 const App = () => {
-  const [nav, setNav] = useState('');
+  const [nav, setNav] = useState('game'); // set to empty string once finished developing/testing
   // React was complaining about a "useless constructor"
   return (
     <div>

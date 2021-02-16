@@ -6,16 +6,23 @@ Next Steps:
 
 2/15/21
 - Modal for making code
+ - Also, have another button that will generate a random SecretCode automatically
 
-- Console for scores and buttons
+- Console in the middle for:
+  - current round
+  - scores
+  - names (highlight name of current codebreaker)
+  - button to toggle color tracker
+  - next computer guess (also autoplay option toggle)
+  - next round (conditionally rendered)
+  - game over, play again? (conditionally rendered)
 
-- Make console in the middle to display current round, scores, and next computer move button (later, toggle automate)
+Other
 - Highlight current turn
-- In MakeCode component, have another button that will generate a random SecretCode automatically
 - CSS animations
 - React Tooltips
 
-- Button to toggle color tracker
+
 - During player mode, click on suggested next guess element to reveal it, and also give an additional point to the computer
 - What happens when all 3 rounds have been played? Play again?
 - Implement different modes: learning mode

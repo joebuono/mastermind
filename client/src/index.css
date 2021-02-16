@@ -1,7 +1,9 @@
-body {
-  background-color: rgb(228, 198, 162);
+html, body {
+  background-image: linear-gradient(rgb(228, 198, 162), rgb(194, 168, 136));
   font-family: 'Radley', serif;
   color: rgb(65, 38, 15);
+  margin: 0;
+  height: 100%;
 }
 
 /* rgba(230,191,144,255) */
