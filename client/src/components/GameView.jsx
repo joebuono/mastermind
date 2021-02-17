@@ -17,7 +17,7 @@ class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initGame: false, // set to true once finished developing/testing
+      initGame: true, // set to true once finished developing/testing
       humanStarts: false,
       difficulty: 'hard',
       playerName: 'Player',
@@ -25,9 +25,8 @@ class GameView extends Component {
       computerScore: 0,
       codeSize: 4,
       round: 1,
-      roundLimit: 3,
-      turnsPerRound: 10,
-      gameOver: false
+      roundLimit: 1,
+      turnsPerRound: 10
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
@@ -35,8 +34,6 @@ class GameView extends Component {
   initializeGame = (codeSize, rounds, attempts, difficulty) => {
     // set state to all the options selected, and set initGame to false
     // Note: difficulty is passed in as Naive or Optimal
-    console.log('inside initializeGame');
-    console.log(codeSize, rounds, attempts, difficulty);
 
     // perhaps randomize (flip a coin, essentially) for who starts
     this.setState({
@@ -55,22 +52,23 @@ class GameView extends Component {
   }
 
   nextRound = () => {
-    const { round, roundLimit } = this.state;
-    if (round > roundLimit) {
-      this.setState({
-        gameOver: true
-      });
-    } else {
-      this.setState({
-        round: round + 1
-      });
-    }
+    this.setState({
+      round: this.state.round + 1
+    });
   }
 
   updateScore = (codeBreaker, pointsScoredInRound) => {
     let whoScored = codeBreaker + 'Score';
     this.setState({
       [whoScored]: this.state[whoScored] + pointsScoredInRound
+    });
+  }
+
+  restartGame = () => {
+    this.setState({
+      initGame: true,
+      playerScore: 0,
+      computerScore: 0
     });
   }
 
@@ -82,7 +80,7 @@ class GameView extends Component {
         {initGame ? <InitGame initializeGame={this.initializeGame} /> : 
         <div>
           {/* Figure out a better way to give the Console component access to GameView state than passing a clone of the GameView state */}
-          <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} difficulty={difficulty} turnsPerRound={turnsPerRound} gameViewState={Object.assign({}, this.state)} />
+          <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} difficulty={difficulty} turnsPerRound={turnsPerRound} gameViewState={Object.assign({}, this.state)} restartGame={this.restartGame}/>
         </div>
       }
       </div>
