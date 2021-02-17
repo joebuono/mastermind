@@ -25,7 +25,7 @@ class GameView extends Component {
       computerScore: 0,
       codeSize: 4,
       round: 1,
-      roundLimit: 1,
+      roundLimit: 3,
       turnsPerRound: 10
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
@@ -73,11 +73,11 @@ class GameView extends Component {
   }
 
   render() {
-    const { codeSize, humanStarts, difficulty, turnsPerRound, initGame } = this.state;
+    const { codeSize, humanStarts, difficulty, turnsPerRound, initGame, roundLimit } = this.state;
     console.log('Rendering from GameView');
     return (
       <div>
-        {initGame ? <InitGame initializeGame={this.initializeGame} /> : 
+        {initGame ? <InitGame initializeGame={this.initializeGame} codeSize={codeSize} rounds={roundLimit} attempts={turnsPerRound} difficulty={difficulty === 'easy' ? 'Naive' : 'Optimal'} /> : 
         <div>
           {/* Figure out a better way to give the Console component access to GameView state than passing a clone of the GameView state */}
           <Board codeSize={codeSize} updateScore={this.updateScore} nextRound={this.nextRound} humanStarts={humanStarts} difficulty={difficulty} turnsPerRound={turnsPerRound} gameViewState={Object.assign({}, this.state)} restartGame={this.restartGame}/>

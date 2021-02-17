@@ -8,11 +8,11 @@ const attemptsOptions = [6, 8, 10];
 const difficultyOptions = ['Naive', 'Optimal'];
 
 
-const InitGame = ({initializeGame}) => {
-  const [codeSize, setCodeSize] = useState(4);
-  const [rounds, setRounds] = useState(3);
-  const [attempts, setAttempts] = useState(10);
-  const [difficulty, setDifficulty] = useState('Naive');
+const InitGame = (props) => {
+  const [codeSize, setCodeSize] = useState(props.codeSize);
+  const [rounds, setRounds] = useState(props.rounds);
+  const [attempts, setAttempts] = useState(props.attempts);
+  const [difficulty, setDifficulty] = useState(props.difficulty);
 
   return (
     <div>
@@ -26,7 +26,7 @@ const InitGame = ({initializeGame}) => {
         <div className={styles.right}><SetupOptions options={attemptsOptions} selected={attempts} setOption={setAttempts} /></div>
         <div className={styles.left}>Algorithm</div>
         <div className={styles.right}><SetupOptions options={difficultyOptions} selected={difficulty} setOption={setDifficulty} /></div>
-        <div className={styles.center} onClick={() => initializeGame(codeSize, rounds, attempts, difficulty)}>Start Game</div>
+        <div className={styles.center} onClick={() => props.initializeGame(codeSize, rounds, attempts, difficulty)}>Start Game</div>
       </div>
     </div>
   );

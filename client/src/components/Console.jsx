@@ -31,7 +31,11 @@ const Console = ({gameViewState, whoseTurn, role, roundOver, displayColorTracker
       <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
       {(!whoseTurn && !roundOver) && <div className={styles.nextComputerGuess} onClick={submitComputerGuess}>Next Guess</div>}
       {(roundOver && !gameOver) && <div className={styles.switchRoles} onClick={switchRoles}>Switch Turns</div>}
-      {gameOver && <div onClick={restartGame}>Game Over! {winner} Play again?</div>}
+      {gameOver && 
+      <div className={styles.gameOver} onClick={restartGame}>
+        <div>Game Over</div>
+        <div>{winner}</div>
+        <div className={styles.playAgain}>Play again?</div></div>}
     </div>
   );
 };
