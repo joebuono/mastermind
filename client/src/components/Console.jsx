@@ -29,7 +29,7 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
         <div className={`${styles.name} ${!whoseTurn && styles.codebreaker}`}>Computer</div>
       </div>
       <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
-      {(!whoseTurn && !roundOver) && <div className={styles.nextComputerGuess} onClick={submitComputerGuess}>Next Guess</div>}
+      {(!whoseTurn && !roundOver) && <div className={`${styles.nextComputerGuess} ${currentRound === 1 && styles.glowing}`} onClick={submitComputerGuess}>Next Computer Guess</div>}
       {(roundOver && !gameOver) && 
       <div>
         <div className={styles.whoScored}>{whoseTurn ? 'The computer': playerName} scored <br></br>{currentRound <= turnsPerRound ? currentRound - 1 : currentRound} points</div>
