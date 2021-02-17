@@ -70,7 +70,7 @@ class MakeCode extends Component {
         </div>
         {/* Buttons */}
         <div className={styles.buttons}>
-          <div className={styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
+          <div className={this.state.secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
           <div className={styles.randomCode} onClick={this.generateRandomCode}>Random Code</div>
         </div>
       </div>
