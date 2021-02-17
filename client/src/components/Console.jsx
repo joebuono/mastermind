@@ -14,9 +14,9 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
     if (playerScore > computerScore) {
       winner = `${playerName} wins!`;
     } else if (computerScore > playerScore) {
-      winner = 'The computer wins.';
+      winner = 'The computer wins';
     } else {
-      winner = 'It\'s a tie!';
+      winner = 'It\'s a tie';
     }
   }
   // next round or switch turns

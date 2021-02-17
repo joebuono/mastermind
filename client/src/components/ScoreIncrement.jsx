@@ -17,6 +17,8 @@ const ScoreIncrement = ({previousScore, updatedScore}) => {
       if (start === end) clearInterval(timer);
     }, 200);
 
+    return () => clearInterval(timer);
+
   }, [previousScore, updatedScore]);
 
   return (

@@ -32,20 +32,28 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   for (let template of templates) {
     if (!template.includes('x')) {
       // check that the guess have the right number of each color (preventing stupid guesses)
-      let numOfEachColor = {};
+      let badGuess = false;
       for (let color of template) {
-        numOfEachColor[color] = ++numOfEachColor[color] || 1;
-      }
-
-      let correctNumber = true;
-      for (let color of template) {
-        if (numOfEachColor[color] > COLOR_TRACKER[color].number[0]) {
-          correctNumber = false;
+        if (!COLOR_TRACKER[color].position.length) {
+          badGuess = true;
           break;
         }
       }
 
-      if (correctNumber) {
+      // let numOfEachColor = {};
+      // for (let color of template) {
+      //   numOfEachColor[color] = ++numOfEachColor[color] || 1;
+      // }
+
+      // let correctNumber = true;
+      // for (let color of template) {
+      //   if (numOfEachColor[color] > COLOR_TRACKER[color].number[0]) {
+      //     correctNumber = false;
+      //     break;
+      //   }
+      // }
+
+      if (!badGuess) {
         // check that we don't already know the secretCode for certain (this is a raw solution just to get the MVP working)
         let certainGuess = [];
         for (let i = 0; i < CODE_SIZE; i++) {

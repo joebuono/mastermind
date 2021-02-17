@@ -33,6 +33,8 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
 
   // If we know the secret code for certain, set all number values to a single digit
   if (!globalTemplate.includes('x')) {
+    // This first line is a front-end fix for an algorithmic problem
+    bestNextGuess = globalTemplate;
     let occurrences = {};
     // count the number of times each color occurs in the globalTemplate
     for (let color of globalTemplate) {
