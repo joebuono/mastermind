@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './styles/console.module.css';
 
-const Console = ({gameViewState, whoseTurn, role, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
-  const { round, roundLimit, playerScore, computerScore, playerName } = gameViewState;
+const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
+  const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
 
@@ -30,7 +30,11 @@ const Console = ({gameViewState, whoseTurn, role, roundOver, displayColorTracker
       </div>
       <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
       {(!whoseTurn && !roundOver) && <div className={styles.nextComputerGuess} onClick={submitComputerGuess}>Next Guess</div>}
-      {(roundOver && !gameOver) && <div className={styles.switchRoles} onClick={switchRoles}>Switch Turns</div>}
+      {(roundOver && !gameOver) && 
+      <div>
+        <div className={styles.whoScored}>{whoseTurn ? 'The computer': playerName} scored <br></br>{currentRound <= turnsPerRound ? currentRound - 1 : currentRound} points</div>
+        <div className={styles.switchRoles} onClick={switchRoles}>Switch Turns</div>
+      </div>}
       {gameOver && 
       <div className={styles.gameOver} onClick={restartGame}>
         <div>Game Over</div>

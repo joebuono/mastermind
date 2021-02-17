@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from '../styles/colorTracker.module.css';
-import Title from './Title.jsx';
-import Headers from './Headers.jsx';
 import RowsContainer from './RowsContainer.jsx';
 import Colors from '../board/Colors.jsx';
 
@@ -47,15 +45,13 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
-        <Title />
-      </div>
-      <div className={styles.headers}>
-        <Headers globalTemplate={globalTemplate} />
+      <div className={styles.globalColorTracker}>
+        <Colors colors={globalTemplate}/>
       </div>
       <div className={styles.rows}>
         <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} certainties={certainties} />
       </div>
+      <div className={styles.bestNextGuess}>Best Next Guess</div>
       <div className={styles.suggestedGuess}>
         <Colors colors={bestNextGuess.length ? bestNextGuess : new Array(codeSize).fill('x')}/>
       </div>

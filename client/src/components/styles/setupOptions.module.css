@@ -15,7 +15,8 @@
 }
 
 .selected {
-  background-color: rgb(188,102,33);
+  background-color: rgb(65, 38, 15);
+  color: rgb(228, 198, 162);
 }
 
 .first {

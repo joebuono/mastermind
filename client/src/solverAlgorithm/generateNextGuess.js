@@ -17,6 +17,8 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   //   return;
   // }
 
+
+
   // This short-circuits a lot of pain and heartache lol
   // I'll have to refactor some of the helper functions that pick new colors to introduce
   // Those functions got pretty hairy as a result of trying to solve this bug
@@ -29,8 +31,42 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // && !previousGuesses.has(`${template}`)
   for (let template of templates) {
     if (!template.includes('x')) {
-      // debugger;
-      return [template, [], []];
+      // check that the guess have the right number of each color (preventing stupid guesses)
+      let numOfEachColor = {};
+      for (let color of template) {
+        numOfEachColor[color] = ++numOfEachColor[color] || 1;
+      }
+
+      let correctNumber = true;
+      for (let color of template) {
+        if (numOfEachColor[color] > COLOR_TRACKER[color].number[0]) {
+          correctNumber = false;
+          break;
+        }
+      }
+
+      if (correctNumber) {
+        // check that we don't already know the secretCode for certain (this is a raw solution just to get the MVP working)
+        let certainGuess = [];
+        for (let i = 0; i < CODE_SIZE; i++) {
+          let numberInPosition = 0;
+          let knownColor;
+          for (let color in COLOR_TRACKER) {
+            if (COLOR_TRACKER[color].position.includes(i + 1)) {
+              numberInPosition++;
+              if (numberInPosition > 1) break;
+              knownColor = color;
+            }
+          }
+          if (numberInPosition !== 1) {
+            break;
+          } else {
+            certainGuess.push(knownColor);
+          }
+        }
+        if (certainGuess.length === CODE_SIZE) return [certainGuess, [], []];
+        return [template, [], []];
+      }
     }
   }
   // }

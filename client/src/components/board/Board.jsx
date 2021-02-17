@@ -243,7 +243,7 @@ class Board extends Component {
       <div className={styles.container}>
         {(!humanPlayerTurn && makeSecretCode) && <div className={styles.makeCode}><MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /></div>}
         {!makeSecretCode && <div className={displayColorTracker ? styles.consoleCenter : styles.consoleLeft}>
-          <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} role={role} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} switchRoles={this.switchRoles} restartGame={this.props.restartGame}/>
+          <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} role={role} currentRound={currentRound} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} switchRoles={this.switchRoles} restartGame={this.props.restartGame}/>
         </div>}
         {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}  
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   

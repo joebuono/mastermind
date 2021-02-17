@@ -14,23 +14,31 @@
   border: 1px solid rgb(65, 38, 15);
 }
 
-.title {
+.globalColorTracker {
   grid-column: 1 / 6;
   grid-row: 1 / 3;
-}
-
-.headers {
-  grid-column: 1 / 6;
-  grid-row: 3 / 5;
+  margin-top: 20px;
 }
 
 .rows {
+  margin-top: 20px;
   grid-column: 1 / 6;
-  grid-row: 5 / 22;
+  grid-row: 3 / 21;
+}
+
+.bestNextGuess {
+  grid-column: 1 / 6;
+  grid-row: 22 / 22;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 .suggestedGuess {
   grid-column: 1 / 6;
-  grid-row: 22 / 25;
+  grid-row: 23 / 25;
 }
 
