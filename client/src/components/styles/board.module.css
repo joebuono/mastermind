@@ -60,6 +60,8 @@
 .turns {
   grid-column: 1 / 6;
   grid-row: 3 / 23;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .blackAndWhitePegs {

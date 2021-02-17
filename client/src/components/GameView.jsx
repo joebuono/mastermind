@@ -26,7 +26,7 @@ class GameView extends Component {
       codeSize: 4,
       round: 1,
       roundLimit: 3,
-      turnsPerRound: 10
+      turnsPerRound: 8
     };
     // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }

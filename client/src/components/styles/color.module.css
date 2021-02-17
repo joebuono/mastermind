@@ -103,13 +103,69 @@
 
 .certain {
   box-shadow:
-  inset 0 0 8px #fff,      /* inner white */
-  inset 3px 0 13px rgb(138, 118, 2),   /* inner left magenta short */
-  inset -3px 0 13px yellow,  /* inner right cyan short */
-  inset 3px 0 50px gold,  /* inner left magenta broad */
-  inset -3px 0 50px yellow, /* inner right cyan broad */
-  0 0 1px #fff,            /* outer white */
-  -2px 0 13px gold,        /* outer left magenta */
-  2px 0 13px yellow;         /* outer right cyan */
+  inset 0 0 8px #fff,
+  inset 3px 0 13px rgb(138, 118, 2),
+  inset -3px 0 13px yellow,
+  inset 3px 0 50px gold,
+  inset -3px 0 50px yellow,
+  0 0 1px #fff,
+  -2px 0 13px gold,
+  2px 0 13px yellow;
+  -webkit-animation: glowing 3000ms infinite;
+  -moz-animation: glowing 3000ms infinite;
+  -o-animation: glowing 3000ms infinite;
+  animation: glowing 3000ms infinite;
 }
 
+@-webkit-keyframes glowing {
+  0% {
+    background-color: rgb(228, 198, 162);
+    -webkit-box-shadow: 0 0 3px rgb(228, 198, 162);
+  }
+  50% {
+    background-color: rgb(228, 198, 162);
+    -webkit-box-shadow: 0 0 15px rgb(228, 198, 162);
+  }
+  100% {
+    background-color: rgb(228, 198, 162);
+    -webkit-box-shadow: 0 0 3px rgb(228, 198, 162);
+  }
+}
+@keyframes glowing {
+  0% {
+    background-color: yellow;
+    box-shadow:
+    inset 0 0 8px #fff,
+    inset 3px 0 13px rgb(138, 118, 2),
+    inset -3px 0 13px yellow,
+    inset 3px 0 50px gold,
+    inset -3px 0 50px yellow,
+    0 0 1px #fff,
+    -2px 0 3px gold,
+    2px 0 3px yellow;
+  }
+  50% {
+    background-color: rgb(220, 183, 139);
+    box-shadow:
+    inset 0 0 8px #fff,
+    inset 3px 0 13px rgb(138, 118, 2),
+    inset -3px 0 13px yellow,
+    inset 3px 0 50px gold,
+    inset -3px 0 50px yellow,
+    0 0 1px #fff,
+    -2px 0 13px gold,
+    2px 0 13px yellow;
+  }
+  100% {
+    background-color: yellow;
+    box-shadow:
+    inset 0 0 8px #fff,
+    inset 3px 0 13px rgb(138, 118, 2),
+    inset -3px 0 13px yellow,
+    inset 3px 0 50px gold,
+    inset -3px 0 50px yellow,
+    0 0 1px #fff,
+    -2px 0 3px gold,
+    2px 0 3px yellow;
+  }
+}

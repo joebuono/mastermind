@@ -26,7 +26,7 @@ const InitGame = (props) => {
         <div className={styles.right}><SetupOptions options={attemptsOptions} selected={attempts} setOption={setAttempts} /></div>
         <div className={styles.left}>Algorithm</div>
         <div className={styles.right}><SetupOptions options={difficultyOptions} selected={difficulty} setOption={setDifficulty} /></div>
-        <div className={styles.center} onClick={() => props.initializeGame(codeSize, rounds, attempts, difficulty)}>Start Game</div>
+        <div className={styles.startGame} onClick={() => props.initializeGame(codeSize, rounds, attempts, difficulty)}>Start Game</div>
       </div>
     </div>
   );

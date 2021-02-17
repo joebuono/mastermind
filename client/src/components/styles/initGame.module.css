@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.center {
+.startGame {
   grid-column: 3 / 7;
   grid-row: 6 / 8;
   display: flex;
@@ -51,4 +51,11 @@
   border-radius: 20px;
   border: 1px solid rgb(65, 38, 15);
   box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+}
+
+.startGame:hover {
+  color: rgb(228, 198, 162);
+  background-color: rgb(65, 38, 15);
+  border: 1px solid rgb(228, 198, 162);
+  cursor: pointer;
 }
