@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from './styles/console.module.css';
+import ScoreIncrement from './ScoreIncrement.jsx';
 
 const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
   const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
+
+  const pointsScored = currentRound <= turnsPerRound ? currentRound - 1 : currentRound;
 
   let winner;
   if (gameOver) {
@@ -21,8 +24,8 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
     <div className={styles.container}>
       <div className={styles.round}>Round {round} of {roundLimit}</div>
       <div className={styles.scores}>
-        <div className={styles.score}>{playerScore}</div>
-        <div className={styles.score}>{computerScore}</div>
+        <div className={styles.score}>{roundOver && !whoseTurn ? <ScoreIncrement previousScore={playerScore - pointsScored} updatedScore={playerScore}/> : playerScore}</div>
+        <div className={styles.score}>{roundOver && whoseTurn ? <ScoreIncrement previousScore={computerScore - pointsScored} updatedScore={computerScore}/> : computerScore}</div>
       </div>
       <div className={styles.names}>
         <div className={`${styles.name} ${whoseTurn && styles.codebreaker}`}>{playerName}</div>
@@ -32,8 +35,8 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       {(!whoseTurn && !roundOver) && <div className={`${styles.nextComputerGuess} ${currentRound === 1 && styles.glowing}`} onClick={submitComputerGuess}>Next Computer Guess</div>}
       {(roundOver && !gameOver) && 
       <div>
-        <div className={styles.whoScored}>{whoseTurn ? 'The computer': playerName} scored <br></br>{currentRound <= turnsPerRound ? currentRound - 1 : currentRound} points</div>
-        <div className={styles.switchRoles} onClick={switchRoles}>Switch Turns</div>
+        <div className={styles.whoScored}>{whoseTurn ? 'The computer': playerName} scored <br></br>{pointsScored} points</div>
+        <div className={`${styles.switchRoles} ${styles.glowing}`} onClick={switchRoles}>Switch Turns</div>
       </div>}
       {gameOver && 
       <div className={styles.gameOver} onClick={restartGame}>
