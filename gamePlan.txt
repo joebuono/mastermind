@@ -1,7 +1,7 @@
 Next Steps:
 
-2/17/21
-- When someone scores, show how many points they scored in that turn
+2/18/21
+- Expand Console to show options
 - Console in the middle can expand to show additional Options:
   - Hide/show ColorTracker
   - Restart

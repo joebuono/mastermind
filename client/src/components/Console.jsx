@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles/console.module.css';
 import ScoreIncrement from './ScoreIncrement.jsx';
 
 const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
   const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
+  const [options, toggleOptions] = useState(false);
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
 
@@ -31,7 +32,6 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
         <div className={`${styles.name} ${whoseTurn && styles.codebreaker}`}>{playerName}</div>
         <div className={`${styles.name} ${!whoseTurn && styles.codebreaker}`}>Computer</div>
       </div>
-      <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
       {(!whoseTurn && !roundOver) && <div className={`${styles.nextComputerGuess} ${currentRound === 1 && styles.glowing}`} onClick={submitComputerGuess}>Next Computer Guess</div>}
       {(roundOver && !gameOver) && 
       <div>
@@ -42,7 +42,13 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       <div className={styles.gameOver} onClick={restartGame}>
         <div>Game Over</div>
         <div>{winner}</div>
-        <div className={styles.playAgain}>Play again?</div></div>}
+        <div className={styles.playAgain}>Play again?</div>
+      </div>}
+      <div className={`${styles.toggleOptions} ${options && styles.underline}`} onClick={() => toggleOptions(!options)}>{options ? 'Hide options' : 'Options'}</div>
+      {options &&
+      <div className={styles.options}>
+        <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
+      </div>}
     </div>
   );
 };
