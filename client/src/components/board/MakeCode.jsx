@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import Colors from './Colors.jsx';
 import styles from '../styles/makeCode.module.css';
 import { generateSecretCode } from '../../solverAlgorithm/globalLogic.js';
+import { useSpring, animated } from 'react-spring';
 
 const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
   const [secretCode, setSecretCodeHook] = useState(new Array(codeSize).fill('x'));
+  
+  // Fade in animation
+  const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
   const updateSecretCode = (colorToAddToGuess) => {
     const updatedSecretCode = [...secretCode];
@@ -40,24 +44,21 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
   }
 
   return (
-    <div>
+    <animated.div style={spring}>
       <div className={styles.codemaker}>Codemaker</div>
       <div className={styles.container}>
-        {/* Secret Code */}
         <div className={styles.secretCode}>
           <Colors colors={secretCode} removeColorFromGuess={removeColorFromGuess} />
         </div>
-        {/* Color Options */}
         <div className={styles.colorOptions}>
           <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/>
         </div>
-        {/* Buttons */}
         <div className={styles.buttons}>
           <div className={secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={submitSecretCode}>Submit Code</div>
           <div className={styles.randomCode} onClick={generateRandomCode}>Random Code</div>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 

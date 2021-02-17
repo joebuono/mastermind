@@ -248,7 +248,7 @@ class Board extends Component {
         {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}  
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
           {!makeSecretCode &&
-          <div className={styles.boardContainer}>
+          <div className={`${styles.boardContainer} ${styles.fadeIn}`}>
             <div className={styles.secretCode}>
               <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
             </div>

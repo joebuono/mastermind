@@ -52,6 +52,19 @@
   border: 1px solid rgb(65, 38, 15);
 }
 
+.fadeIn {
+  animation: fadeIn ease .6s;
+  -webkit-animation: fadeIn ease .6s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 .secretCode {
   grid-column: 1 / 6;
   grid-row: 1 / 3;

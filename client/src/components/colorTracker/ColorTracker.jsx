@@ -2,10 +2,13 @@ import React from 'react';
 import styles from '../styles/colorTracker.module.css';
 import RowsContainer from './RowsContainer.jsx';
 import Colors from '../board/Colors.jsx';
+import { useSpring, animated } from 'react-spring';
 
 const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
-
   const globalTemplate = new Array(codeSize).fill('x');
+    
+  // Fade in animation
+  const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
   const certainties = {};
 
@@ -44,18 +47,20 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.globalColorTracker}>
-        <Colors colors={globalTemplate}/>
+    <animated.div style={spring}>
+      <div className={styles.container}>
+        <div className={styles.globalColorTracker}>
+          <Colors colors={globalTemplate}/>
+        </div>
+        <div className={styles.rows}>
+          <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} certainties={certainties} />
+        </div>
+        <div className={styles.bestNextGuess}>Best Next Guess</div>
+        <div className={styles.suggestedGuess}>
+          <Colors colors={bestNextGuess.length ? bestNextGuess : new Array(codeSize).fill('x')}/>
+        </div>
       </div>
-      <div className={styles.rows}>
-        <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} certainties={certainties} />
-      </div>
-      <div className={styles.bestNextGuess}>Best Next Guess</div>
-      <div className={styles.suggestedGuess}>
-        <Colors colors={bestNextGuess.length ? bestNextGuess : new Array(codeSize).fill('x')}/>
-      </div>
-    </div>
+    </animated.div>
   );
 };
 

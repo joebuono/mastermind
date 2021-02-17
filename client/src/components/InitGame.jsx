@@ -14,7 +14,7 @@ const InitGame = (props) => {
   const [attempts, setAttempts] = useState(props.attempts);
   const [difficulty, setDifficulty] = useState(props.difficulty);
 
-  const spring = useSpring({opacity: 1, from: {opacity: 0}})
+  const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
   return (
     <animated.div style={spring}>
