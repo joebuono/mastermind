@@ -1,8 +1,16 @@
+.codemaker {
+  font-size: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
 .container {
   margin: 30px auto;
   padding-top: 10px;
   font-size: 2em;
-  height: 500px;
+  height: 400px;
   width: 620px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -17,19 +25,8 @@
   box-shadow: 10px 10px 20px rgba(65, 38, 15, 0.6);
   border: 1px solid rgb(65, 38, 15);
 }
-/* Can we rotate the wood background to go horizontal? */
-
-.title {
-  grid-column: 1 / 13;
-  grid-row: 1 / 2;
-  font-size: 2em;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
 .secretCode {
-  margin-top: 30px;
   grid-column: 3 / 11;
   grid-row: 2 / 3;
 }

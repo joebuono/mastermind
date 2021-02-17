@@ -58,20 +58,22 @@ class MakeCode extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
-        {/* Secret Code */}
-        <div className={styles.title}>Codemaker</div>
-        <div className={styles.secretCode}>
-          <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
-        </div>
-        {/* Color Options */}
-        <div className={styles.colorOptions}>
-          <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
-        </div>
-        {/* Buttons */}
-        <div className={styles.buttons}>
-          <div className={this.state.secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
-          <div className={styles.randomCode} onClick={this.generateRandomCode}>Random Code</div>
+      <div>
+        <div className={styles.codemaker}>Codemaker</div>
+        <div className={styles.container}>
+          {/* Secret Code */}
+          <div className={styles.secretCode}>
+            <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
+          </div>
+          {/* Color Options */}
+          <div className={styles.colorOptions}>
+            <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
+          </div>
+          {/* Buttons */}
+          <div className={styles.buttons}>
+            <div className={this.state.secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
+            <div className={styles.randomCode} onClick={this.generateRandomCode}>Random Code</div>
+          </div>
         </div>
       </div>
     );

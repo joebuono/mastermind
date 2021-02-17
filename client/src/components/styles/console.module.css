@@ -51,14 +51,12 @@
   margin-top: 30px;
   margin-bottom: 20px;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  text-align: center;
   font-size: 1.5em;
 }
 
 .nextComputerGuess {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   font-size: 1.5em;
   margin-bottom: 20px;
   color: rgb(65, 38, 15);
