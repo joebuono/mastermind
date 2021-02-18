@@ -48,6 +48,7 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       {options &&
       <div className={styles.options}>
         <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
+        <div className={styles.restartGame} onClick={restartGame}>Restart Game</div>
       </div>
       }
     </div>

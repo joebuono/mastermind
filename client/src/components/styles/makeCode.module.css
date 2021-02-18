@@ -74,6 +74,7 @@
   border-radius: 20px;
   border: 1px solid rgb(65, 38, 15);
   box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+  cursor: pointer;
 }
 
 .randomCode:hover {

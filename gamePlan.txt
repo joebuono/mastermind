@@ -2,6 +2,7 @@ Next Steps:
 
 2/18/21
 
+- Restart button in the Options dropdown
 - React Tooltips
 - Show Global Knowledge at top of Board component (on player turn)?
 - Drag and Drop

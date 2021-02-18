@@ -50,14 +50,6 @@
   border-radius: 10px;
 }
 
-.toggleColorTracker {
-  margin-top: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-
 .nextComputerGuess {
   text-align: center;
   font-size: 1.5em;
@@ -123,6 +115,7 @@
   background-color: rgb(228, 198, 162);
   border-radius: 10px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .gameOver {
@@ -140,7 +133,6 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  margin-bottom: 20px;
   color: rgb(65, 38, 15);
   background-color: rgb(228, 198, 162);
   border-radius: 10px;
@@ -159,6 +151,19 @@
   border-bottom: 1px solid rgb(228, 198, 162);
 }
 
-/* .options {
-  transition: all .5s ease-in-out;
-} */
+.toggleColorTracker {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.restartGame {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
