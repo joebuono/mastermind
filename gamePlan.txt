@@ -2,11 +2,15 @@ Next Steps:
 
 2/18/21
 
-- Restart button in the Options dropdown
-- React Tooltips
-- Show Global Knowledge at top of Board component (on player turn)?
 - Drag and Drop
 - Dynamically resize boards, circles, and all components
+
+CLEAN UP CODE
+- Comb through all the code and make the variable, module, and css style names consistent
+  - Rounds, Turns, ATTEMPTS, Guesses, BWPegs, human or player, computer/ai/algorithm
+
+- React Tooltips
+- Show Global Knowledge at top of Board component (on player turn)?
 
 - Expand Console to show options
 - Console in the middle can expand to show additional Options:
@@ -15,9 +19,6 @@ Next Steps:
   - Home
 
 - Explore react-spring for animations
-
-Comb through all the code and make the variable, module, and css style names consistent
-- Rounds, Turns, ATTEMPTS, Guesses, BWPegs, human or player, computer/ai/algorithm
 
 - Media queries (mobile responsive)
 
