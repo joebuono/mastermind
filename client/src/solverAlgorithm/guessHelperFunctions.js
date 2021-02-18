@@ -20,6 +20,7 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
   //     return color;
   //   }
   // }
+  // debugger;
 
   // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
   let unusedColors = [];

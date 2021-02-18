@@ -25,8 +25,8 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
     <div className={styles.container}>
       <div className={styles.round}>Round {round} of {roundLimit}</div>
       <div className={styles.scores}>
-        <div className={styles.score}>{roundOver && !whoseTurn ? <ScoreIncrement previousScore={playerScore - pointsScored} updatedScore={playerScore}/> : playerScore}</div>
-        <div className={styles.score}>{roundOver && whoseTurn ? <ScoreIncrement previousScore={computerScore - pointsScored} updatedScore={computerScore}/> : computerScore}</div>
+        <div className={styles.score}>{roundOver && !whoseTurn ? <ScoreIncrement previousScore={playerScore - (currentRound - 1)} updatedScore={playerScore}/> : playerScore}</div>
+        <div className={styles.score}>{roundOver && whoseTurn ? <ScoreIncrement previousScore={computerScore - (currentRound - 1)} updatedScore={computerScore}/> : computerScore}</div>
       </div>
       <div className={styles.names}>
         <div className={`${styles.name} ${whoseTurn && styles.codebreaker}`}>{playerName}</div>
@@ -48,7 +48,8 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       {options &&
       <div className={styles.options}>
         <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
-      </div>}
+      </div>
+      }
     </div>
   );
 };

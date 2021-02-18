@@ -7,6 +7,8 @@ Next Steps:
   - Restart
   - Home
 
+- Make empty holes look more concave
+
 - Explore react-spring for animations
 
 Comb through all the code and make the variable, module, and css style names consistent

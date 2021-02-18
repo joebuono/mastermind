@@ -72,7 +72,8 @@ class Board extends Component {
       turns: s.turns,
       priorRounds: s.priorRounds,
       templates: s.templates,
-      colorTracker: s.colorTracker
+      colorTracker: s.colorTracker,
+      colorsTriedThusFar: stateCopy.colorsTriedThusFar
     }, this.checkWinCondition);
   }
 

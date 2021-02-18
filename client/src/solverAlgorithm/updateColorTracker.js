@@ -88,6 +88,8 @@ exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, 
     updatedColorTracker[color] = setColorTracker[color];
   }
 
+  console.log('updatedColorTracker', updatedColorTracker);
+
   // should we return the updated color tracker? I don't want the function to have side effects (affect the outside world)
   return updatedColorTracker;
 };

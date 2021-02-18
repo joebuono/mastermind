@@ -31,7 +31,7 @@
 }
 
 .empty {
-  background: linear-gradient(135deg,rgba(0,0,0,0.22),rgba(255,255,255,0.25));
+  background: linear-gradient(135deg,rgba(0,0,0,0.4),rgba(255,255,255,0.2));
 }
 
 .upperLeft {

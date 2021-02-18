@@ -40,19 +40,6 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
         }
       }
 
-      // let numOfEachColor = {};
-      // for (let color of template) {
-      //   numOfEachColor[color] = ++numOfEachColor[color] || 1;
-      // }
-
-      // let correctNumber = true;
-      // for (let color of template) {
-      //   if (numOfEachColor[color] > COLOR_TRACKER[color].number[0]) {
-      //     correctNumber = false;
-      //     break;
-      //   }
-      // }
-
       if (!badGuess) {
         // check that we don't already know the secretCode for certain (this is a raw solution just to get the MVP working)
         let certainGuess = [];
@@ -92,7 +79,8 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
   // check if template is all 'x's
   // checkIfArraysMatch(templates[0], new Array(CODE_SIZE).fill('x'))
 
-
+  // console.log('these templates made it past:', templates);
+  // debugger;
   
   let fillCondition;
   if (difficulty === 'easy') {
