@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../styles/board.module.css';
-import Colors from './Colors.jsx';
+import ColorOptions from './ColorOptions.jsx';
 import SecretCode from './SecretCode.jsx';
 import Turns from './Turns.jsx';
 import MakeCode from './MakeCode.jsx';
@@ -257,8 +257,8 @@ class Board extends Component {
               {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
               <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
             </div>
-            <div className={styles.colors}>
-              <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
+            <div className={styles.colorOptions}>
+              <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
             </div>
           </div>}
         </div>
