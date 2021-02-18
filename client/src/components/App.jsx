@@ -30,13 +30,13 @@ const App = () => {
           <li onClick={() => setNav('game')}>Play Game</li>
           <li>Tutorial</li>
           <li>Inside the<br></br>Algorithm</li>
+          <li>Drag and Drop</li>
         </ul>
       </div>
       }
       {nav === 'game' && <GameView />}
       {/* <Particles className={styles.particles} params={particlesOptions} /> */}
     </div>
-
   );
 }
 

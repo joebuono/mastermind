@@ -6,7 +6,7 @@ import styles from '../styles/colors.module.css';
 function Colors({colors, updateCurrentGuess = () => {}, removeColorFromGuess = () => {}}) {
   return (
     <div className={styles.container}>
-      {colors.map((color, index) => <Color key={index} color={color} updateCurrentGuess={updateCurrentGuess} removeColorFromGuess={removeColorFromGuess(index)} />)}
+      {colors.map((color, index) => <Color key={index} id={`${index + 1}`} index={index + 1} color={color} updateCurrentGuess={updateCurrentGuess} removeColorFromGuess={removeColorFromGuess(index)} />)}
     </div>
   );
 }

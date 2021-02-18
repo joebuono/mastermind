@@ -238,6 +238,10 @@ class Board extends Component {
     this.startNewRound();
   }
 
+  onDragEnd = () => {
+    // TODO: reordering logic
+  }
+
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode, role } = this.state;
     return (
@@ -249,18 +253,18 @@ class Board extends Component {
         {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} humanPlayerTurn={humanPlayerTurn} /></div>}  
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
           {!makeSecretCode &&
-          <div className={`${styles.boardContainer} ${styles.fadeIn}`}>
-            <div className={styles.secretCode}>
-              <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
-            </div>
-            <div className={styles.turns}>
-              {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
-              <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
-            </div>
-            <div className={styles.colorOptions}>
-              <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
-            </div>
-          </div>}
+            <div className={`${styles.boardContainer} ${styles.fadeIn}`}>
+              <div className={styles.secretCode}>
+                <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
+              </div>
+              <div className={styles.turns}>
+                {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
+                <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
+              </div>
+              <div className={styles.colorOptions}>
+                <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
+              </div>
+            </div>}
         </div>
       </div>
     );

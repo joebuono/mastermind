@@ -18,7 +18,7 @@ class GameView extends Component {
     super(props);
     this.state = {
       initGame: false, // set to true once finished developing/testing
-      humanStarts: true,
+      humanStarts: false,
       difficulty: 'hard',
       playerName: 'Player',
       playerScore: 0,
@@ -28,6 +28,7 @@ class GameView extends Component {
       roundLimit: 3,
       turnsPerRound: 8
     };
+    // this.modifyDisplayedColorTracker = this.modifyDisplayedColorTracker.bind(this);
   }
 
   initializeGame = (codeSize, rounds, attempts, difficulty) => {

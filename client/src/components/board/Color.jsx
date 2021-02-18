@@ -3,7 +3,7 @@ import styles from '../styles/color.module.css';
 
 // className={`${styles.circle} ${color}`}
 // Will likely need to take color and size as props
-function Color({color, updateCurrentGuess = () => {}, removeColorFromGuess = () => {}, size}) {
+function Color({color, id, index, updateCurrentGuess = () => {}, removeColorFromGuess = () => {}, size}) {
   const classes = `${styles.circle} ${styles[color]}`;
 
   return (
