@@ -1,6 +1,11 @@
 Next Steps:
 
 2/18/21
+
+- Highlight current turn
+- React Tooltips
+
+
 - Expand Console to show options
 - Console in the middle can expand to show additional Options:
   - Hide/show ColorTracker
@@ -14,12 +19,9 @@ Next Steps:
 Comb through all the code and make the variable, module, and css style names consistent
 - Rounds, Turns, ATTEMPTS, Guesses, BWPegs, human or player, computer/ai/algorithm
 
-- Highlight current turn
-- React Tooltips
+
 - Media queries (mobile responsive)
 
-*** The algorithm needs to use the ColorTracker data to not make stupid guesses
-  - Instead of calculating what we know on the client side, put that logic somewhere in the algorithm so that we avoid stupid guess that break the game flow
 
 
 

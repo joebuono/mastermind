@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/colorTracker.module.css';
 import RowsContainer from './RowsContainer.jsx';
 import Colors from '../board/Colors.jsx';
 import { useSpring, animated } from 'react-spring';
 
-const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
+const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}) => {
   const globalTemplate = new Array(codeSize).fill('x');
+  const [showBestNextGuess, setShowBestNextGuess] = useState(humanPlayerTurn ? false : true);
     
   // Fade in animation
   const spring = useSpring({opacity: 1, from: {opacity: 0}});
@@ -57,10 +58,11 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess}) => {
         <div className={styles.rows}>
           <RowsContainer colorTrackerData={colorTrackerData} codeSize={codeSize} certainties={certainties} />
         </div>
-        <div className={styles.bestNextGuess}>Best Next Guess</div>
+        <div className={`${styles.bestNextGuess} ${showBestNextGuess && styles.show}`} onClick={() => setShowBestNextGuess(!showBestNextGuess)}>Best Next Guess:</div>
+        {showBestNextGuess &&
         <div className={styles.suggestedGuess}>
           <Colors colors={bestNextGuess.length ? bestNextGuess : new Array(codeSize).fill('x')}/>
-        </div>
+        </div>}
       </div>
     </animated.div>
   );

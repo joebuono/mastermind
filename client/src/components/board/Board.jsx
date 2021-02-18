@@ -246,7 +246,7 @@ class Board extends Component {
         {!makeSecretCode && <div className={displayColorTracker ? styles.consoleCenter : styles.consoleLeft}>
           <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} role={role} currentRound={currentRound} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} switchRoles={this.switchRoles} restartGame={this.props.restartGame}/>
         </div>}
-        {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} /></div>}  
+        {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} humanPlayerTurn={humanPlayerTurn} /></div>}  
         <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
           {!makeSecretCode &&
           <div className={`${styles.boardContainer} ${styles.fadeIn}`}>
