@@ -16,8 +16,12 @@
 
 .number {
   grid-column: 3 / 5;
+  margin-left: -10px;
+  margin-bottom: 8px;
 }
 
 .position {
   grid-column: 5 / 13;
+  margin-right: -10px;
+  margin-left: -20px;
 }

@@ -5,12 +5,12 @@ import Colors from '../board/Colors.jsx';
 import { useSpring, animated } from 'react-spring';
 
 const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}) => {
-  const globalTemplate = new Array(codeSize).fill('x');
   const [showBestNextGuess, setShowBestNextGuess] = useState(humanPlayerTurn ? false : true);
     
   // Fade in animation
   const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
+  const globalTemplate = new Array(codeSize).fill('x');
   const certainties = {};
 
   for (let position = 1; position <= codeSize; position++) {
