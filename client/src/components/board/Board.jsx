@@ -238,10 +238,6 @@ class Board extends Component {
     this.startNewRound();
   }
 
-  onDragEnd = () => {
-    // TODO: reordering logic
-  }
-
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode, role } = this.state;
     return (

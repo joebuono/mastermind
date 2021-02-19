@@ -7,12 +7,14 @@ const codeSizeOptions = [4, 5];
 const roundsOptions = [1, 3, 5];
 const attemptsOptions = [6, 8, 10];
 const difficultyOptions = ['Naive', 'Optimal'];
+const whoStartsOptions = ['Me', 'Computer'];
 
 const InitGame = (props) => {
   const [codeSize, setCodeSize] = useState(props.codeSize);
   const [rounds, setRounds] = useState(props.rounds);
   const [attempts, setAttempts] = useState(props.attempts);
   const [difficulty, setDifficulty] = useState(props.difficulty);
+  const [whoStarts, setWhoStarts] = useState(props.whoStarts);
 
   const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
@@ -28,7 +30,9 @@ const InitGame = (props) => {
         <div className={styles.right}><SetupOptions options={attemptsOptions} selected={attempts} setOption={setAttempts} /></div>
         <div className={styles.left}>Algorithm</div>
         <div className={styles.right}><SetupOptions options={difficultyOptions} selected={difficulty} setOption={setDifficulty} /></div>
-        <div className={styles.startGame} onClick={() => props.initializeGame(codeSize, rounds, attempts, difficulty)}>Start Game</div>
+        <div className={styles.left}>Who starts</div>
+        <div className={styles.right}><SetupOptions options={whoStartsOptions} selected={whoStarts} setOption={setWhoStarts} /></div>
+        <div className={styles.startGame} onClick={() => props.initializeGame(codeSize, rounds, attempts, difficulty, whoStarts)}>Start Game</div>
       </div>
     </animated.div>
   );

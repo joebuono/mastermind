@@ -3,7 +3,7 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(24, 1fr);
   width: 500px;
-  height: 890px;
+  height: 98vh;
   margin: auto;
   background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
   background-repeat: no-repeat;

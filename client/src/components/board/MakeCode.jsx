@@ -45,17 +45,19 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
 
   return (
     <animated.div style={spring}>
-      <div className={styles.codemaker}>Codemaker</div>
-      <div className={styles.container}>
-        <div className={styles.secretCode}>
-          <Colors colors={secretCode} removeColorFromGuess={removeColorFromGuess} />
-        </div>
-        <div className={styles.colorOptions}>
-          <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/>
-        </div>
-        <div className={styles.buttons}>
-          <div className={secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={submitSecretCode}>Submit Code</div>
-          <div className={styles.randomCode} onClick={generateRandomCode}>Random Code</div>
+      <div className={styles.bigContainer}>
+        <div className={styles.codemaker}>Codemaker</div>
+        <div className={styles.container}>
+          <div className={styles.secretCode}>
+            <Colors colors={secretCode} removeColorFromGuess={removeColorFromGuess} />
+          </div>
+          <div className={styles.colorOptions}>
+            <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/>
+          </div>
+          <div className={styles.buttons}>
+            <div className={secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={submitSecretCode}>Submit Code</div>
+            <div className={styles.randomCode} onClick={generateRandomCode}>Random Code</div>
+          </div>
         </div>
       </div>
     </animated.div>

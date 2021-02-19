@@ -19,18 +19,17 @@ import styles from './styles/app.module.css';
 
 // This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 const App = () => {
-  const [nav, setNav] = useState('game'); // set to empty string once finished developing/testing
+  const [nav, setNav] = useState(''); // set to empty string once finished developing/testing
   // React was complaining about a "useless constructor"
   return (
     <div>
       {nav === '' && 
-      <div>
+      <div className={styles.container}>
         <div className={styles.title}>Mastermind</div>
         <ul>
           <li onClick={() => setNav('game')}>Play Game</li>
           <li>Tutorial</li>
           <li>Inside the<br></br>Algorithm</li>
-          <li>Drag and Drop</li>
         </ul>
       </div>
       }

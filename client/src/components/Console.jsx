@@ -13,7 +13,7 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
   let winner;
   if (gameOver) {
     if (playerScore > computerScore) {
-      winner = `${playerName} wins!`;
+      winner = `${playerName} win!`;
     } else if (computerScore > playerScore) {
       winner = 'The computer wins';
     } else {
