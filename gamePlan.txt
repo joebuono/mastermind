@@ -1,8 +1,62 @@
 Next Steps:
 
+- Add some Tooltips
+- Dynamically size the main boards, possibly the colors too
+- Make home screen look nice, wooden background for buttons
+- Research deployment on Vercel or Netlify
+
+Google
+- React out to HR Grads for referrals, and recruiters. There are TONS of Google recruiters
+
+Lena says you could totally get a job at Google
+
+- Give a very short synopsis
+- Have the player go first, explain how you would play the game
+- Then explain how you trained the computer to do it, whittle down the number of possibilities as quickly as possible
+
+- Don't get too sidetracked making side projects
+- Just enough to say that you're presently working on this project (create a sense of passion)
+
+- Make a 3-5 minute video walkthrough, upload it to LinkedIn, it's like a mini-interview
+- Or part 1, part 2
+- The most important thing is the explanation of the game (maybe also explain double-clicking to remove a color from a guess)
+- It doesn't matter where the black and white pegs are, just how many there are
+- High-level, 30-second description of what the algorithm does
+- GET MEDIA-FOCUSED STUFF ON YOUR LINKEDIN (it's the Zoom version of yourself, SUPER EFFECTIVE, videos of your walking through your code and decision-making process)
+
+You need to talk through a specific while walking through a 4-code pattern
+- Use as much visual aid as possible
+- Spend most of your time on how the computer figures out the best next guess such that it reduces the possible solution space
+- How does it whittle away at the permutations?
+- The most interesting part is the "bestNextGuess"
+
+- Try explaining it really in depth, then slightly less in depth, then slighly less in depth, until you get down to once sentence. 
+- Feynmann. Make it simpler, simpler, simple. Maximally elegant. Continually shrink your explanation. 
+
+- The algorithm uses the black and white pegs output of a guess to determine the potential set of possible solutions, 
+  then from those solutions chooses the next guess that would eliminate the largest subset of those solutions. 
+
+
+*******
+Can you speak comprehensively about the tech stack you are using?
+- Having it live online is more important than being polished
+
+As long as you can explain why you did what you did in a reasonable way
+*******
+
+
+
+
 2/18/21
 
-- Drag and Drop
+- Tooltips that explain stuff
+- Basic dynamic sizing on the Board and ColorTracker
+- Deploy the site live (netlify or vercel, it should take maybe an hour)
+- Blog post (explanation article, it's a game and a solver algorithm)
+
+
+
+- Drag and Drop (defer until later, this was a huge pain in the ass)
 - Dynamically resize boards, circles, and all components
 
 CLEAN UP CODE
