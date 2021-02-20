@@ -210,7 +210,7 @@ const filterTemplatesForLeastNumberOfWildcards = (templates) => {
   return filteredTemplates;
 };
 
-module.exports = {
+export {
   checkForHowManyColorsWeKnowTheNumberOf,
   pickNewColorToIntroduce,
   leastAmountKnown,

@@ -55,7 +55,7 @@ const filterForPossibleSolutions = (guess, guessResults, permutations) => {
   return possibleSolutions;
 };
 
-module.exports = {
+export {
   getBlackAndWhitePegs,
   checkIfArraysMatch,
   filterForPossibleSolutions

@@ -7,7 +7,7 @@ const g = require('./guessHelperFunctions');
 // Required functions: checkIfArraysMatch, checkForKnownNumberOfAnyColor, pickNewColorToIntroduce, leastAmountKnown
 // filterTemplatesForLeastNumberOfUniqueColors, filterTemplatesForLeastNumberOfWildcards
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
-exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses, difficulty = 'hard') => {
+export const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses, difficulty = 'hard') => {
   //  debugger;
   
   // Make local copy of templates
@@ -290,7 +290,7 @@ exports.generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_F
         if (color === 'x') numberOfWildCards++;
       }
       if (numberOfWildCards > 2) {
-        return exports.generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
+        return generateNextGuess([bestNextGuess], COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses)
       }
     }
     
