@@ -75,7 +75,6 @@ class GameView extends Component {
 
   render() {
     const { codeSize, humanStarts, difficulty, turnsPerRound, initGame, roundLimit } = this.state;
-    console.log('Rendering from GameView');
     return (
       <div>
         {initGame ? <InitGame initializeGame={this.initializeGame} codeSize={codeSize} rounds={roundLimit} attempts={turnsPerRound} difficulty={'Optimal'} whoStarts={'Me'}/> : 

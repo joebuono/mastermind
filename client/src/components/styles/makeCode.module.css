@@ -105,7 +105,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 20px;
   }
 
   .container {
@@ -114,7 +114,6 @@
     font-size: 1.5em;
     height: 400px;
     width: 90vw;
-    /* width: 620px; */
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, 1fr);
@@ -130,13 +129,13 @@
   }
 
   .secretCode {
-    grid-column: 3 / 11;
+    grid-column: 1 / 13;
     grid-row: 2 / 3;
   }
 
   .colorOptions {
     margin-top: 30px;
-    grid-column: 2 / 12;
+    grid-column: 1 / 13;
     grid-row: 3 / 4;
   }
 

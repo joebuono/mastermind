@@ -6,6 +6,12 @@ html, body {
   height: 100%;
 }
 
+@media only screen and (max-width: 740px) {
+  html, body {
+   background-image: linear-gradient(rgb(238, 209, 173), rgb(238, 209, 173));
+  }
+}
+
 /* rgba(230,191,144,255) */
 
 /* rgb(219,172,124) */

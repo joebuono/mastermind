@@ -240,7 +240,10 @@ class Board extends Component {
 
   render() {
     const { colorOptions, secretCode, turns, codeSize, winCondition, currentRound, displayColorTracker, colorTracker, bestNextGuess, humanPlayerTurn, totalRounds, makeSecretCode, role } = this.state;
-    return (
+    const mql = window.matchMedia('(max-width: 600px)');
+    let mobileView = mql.matches;
+    
+    return !mobileView ? 
       <div className={styles.container}>
         {(!humanPlayerTurn && makeSecretCode) && <div className={styles.makeCode}><MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /></div>}
         {!makeSecretCode && <div className={displayColorTracker ? styles.consoleCenter : styles.consoleLeft}>
@@ -262,8 +265,31 @@ class Board extends Component {
               </div>
             </div>}
         </div>
+      </div> 
+      : 
+    
+    <div className={styles.mobileContainer}>
+      {(!humanPlayerTurn && makeSecretCode) && <div className={styles.makeCode}><MakeCode setSecretCode={this.setSecretCode} codeSize={codeSize} colorOptions={colorOptions} /></div>}
+      <div className={displayColorTracker ? styles.boardRight : styles.boardCenter}>   
+        {!makeSecretCode &&
+          <div className={`${styles.boardContainerMobile} ${styles.fadeIn}`}>
+            <div className={styles.secretCode}>
+              <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
+            </div>
+            <div className={styles.turns}>
+              {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
+              <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
+            </div>
+            <div className={styles.colorOptions}>
+              <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
+            </div>
+          </div>}
       </div>
-    );
+      {!makeSecretCode && <div className={styles.consoleMobile}>
+        <Console gameViewState={this.props.gameViewState} whoseTurn={humanPlayerTurn} role={role} currentRound={currentRound} roundOver={winCondition !== null} displayColorTracker={displayColorTracker} toggleColorTracker={this.toggleColorTracker} submitComputerGuess={this.submitComputerGuess} switchRoles={this.switchRoles} restartGame={this.props.restartGame}/>
+      </div>}
+      {(displayColorTracker && !makeSecretCode) && <div className={styles.colorTracker}><ColorTracker colorTrackerData={colorTracker} codeSize={codeSize} bestNextGuess={bestNextGuess} humanPlayerTurn={humanPlayerTurn} /></div>}  
+    </div>;
   }
 }
 

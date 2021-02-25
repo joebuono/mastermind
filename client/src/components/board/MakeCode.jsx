@@ -43,6 +43,9 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
     setSecretCodeHook(randomCode);
   }
 
+  const mql = window.matchMedia('(max-width: 600px)');
+  let mobileView = mql.matches;
+
   return (
     <animated.div style={spring}>
       <div className={styles.bigContainer}>
@@ -52,7 +55,12 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
             <Colors colors={secretCode} removeColorFromGuess={removeColorFromGuess} />
           </div>
           <div className={styles.colorOptions}>
-            <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/>
+            {!mobileView || colorOptions.length === 6 ? <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/> : 
+            <div>
+            <Colors colors={colorOptions.slice(0, colorOptions.length / 2)} updateCurrentGuess={updateSecretCode}/>
+            <Colors colors={colorOptions.slice(colorOptions.length / 2)} updateCurrentGuess={updateSecretCode}/>
+            </div>}
+            {/* <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/> */}
           </div>
           <div className={styles.buttons}>
             <div className={secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={submitSecretCode}>Submit Code</div>
@@ -63,82 +71,5 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
     </animated.div>
   );
 }
-
-// class MakeCode extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       secretCode: [],
-//       codeSize: this.props.codeSize
-//     }
-//   }
-
-//   updateSecretCode = (colorToAddToGuess) => {
-//     const updatedSecretCode = [...this.state.secretCode];
-//     for (let i = 0; i < updatedSecretCode.length; i++) {
-//       if (updatedSecretCode[i] === 'x') {
-//         updatedSecretCode[i] = colorToAddToGuess;
-//         break;
-//       }
-//     }
-
-//     this.setState({secretCode: updatedSecretCode});
-//   }
-
-//     // This needs to only work for the current guess
-//   removeColorFromGuess = (colorIndex) => () => {
-//     // remove color from current guess
-//     let updatedSecretCode = [...this.state.secretCode];
-//     updatedSecretCode[colorIndex] = 'x';
-
-//     this.setState({
-//       secretCode: updatedSecretCode
-//     });
-//   }
-
-//   submitSecretCode = () => {
-//     const { secretCode } = this.state;
-//     if (!secretCode.includes('x')) {
-//       // send up secretCode to ComputerBoard component
-//       this.props.setSecretCode(secretCode);
-//     } else {
-//       console.log('incomplete guess');
-//     }
-//   }
-
-//   generateRandomCode = () => {
-//     const randomCode = generateSecretCode(this.state.codeSize);
-//     this.setState({secretCode: randomCode});
-//   }
-
-//   componentDidMount() {
-//     this.setState({
-//       secretCode: new Array(this.props.codeSize).fill('x')
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div className={styles.codemaker}>Codemaker</div>
-//         <div className={styles.container}>
-//           {/* Secret Code */}
-//           <div className={styles.secretCode}>
-//             <Colors colors={this.state.secretCode} removeColorFromGuess={this.removeColorFromGuess} />
-//           </div>
-//           {/* Color Options */}
-//           <div className={styles.colorOptions}>
-//             <Colors colors={this.props.colorOptions} updateCurrentGuess={this.updateSecretCode}/>
-//           </div>
-//           {/* Buttons */}
-//           <div className={styles.buttons}>
-//             <div className={this.state.secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={this.submitSecretCode}>Submit Code</div>
-//             <div className={styles.randomCode} onClick={this.generateRandomCode}>Random Code</div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// };
 
 export default MakeCode;

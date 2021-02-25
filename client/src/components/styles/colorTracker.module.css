@@ -56,3 +56,54 @@
   margin-bottom: 10px;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+  width: 500px;
+  height: 98vh;
+  margin: auto;
+  background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
+  background-repeat: no-repeat;
+  background-color: rgb(218, 170, 108); /* Used if the image is unavailable */
+  background-size: cover;
+  border-radius: 38.5px;
+  box-shadow: -60px 0px 100px -90px #000000, 60px 0px 100px -90px #000000;
+  border: 1px solid rgb(65, 38, 15);
+}
+
+@media only screen and (max-width: 740px) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(24, 1fr);
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
+    background-repeat: no-repeat;
+    background-color: rgb(218, 170, 108); /* Used if the image is unavailable */
+    background-size: cover;
+    border-radius: 38.5px;
+    box-shadow: -60px 0px 100px -90px #000000, 60px 0px 100px -90px #000000;
+    border: 1px solid rgb(65, 38, 15);
+  }
+
+  .bestNextGuess {
+    grid-column: 2 / 5;
+    grid-row: 21 / 22;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    color: rgb(228, 198, 162);
+    background-color: rgb(65, 38, 15);
+    border: 1px solid rgb(228, 198, 162);
+    border-radius: 20px;
+    padding: 0 5px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+}
