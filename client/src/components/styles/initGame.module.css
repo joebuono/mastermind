@@ -12,6 +12,9 @@
   font-size: 3em;
   height: 75vh;
   width: 45vw;
+  min-width: 610px;
+  max-width: 650px;
+  min-height: 650px;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -74,6 +77,8 @@
     font-size: 1.5em;
     height: 70vh;
     width: 90vw;
+    min-width: 370px;
+    min-height: 400px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);

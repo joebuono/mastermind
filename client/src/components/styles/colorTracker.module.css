@@ -4,6 +4,7 @@
   grid-template-rows: repeat(24, 1fr);
   width: 500px;
   height: 98vh;
+  min-height: 810px;
   margin: auto;
   background-image: url("https://cdn.wallpapersafari.com/84/55/u9cdnI.jpg");
   background-repeat: no-repeat;
