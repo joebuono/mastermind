@@ -13,7 +13,7 @@ const App = () => {
       {nav === '' && 
       <div className={styles.container}>
         <div className={styles.title}>Mastermind</div>
-        <div className={styles.colors}><Colors colors={['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w']}></Colors></div>
+        <div className={styles.colors}><Colors colors={['r', 'b', 'g', 'y', 'o', 'p']}></Colors></div>
         <ul>
           <li onClick={() => setNav('game')}>Play Game</li>
           <li className={`${styles.tutorial} ${styles.glowing}`}>Tutorial <span>2-minute video</span></li>
@@ -24,6 +24,6 @@ const App = () => {
       {nav === 'game' && <GameView />}
     </div>
   );
-}
+};
 
 export default App;

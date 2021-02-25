@@ -37,3 +37,45 @@
 .last {
   border-radius: 0 20px 20px 0;
 }
+
+@media only screen and (max-width: 740px) {
+  .container {
+    display: flex;
+    margin: 1px;
+  }
+  
+  .option {
+    background-color: rgb(228, 198, 162);
+    border: 1px solid rgb(65, 38, 15);
+    padding: 10px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+  }
+  
+  .option:hover {
+    background-color: rgb(220, 183, 139);
+  }
+  
+  .selected {
+    background-color: rgb(65, 38, 15);
+    color: rgb(228, 198, 162);
+    border: 1px solid rgb(65, 38, 15);
+    padding: 10px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+  }
+  
+  .first {
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .last {
+    border-radius: 0 20px 20px 0;
+  }
+}
