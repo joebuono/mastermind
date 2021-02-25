@@ -1,0 +1,38 @@
+Comparison between Buono and Knuth implementations of Mastermind solver algorithm:
+
+4-code
+Buono's algo: Average of average cases: 4.886
+- By the way, it took 17.125 seconds to play 129,600 entire games (100 games for each possible permutation)
+Single worst average: 5.480
+Average for worst cases: 6.906
+Single worst worst case: 8 (not great)
+
+
+Knuth
+Single worst average case for code size 4: 5
+Global average for average cases for code size 4: 4.476
+Knuth algo: 16:32.580 (m:ss.mmm)
+
+It took over 16.5 minutes to play 1,296 games with Knuth's algorithm (1 game for each possible permutation)
+
+Let's confirm that the worst worst case is indeed 5:
+- I really wonder what his AVERAGE worst case is, and how much it differs from mine
+
+Single worst worst case for code size 4: 5
+Global average for worst cases for code size 4: 4.475
+
+Exactly how many orders of magnitude more efficient is my algorithm, in terms of time complexity?
+
+------------------
+
+For 5-codes, Knuth's algorithm is too slow for me to compare it with mine. 
+
+Here are my metrics for code size 5:
+
+Single worst average case for code size 5: 8
+Global average for average cases for code size 5: 6.545
+
+Single worst worst case for code size 5: 10
+Global average for worst cases for code size 5: 7.969
+
+(Also, when you're done testing, change all the exports to ES6 syntax)

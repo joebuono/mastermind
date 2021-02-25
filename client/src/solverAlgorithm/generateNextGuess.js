@@ -7,7 +7,7 @@ const g = require('./guessHelperFunctions');
 // Required functions: checkIfArraysMatch, checkForKnownNumberOfAnyColor, pickNewColorToIntroduce, leastAmountKnown
 // filterTemplatesForLeastNumberOfUniqueColors, filterTemplatesForLeastNumberOfWildcards
 // Required data: templates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE
-export const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses, difficulty = 'hard') => {
+const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR, CODE_SIZE, previousGuesses, difficulty = 'hard') => {
   //  debugger;
   
   // Make local copy of templates
@@ -98,6 +98,7 @@ export const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_T
   // Removed this condition in pursuit of optimization!
   // && numberOfWildCards >= 3
   if (templates.length === 1 && fillCondition) {
+
     // fill it with the first two unused colors, 3 and 1 (or 3 and 2 if a 5-code game)
     // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
 
@@ -129,7 +130,7 @@ export const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_T
     // let numColorsToIntroduce = numberOfWildcards === 1 ? 1 : 2;
 
     let colorsUsedToFillTemplate = g.pickNewColorToIntroduce(COLOR_TRACKER, COLORS_TRIED_THUS_FAR, 2);
-    
+
     // Before randomization:
     // let colorsForGuess = [];
     // for (let color in COLOR_TRACKER) {
@@ -318,4 +319,8 @@ export const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_T
   // console.log('Best next guess:', bestNextGuess);
   // addToColorsTriedThusFar may be an empty array, and that's okay
   return [bestNextGuess, colorUsedToFillTemplate, addToColorsTriedThusFar];
+};
+
+module.exports = {
+  generateNextGuess
 };

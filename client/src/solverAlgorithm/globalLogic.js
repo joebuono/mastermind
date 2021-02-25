@@ -3,7 +3,7 @@
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 // Red, Blue, Green, Yellow, Orange, Purple, Brown, White
 
-export const generateSecretCode = (CODE_SIZE) => {
+const generateSecretCode = (CODE_SIZE) => {
   let secretCode = [];
 
   for (let i = 0; i < CODE_SIZE; i++) {
@@ -28,14 +28,14 @@ const generateColorTracker = (colors, CODE_SIZE) => {
   return colorTracker;
 };
 
-export const initializeGame = (CODE_SIZE = 4) => {
+const initializeGame = (CODE_SIZE = 4) => {
   const colorOptions = COLORS.slice(0, CODE_SIZE * 2 - 2);
   const colorTracker = generateColorTracker(colorOptions, CODE_SIZE);
   const secretCode = generateSecretCode(CODE_SIZE);
   return [colorOptions, colorTracker, secretCode];
 };
 
-// module.exports = {
-//   generateSecretCode,
-//   initializeGame
-// };
+module.exports = {
+  generateSecretCode,
+  initializeGame
+};

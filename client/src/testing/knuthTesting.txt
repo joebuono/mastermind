@@ -1,0 +1,32 @@
+
+
+
+Time taken to generate second guess (after 'rrbb' or 'rrrbb' etc):
+
+4-code: 833.911, 834.268, 844.24, 850.304, 845.389, 834.418, 834.279, 832.738, 840.261, 850.447
+Average: 840.0255 milliseconds
+- So, under one second
+
+6^4 = 1,296 permutations
+
+
+
+5-code Average (ran this once): 17:58.794 (m:ss.mmm)
+- About 18 minutes
+
+8^5 = 32,768 permutations
+
+6-code...
+It takes approximately 2 seconds to check each permutation
+- It's actually a tiny bit longer than 2 seconds
+
+How many permutations are there?
+- 10 possible colors, 6 possible positions
+
+10^6 = 1,000,000
+
+1 million permutations
+
+So, how long is 2 million seconds (2 seconds to calculate each permutation)?
+- About 23 days. 
+

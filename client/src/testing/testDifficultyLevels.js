@@ -1,5 +1,6 @@
 const { difficultyLevels } = require('./difficultyLevels');
 const { fillInTemplate } = require('../solverAlgorithm/generatePermutations');
+const { knuth } = require('./knuth.js');
 
 const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
 
@@ -20,10 +21,7 @@ const getAverageTurnsPerPermutation = (codeSize, iterations, difficulty) => {
     let totalTurns = 0;
     for (let i = 0; i < iterations; i++) {
       let turnsToSolve = difficultyLevels(perm, difficulty);
-      if (turnsToSolve > 20) {
-        failedAtLeastOnce.push(perm);
-        break;
-      }
+      // let turnsToSolve = knuth(perm);
       totalTurns += turnsToSolve;
     }
     let avgTurns = +(totalTurns / iterations).toFixed(2);
@@ -42,6 +40,7 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations, difficulty) => {
     let worstCase = 0;
     for (let i = 0; i < iterations; i++) {
       let turnsToSolve = difficultyLevels(perm, difficulty);
+      // let turnsToSolve = knuth(perm);
       worstCase = Math.max(worstCase, turnsToSolve);
     }
     worstCases.push([worstCase, perm]);
@@ -50,8 +49,8 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations, difficulty) => {
   return worstCases.sort((a, b) => b[0] - a[0]);
 };
 
-let codeSize = 4;
-let iterations = 100;
+let codeSize = 5;
+let iterations = 10;
 let difficulty = 'hard'; // ********************************************** This line matters the most
 
 
@@ -64,9 +63,11 @@ let difficulty = 'hard'; // ********************************************** This 
 // let globalAverageForAvgCases = total / avgCases.length;
 // console.log(`Global average for average cases for code size ${codeSize}:`, globalAverageForAvgCases);
 
+console.time('Joe algo');
 let worstCases = getWorstCaseTurnsPerPermutation(codeSize, iterations, difficulty);
+console.timeEnd('Joe algo');
 console.log(`Single worst worst case for code size ${codeSize}:`, worstCases[0]);
-console.log(worstCases);
+// console.log(worstCases);
 let total = 0;
 for (let worstCase of worstCases) {
   total += worstCase[0];
