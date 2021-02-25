@@ -12,9 +12,9 @@ const App = () => {
     <div>
       {nav === '' && 
       <div className={styles.container}>
-        <div className={styles.title}>Mastermind</div>
-        <div className={styles.colors}><Colors colors={['r', 'b', 'g', 'y', 'o', 'p']}></Colors></div>
-        <ul>
+        <div className={`${styles.title} ${styles.fadeIn}`}>Mastermind</div>
+        <div className={`${styles.colors} ${styles.fadeIn}`}><Colors colors={['r', 'b', 'g', 'y', 'o', 'p']}></Colors></div>
+        <ul className={styles.fadeInSlow}>
           <li onClick={() => setNav('game')}>Play Game</li>
           <li className={`${styles.tutorial} ${styles.glowing}`}>Tutorial <span>2-minute video</span></li>
           <li>Inside the<br></br>Algorithm <span>3-minute video</span></li>
