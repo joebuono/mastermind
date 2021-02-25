@@ -24,7 +24,7 @@ const trackPossibleSolution = (possibleSolution, COLORS_TRIED_THUS_FAR) => {
 
 
 // This function is too big. Break it down into sub-functions
-exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER) => {
+const updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER) => {
   // console.log('Inside updateColorTracker function', COLORS);
   let setColorTracker = {};
   for (let color of COLORS) {
@@ -90,4 +90,8 @@ exports.updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, 
 
   // should we return the updated color tracker? I don't want the function to have side effects (affect the outside world)
   return updatedColorTracker;
+};
+
+export {
+  updateColorTracker
 };

@@ -35,7 +35,7 @@ const initializeGame = (CODE_SIZE = 4) => {
   return [colorOptions, colorTracker, secretCode];
 };
 
-module.exports = {
+export {
   generateSecretCode,
   initializeGame
 };

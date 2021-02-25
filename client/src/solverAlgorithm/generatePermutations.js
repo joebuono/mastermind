@@ -48,7 +48,7 @@ const generateAllPermutations = (templates, newColorsIntroduced) => {
   return perms;
 };
 
-module.exports = {
+export {
   fillInTemplate,
   generateAllPermutations
 };

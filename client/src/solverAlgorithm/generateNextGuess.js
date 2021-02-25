@@ -321,6 +321,6 @@ const generateNextGuess = (globalTemplates, COLOR_TRACKER, COLORS_TRIED_THUS_FAR
   return [bestNextGuess, colorUsedToFillTemplate, addToColorsTriedThusFar];
 };
 
-module.exports = {
+export {
   generateNextGuess
 };
