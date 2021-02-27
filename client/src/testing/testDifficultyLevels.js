@@ -2,7 +2,7 @@ const { difficultyLevels } = require('./difficultyLevels');
 const { fillInTemplate } = require('../solverAlgorithm/generatePermutations');
 const { knuth } = require('./knuth.js');
 
-const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
+const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w', 'd', 'k'];
 
 let failedAtLeastOnce = [];
 
@@ -49,8 +49,8 @@ const getWorstCaseTurnsPerPermutation = (codeSize, iterations, difficulty) => {
   return worstCases.sort((a, b) => b[0] - a[0]);
 };
 
-let codeSize = 5;
-let iterations = 10;
+let codeSize = 6;
+let iterations = 1;
 let difficulty = 'hard'; // ********************************************** This line matters the most
 
 

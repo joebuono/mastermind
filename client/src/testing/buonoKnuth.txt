@@ -36,3 +36,13 @@ Single worst worst case for code size 5: 10
 Global average for worst cases for code size 5: 7.969
 
 (Also, when you're done testing, change all the exports to ES6 syntax)
+
+
+-----------------
+
+Single worst average case for code size 6: 13 (Why is this greater than the worst worst case?)
+Global average for average cases for code size 6: 8.134656
+
+Single worst worst case for code size 6: 12
+Global average for worst cases for code size 6: 8.133208
+

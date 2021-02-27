@@ -1,7 +1,7 @@
 // Global Logic
 
-const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w'];
-// Red, Blue, Green, Yellow, Orange, Purple, Brown, White
+const COLORS = ['r', 'b', 'g', 'y', 'o', 'p', 'n', 'w', 'd', 'k'];
+// Red, Blue, Green, Yellow, Orange, Purple, Brown, White, Donald, Knuth
 
 const generateSecretCode = (CODE_SIZE) => {
   let secretCode = [];

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import styles from './styles/console.module.css';
 import ScoreIncrement from './ScoreIncrement.jsx';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
   const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
   const [options, toggleOptions] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const videoPlayer = React.createRef();
+  const handleVideoClose = () => {
+    var iframeSrc = videoPlayer.current.src;
+		videoPlayer.current.src = iframeSrc;
+  }
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
 
@@ -47,8 +56,12 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       <div className={`${styles.toggleOptions} ${options && styles.underline}`} onClick={() => toggleOptions(!options)}>{options ? 'Hide options' : 'Options'}</div>
       {options &&
       <div className={styles.options}>
-        <div className={styles.toggleColorTracker} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
-        <div className={styles.restartGame} onClick={restartGame}>Restart Game</div>
+        <div className={styles.option} onClick={toggleColorTracker}>{displayColorTracker ? 'Hide' : 'Show'} Color Tracker</div>
+        <div className={styles.option} onClick={restartGame}>Restart Game</div>
+        <div className={styles.option} onClick={() => setVisible(true)}>Tutorial</div>
+        <Rodal visible={visible} onClose={() => {handleVideoClose(); setVisible(false)}} customStyles={{ height: '75%', width: '75%'}}>
+          <iframe ref={videoPlayer} title="Tutorial" width="100%" height="100%" src="https://www.youtube.com/embed/jD2qdPCD_eo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        </Rodal>
       </div>
       }
     </div>

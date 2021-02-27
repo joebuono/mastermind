@@ -1,9 +1,11 @@
 const { difficultyLevels } = require('./difficultyLevels');
 
 // debugger;
-let secretCode = ['b', 'g', 'o', 'g'];
+let secretCode = ['b', 'g', 'k', 'n', 'w', 'p'];
 let difficulty = 'easy';
+console.time('Test6');
 let roundsToSolve = difficultyLevels(secretCode, difficulty);
+console.timeEnd('Test6');
 console.log(`Rounds to solve [${secretCode}]`, roundsToSolve);
 
 
