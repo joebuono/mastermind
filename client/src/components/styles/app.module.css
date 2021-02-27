@@ -98,6 +98,13 @@ span {
   animation: glowing 1250ms infinite;
 }
 
+p {
+  text-align: center;
+  font-size: 2em;
+  margin: 0;
+  padding-top: 2px;
+}
+
 @-webkit-keyframes glowing {
   0% {
     background-color: rgb(228, 198, 162);
@@ -118,7 +125,7 @@ span {
     box-shadow: 0 0 3px rgb(228, 198, 162);
   }
   50% {
-    background-color: rgb(220, 183, 139);
+    background-color: rgb(227, 184, 133);
     box-shadow: 0 0 15px rgb(228, 198, 162);
   }
   100% {
@@ -175,5 +182,10 @@ span {
     border-radius: 20px;
     margin: 2vh;
     box-shadow: 5px 5px 10px rgba(65, 38, 15, 0.6);
+  }
+
+  p {
+    padding-top: 9px;
+    font-size: 1em;
   }
 }
