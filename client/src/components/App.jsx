@@ -11,8 +11,6 @@ const App = () => {
   const [nav, setNav] = useState(''); // set to empty string once finished developing/testing
   const [tutorial, setTutorial] = useState(false);
   const [intro, setIntro] = useState(false);
-  // React was complaining about a "useless constructor"
-  // https://youtu.be/jD2qdPCD_eo
 
   const tutorialVideo = React.createRef();
   const handleTutorialClose = () => {
@@ -26,8 +24,6 @@ const App = () => {
 		introVideo.current.src = iframeSrc;
   };
 
-
-
   return (
     <div>
       {nav === '' && 
@@ -37,14 +33,13 @@ const App = () => {
         <ul className={styles.fadeInSlow}>
           <li onClick={() => setNav('game')}>Play Game</li>
           <li onClick={() => setTutorial(true)}>Tutorial <span>5-minute video</span></li>
-          <li onClick={() => setIntro(true)} className={`${styles.algo} ${styles.glowing}`}>Intro to the<br></br>Algorithm <span>Recruiters, click here!</span></li>
+          <li onClick={() => setIntro(true)} className={`${styles.algo} ${styles.glowing}`}>Inside the<br></br>Algorithm <span>Recruiters, click here!</span></li>
         </ul>
         <Rodal visible={tutorial} onClose={() => {handleTutorialClose(); setTutorial(false)}} customStyles={{ height: '75%', width: '75%'}}>
           <iframe ref={tutorialVideo} title="Tutorial" width="100%" height="100%" src="https://www.youtube.com/embed/jD2qdPCD_eo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
         <Rodal visible={intro} onClose={() => {handleIntroClose(); setIntro(false)}} customStyles={{ height: '75%', width: '75%'}}>
-          <iframe ref={introVideo} title="Intro" width="100%" height="94%" src="https://www.youtube.com/embed/HtwtQdbdQXU" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-          <p>Blog Post: Inside the Algorithm</p>
+          <iframe ref={introVideo} title="Intro" width="100%" height="100%" src="https://www.youtube.com/embed/W-fWm3MUWow" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
       </div>
       }
