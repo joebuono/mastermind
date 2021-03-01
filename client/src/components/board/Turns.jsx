@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/turns.module.css';
-import Turn from './Turn.jsx';
+import Turn from './Turn.tsx';
 
 function Turns({turns, codeSize, turnIndex, submitPlayerGuess, removeColorFromGuess = () => {}}) {
   return (

@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styles from '../styles/turn.module.css';
 import Colors from './Colors.jsx';
 import BlackAndWhitePegs from './BlackAndWhitePegs.jsx';
 
-const Turn = ({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}) => {
+interface TurnArrays {
+  guess: Array<string>,
+  bwPegs: Array<number>
+}
+
+type Props = {
+  turn: TurnArrays,
+  codeSize: number,
+  currentTurn: boolean,
+  submitPlayerGuess: MouseEventHandler,
+  removeColorFromGuess: any
+}
+
+
+
+const Turn = ({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}: Props) => {
   return (
     <div className={`${styles.rowContainer} ${currentTurn && styles.currentTurn}`}>
       <div className={styles.guess}><Colors colors={turn.guess} removeColorFromGuess={currentTurn ? removeColorFromGuess : () => {}} /></div>
