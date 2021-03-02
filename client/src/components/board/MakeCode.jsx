@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Colors from './Colors.jsx';
+import Colors from './Colors';
 import styles from '../styles/makeCode.module.css';
 import { generateSecretCode } from '../../solverAlgorithm/globalLogic.js';
 import { useSpring, animated } from 'react-spring';

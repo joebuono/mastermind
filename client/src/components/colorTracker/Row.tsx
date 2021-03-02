@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '../styles/row.module.css';
-import Color from '../board/Color.jsx';
-import PositionTracker from './PositionTracker.jsx';
+import Color from '../board/Color';
+import PositionTracker from './PositionTracker';
 
-const formatNumberData = (numArr) => {
+const formatNumberData = (numArr: number[]) => {
   if (numArr.length === 1) return numArr[0];
   if (numArr.length > 1) {
     if (numArr[numArr.length - 1] - numArr[0] === 1) {
@@ -13,7 +13,19 @@ const formatNumberData = (numArr) => {
   }
 };
 
-export default function Row({colorInfo, codeSize, certainties}) {
+interface ColorInfo {
+  color: string,
+  number: number[],
+  position: number[]
+}
+
+type Props = {
+  colorInfo: ColorInfo,
+  codeSize: number,
+  certainties: any
+}
+
+export default function Row({colorInfo, codeSize, certainties}: Props) {
   return (
     <div className={styles.container}>
       <div className={`${styles.color} ${styles.column}`}><Color color={colorInfo.color} /></div>

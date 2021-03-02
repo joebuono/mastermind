@@ -1,8 +1,14 @@
 import React from 'react';
-import Color from './Color.jsx';
+import Color from './Color';
 import styles from '../styles/secretCode.module.css';
 
-export default function SecretCode({secretCode, currentTurn, showSecretCode}) {
+type Props = {
+  secretCode: string[],
+  currentTurn: boolean,
+  showSecretCode: boolean
+}
+
+export default function SecretCode({secretCode, currentTurn, showSecretCode}: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.secretCode}>

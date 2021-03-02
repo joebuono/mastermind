@@ -1,6 +1,6 @@
 import styles from '../styles/blackAndWhitePegs.module.css';
 
-const convert = (pegs, codeSize) => {
+const convert = (pegs: number[], codeSize: number) => {
   let converted = [...new Array(pegs[0]).fill('black'), ...new Array(pegs[1]).fill('white')];
   while (converted.length < codeSize) {
     converted.push('empty');
@@ -8,7 +8,12 @@ const convert = (pegs, codeSize) => {
   return converted;
 };
 
-export default function BlackAndWhitePegs({bwPegs, codeSize}) {
+type Props = {
+  bwPegs: number[],
+  codeSize: number
+}
+
+export default function BlackAndWhitePegs({bwPegs, codeSize}: Props) {
   const pegs = convert(bwPegs, codeSize);
   return (
     <div className={styles.grid}>

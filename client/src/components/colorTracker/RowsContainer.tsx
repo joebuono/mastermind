@@ -1,8 +1,13 @@
-import React from 'react';
 import styles from '../styles/rowsContainer.module.css';
-import Row from './Row.jsx';
+import Row from './Row';
 
-export default function RowsContainer ({colorTrackerData, codeSize, certainties}) {
+type Props = {
+  colorTrackerData: any,
+  codeSize: number,
+  certainties: any
+}
+
+export default function RowsContainer ({colorTrackerData, codeSize, certainties}: Props) {
   let colorData = [];
   for (let color in colorTrackerData) {
     colorData.push({

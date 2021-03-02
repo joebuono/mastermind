@@ -1,9 +1,24 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Board from './board/Board.jsx';
-import InitGame from './InitGame.jsx';
+import InitGame from './InitGame';
 
-class GameView extends Component {
-  constructor(props) {
+type State = {
+  initGame: boolean,
+  humanStarts: boolean,
+  difficulty: string,
+  playerName: string,
+  playerScore: number,
+  computerScore: number,
+  codeSize: number,
+  round: number,
+  roundLimit: number,
+  turnsPerRound: number,
+  colorTrackerData?: any,
+  [x: string]: any
+}
+
+class GameView extends Component<{}, State> {
+  constructor(props: any) {
     super(props);
     this.state = {
       initGame: true,
@@ -19,7 +34,7 @@ class GameView extends Component {
     };
   }
 
-  initializeGame = (codeSize, rounds, attempts, difficulty, whoStarts) => {
+  initializeGame = (codeSize: number, rounds: number, attempts: number, difficulty: string, whoStarts: string) => {
     this.setState({
       codeSize,
       roundLimit: rounds,
@@ -30,7 +45,7 @@ class GameView extends Component {
     });
   }
 
-  modifyDisplayedColorTracker = (updatedColorTrackerData) => {
+  modifyDisplayedColorTracker = (updatedColorTrackerData: any) => {
     this.setState({ colorTrackerData: updatedColorTrackerData });
   }
 
@@ -38,7 +53,7 @@ class GameView extends Component {
     this.setState({ round: this.state.round + 1 });
   }
 
-  updateScore = (codeBreaker, pointsScoredInRound) => {
+  updateScore = (codeBreaker: string, pointsScoredInRound: number) => {
     let whoScored = codeBreaker + 'Score';
     this.setState({
       [whoScored]: this.state[whoScored] + pointsScoredInRound

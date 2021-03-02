@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styles from '../styles/turn.module.css';
-import Colors from './Colors.jsx';
-import BlackAndWhitePegs from './BlackAndWhitePegs.jsx';
+import Colors from './Colors';
+import BlackAndWhitePegs from './BlackAndWhitePegs';
 
-export default function Turn({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}) {
+interface TurnType {
+  guess: string[],
+  bwPegs: number[]
+}
+
+type Props = {
+  turn: TurnType,
+  codeSize: number,
+  currentTurn: boolean,
+  submitPlayerGuess: MouseEventHandler,
+  removeColorFromGuess: any
+}
+
+export default function Turn({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}: Props) {
   return (
     <div className={`${styles.rowContainer} ${currentTurn && styles.currentTurn}`}>
       <div className={styles.guess}><Colors colors={turn.guess} removeColorFromGuess={currentTurn ? removeColorFromGuess : () => {}} /></div>

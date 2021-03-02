@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import GameView from './GameView.jsx';
+import GameView from './GameView';
 import styles from './styles/app.module.css';
-import Colors from './board/Colors.jsx';
+import Colors from './board/Colors';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
@@ -10,13 +10,13 @@ const App = () => {
   const [tutorial, setTutorial] = useState(false);
   const [intro, setIntro] = useState(false);
 
-  const tutorialVideo = React.createRef();
+  const tutorialVideo: any = React.createRef();
   const handleTutorialClose = () => {
     var iframeSrc = tutorialVideo.current.src;
 		tutorialVideo.current.src = iframeSrc;
   };
 
-  const introVideo = React.createRef();
+  const introVideo: any = React.createRef();
   const handleIntroClose = () => {
     var iframeSrc = introVideo.current.src;
 		introVideo.current.src = iframeSrc;

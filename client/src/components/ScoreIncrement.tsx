@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
-export default function ScoreIncrement({previousScore, updatedScore}) {
+type Props = {
+  previousScore: number,
+  updatedScore: number
+}
+
+export default function ScoreIncrement({previousScore, updatedScore}: Props) {
   const [score, setScore] = useState(previousScore);
 
   useEffect(() => {

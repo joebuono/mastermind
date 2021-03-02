@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import styles from '../styles/colorTracker.module.css';
-import RowsContainer from './RowsContainer.jsx';
-import Colors from '../board/Colors.jsx';
+import RowsContainer from './RowsContainer';
+import Colors from '../board/Colors';
 import { useSpring, animated } from 'react-spring';
 
-export default function ColorTracker({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}) {
+type Props = {
+  colorTrackerData: any,
+  codeSize: number,
+  bestNextGuess: string[],
+  humanPlayerTurn: Boolean
+}
+
+export default function ColorTracker({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}: Props) {
   const [showBestNextGuess, setShowBestNextGuess] = useState(humanPlayerTurn ? false : true);
     
   // Fade in animation
   const spring = useSpring({opacity: 1, from: {opacity: 0}});
 
   const globalTemplate = new Array(codeSize).fill('x');
-  const certainties = {};
+
+  interface Certain {
+    [x: string]: number[]
+  }
+  const certainties: Certain = {};
 
   for (let position = 1; position <= codeSize; position++) {
     let numberOfKnowns = 0;
@@ -24,10 +35,10 @@ export default function ColorTracker({colorTrackerData, codeSize, bestNextGuess,
     }
     if (numberOfKnowns === 1) {
       globalTemplate[position - 1] = knownColor;
-      if (certainties[knownColor]) {
-        certainties[knownColor].push(position - 1);
+      if (certainties[knownColor ?? 'default']) {
+        certainties[knownColor ?? 'default'].push(position - 1);
       } else {
-        certainties[knownColor] = [position - 1];
+        certainties[knownColor ?? 'default'] = [position - 1];
       }
     }
   }
@@ -35,7 +46,10 @@ export default function ColorTracker({colorTrackerData, codeSize, bestNextGuess,
   // If we know the secret code for certain, set all number values to a single digit
   if (!globalTemplate.includes('x')) {
     bestNextGuess = globalTemplate;
-    let occurrences = {};
+    interface Occurrences {
+      [x: string]: number
+    }
+    let occurrences: Occurrences = {};
     for (let color of globalTemplate) {
       occurrences[color] = ++occurrences[color] || 1;
     }

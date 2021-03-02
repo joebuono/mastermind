@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styles from '../styles/board.module.css';
-import ColorOptions from './ColorOptions.jsx';
-import SecretCode from './SecretCode.jsx';
-import Turns from './Turns.jsx';
+import Colors from './Colors';
+import SecretCode from './SecretCode';
+import Turns from './Turns';
 import MakeCode from './MakeCode.jsx';
-import ColorTracker from '../colorTracker/ColorTracker.jsx';
-import Console from '../Console.jsx';
+import ColorTracker from '../colorTracker/ColorTracker';
+import Console from '../Console.tsx';
 import getComputerGuessAndState from '../../frontendLogic/getComputerGuessAndState.js';
 import submitGuess from '../../frontendLogic/submitGuess.js';
 
@@ -244,7 +244,7 @@ class Board extends Component {
                 <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
               </div>
               <div className={styles.colorOptions}>
-                <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
+                <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
               </div>
             </div>}
         </div>
@@ -263,7 +263,7 @@ class Board extends Component {
               <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
             </div>
             <div className={styles.colorOptions}>
-              <ColorOptions colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
+              <Colors colors={colorOptions} updateCurrentGuess={humanPlayerTurn ? this.updateCurrentGuess : () => {}} />
             </div>
           </div>}
       </div>

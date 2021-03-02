@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SetupOptions from './SetupOptions.jsx';
+import SetupOptions from './SetupOptions';
 import styles from './styles/initGame.module.css';
 import { useSpring, animated } from 'react-spring';
 
@@ -10,7 +10,16 @@ const attemptsOptions = [6, 8, 10];
 const difficultyOptions = ['Naive', 'Optimal'];
 const whoStartsOptions = ['Me', 'Computer'];
 
-const InitGame = (props) => {
+type Props = {
+  codeSize: number,
+  rounds: number,
+  attempts: number,
+  difficulty: string,
+  whoStarts: string,
+  initializeGame: any
+}
+
+const InitGame = (props: Props) => {
   const [codeSize, setCodeSize] = useState(props.codeSize);
   const [rounds, setRounds] = useState(props.rounds);
   const [attempts, setAttempts] = useState(props.attempts);

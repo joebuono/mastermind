@@ -1,7 +1,15 @@
 import React from 'react';
-import Colors from '../board/Colors.jsx';
+import Colors from '../board/Colors';
 
-export default function PositionTracker ({color, numberData, positionData, codeSize, certainties}) {
+type Props = {
+  color: string,
+  numberData: number[],
+  positionData: number[],
+  codeSize: number,
+  certainties: any
+}
+
+export default function PositionTracker ({color, numberData, positionData, codeSize, certainties}: Props) {
   let positions = new Array(codeSize).fill('impossible');
   if (numberData.length === 1 && numberData[0] !== 0 && positionData.length === numberData[0]) {
     for (let position of positionData) {

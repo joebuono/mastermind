@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import styles from './styles/console.module.css';
-import ScoreIncrement from './ScoreIncrement.jsx';
+import ScoreIncrement from './ScoreIncrement';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-export default function Console({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) {
+type Props = {
+  gameViewState: any,
+  whoseTurn: boolean,
+  role: number,
+  currentRound: number,
+  roundOver: boolean,
+  displayColorTracker: boolean,
+  toggleColorTracker: MouseEventHandler,
+  submitComputerGuess: MouseEventHandler, 
+  switchRoles: MouseEventHandler,
+  restartGame: MouseEventHandler
+}
+
+export default function Console({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}: Props) {
   const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
   const [options, toggleOptions] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  const videoPlayer = React.createRef();
+  const videoPlayer: any = React.createRef();
   const handleVideoClose = () => {
     var iframeSrc = videoPlayer.current.src;
 		videoPlayer.current.src = iframeSrc;
