@@ -1,4 +1,4 @@
 # Mastermind
 The classic code-breaking game
 
-See live demo at www.mastermind.com
+Play the game at www.mastermindsolver.com
