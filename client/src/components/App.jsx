@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import GameView from './GameView.jsx';
-// import {Route, BrowserRouter as Router, Link} from 'react-router-dom';
 import styles from './styles/app.module.css';
 import Colors from './board/Colors.jsx';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-// This will eventually contain user data, and other pages that the user can navigate between (e.g., tutorial, statistics/ranking, etc)
 const App = () => {
   const [nav, setNav] = useState(''); // set to empty string once finished developing/testing
   const [tutorial, setTutorial] = useState(false);
@@ -41,8 +39,7 @@ const App = () => {
         <Rodal visible={intro} onClose={() => {handleIntroClose(); setIntro(false)}} customStyles={{ height: '75%', width: '75%'}}>
           <iframe ref={introVideo} title="Intro" width="100%" height="100%" src="https://www.youtube.com/embed/W-fWm3MUWow" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
-      </div>
-      }
+      </div>}
       {nav === 'game' && <GameView />}
     </div>
   );

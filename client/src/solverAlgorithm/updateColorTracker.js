@@ -1,4 +1,3 @@
-
 // This is getting the possible colors (numbers and positions) for just ONE possible solution
 const trackPossibleSolution = (possibleSolution, COLORS_TRIED_THUS_FAR) => {
   let colorData = {};
@@ -22,10 +21,7 @@ const trackPossibleSolution = (possibleSolution, COLORS_TRIED_THUS_FAR) => {
   return colorData;
 };
 
-
-// This function is too big. Break it down into sub-functions
 const updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER) => {
-  // console.log('Inside updateColorTracker function', COLORS);
   let setColorTracker = {};
   for (let color of COLORS) {
     if (COLORS_TRIED_THUS_FAR.includes(color)) {
@@ -41,9 +37,7 @@ const updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, CO
     }
   }
 
-  // for each possibleSolution, 
   for (let possibleSolution of possibleSolutions) {
-    // track (get number and position data) for each possible solution
     let colorData = trackPossibleSolution(possibleSolution, COLORS_TRIED_THUS_FAR);
     // use info to update color tracker
     for (let color in colorData) {
@@ -88,7 +82,6 @@ const updateColorTracker = (possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, CO
     updatedColorTracker[color] = setColorTracker[color];
   }
 
-  // should we return the updated color tracker? I don't want the function to have side effects (affect the outside world)
   return updatedColorTracker;
 };
 

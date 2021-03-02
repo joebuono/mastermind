@@ -3,6 +3,7 @@ import SetupOptions from './SetupOptions.jsx';
 import styles from './styles/initGame.module.css';
 import { useSpring, animated } from 'react-spring';
 
+// *** CONSTANTS *** //
 const codeSizeOptions = [4, 5];
 const roundsOptions = [1, 3, 5];
 const attemptsOptions = [6, 8, 10];

@@ -1,9 +1,7 @@
-
 const getBlackAndWhitePegs = (guess, possibleSecretCode) => {
   let guessCopy = [...guess];
   let secretCopy = [...possibleSecretCode];
   
-  // check for black pegs (right color, right spot)
   let blackPegs = 0;
 
   for (let i = 0; i < guessCopy.length; i++) {
@@ -14,7 +12,6 @@ const getBlackAndWhitePegs = (guess, possibleSecretCode) => {
     }
   }
 
-  // check for white pegs (right color, wrong spot)
   let whitePegs = 0;
   for (let i = 0; i < guessCopy.length; i++) {
     if (guessCopy[i]) {
@@ -45,8 +42,6 @@ const filterForPossibleSolutions = (guess, guessResults, permutations) => {
 
   for (let perm of permutations) {
     let result = getBlackAndWhitePegs(guess, perm);
-    // console.log('Perm, Result:', perm, result);
-    // if result matches guess results, push perm to possibleSolutions array
     if (checkIfArraysMatch(result, guessResults)) {
       possibleSolutions.push(perm);
     }

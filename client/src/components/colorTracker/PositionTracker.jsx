@@ -1,10 +1,9 @@
 import React from 'react';
 import Colors from '../board/Colors.jsx';
 
-const PositionTracker = ({color, numberData, positionData, codeSize, certainties}) => {
+export default function PositionTracker ({color, numberData, positionData, codeSize, certainties}) {
   let positions = new Array(codeSize).fill('impossible');
   if (numberData.length === 1 && numberData[0] !== 0 && positionData.length === numberData[0]) {
-    // certain knowledge
     for (let position of positionData) {
       positions[position - 1] = 'certain';
     }
@@ -26,5 +25,3 @@ const PositionTracker = ({color, numberData, positionData, codeSize, certainties
     </div>
   );
 };
-
-export default PositionTracker;

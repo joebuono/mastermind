@@ -1,6 +1,3 @@
-// Helper functions used in generating the best next guess
-
-// Requires COLOR_TRACKER
 const checkForHowManyColorsWeKnowTheNumberOf = (COLOR_TRACKER) => {
   let numberOfKnownColors = 0;
   for (let color in COLOR_TRACKER) {
@@ -11,18 +8,7 @@ const checkForHowManyColorsWeKnowTheNumberOf = (COLOR_TRACKER) => {
   return numberOfKnownColors;
 };
 
-// Requires COLOR_TRACKER and COLORS_TRIED_THUS_FAR
 const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfNewColors = 1) => {
-
-  // Before randomization:
-  // for (let color in COLOR_TRACKER) {
-  //   if (!COLORS_TRIED_THUS_FAR.includes(color)) {
-  //     return color;
-  //   }
-  // }
-  // debugger;
-
-  // OPTIMIZE THROUGH RANDOMIZATION: Of the unused colors, randomly select two of them
   let unusedColors = [];
   for (let color in COLOR_TRACKER) {
     if (!COLORS_TRIED_THUS_FAR.includes(color)) {
@@ -86,17 +72,11 @@ const pickNewColorToIntroduce = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR, numberOfN
   }
 };
 
-// Requires COLORS_TRIED_THUS_FAR and COLOR_TRACKER
 const leastAmountKnown = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
   let color;
   let amountKnown = 0;
   for (let usedColor of COLORS_TRIED_THUS_FAR) {
     let info = 0;
-    // this is a pretty rough way of approximating how much we know thus far about each color
-    // a more rigorous way would be to first check if the length of the number array is 1
-    // if so, does the length of the position array match the single value in the number array?
-    // if so, we have complete information for that color
-    // ^^^ YES!!!
     if (COLOR_TRACKER[usedColor]) {
       // check for INCOMPLETE knowledge
       if (COLOR_TRACKER[usedColor].number.length > 1 || COLOR_TRACKER[usedColor].number[0] !== COLOR_TRACKER[usedColor].position.length) {
@@ -110,7 +90,7 @@ const leastAmountKnown = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
     }
   }
 
-  if (color === undefined) debugger;
+  // if (color === undefined) debugger;
 
   // kludge way around returning undefined
   if (!color) {
@@ -124,7 +104,6 @@ const leastAmountKnown = (COLOR_TRACKER, COLORS_TRIED_THUS_FAR) => {
   return color;
 };
 
-// Requires templates
 const filterTemplatesForLeastNumberOfUniqueColors = (templates) => {
   let numUniqueColors = Infinity;
   let filteredTemplates = [];
@@ -144,10 +123,8 @@ const filterTemplatesForLeastNumberOfUniqueColors = (templates) => {
   return filteredTemplates;
 };
 
-// Requires templates
 const filterForTemplatesWithAtLeastOneWildcard = (templates) => {
   // I know this is inefficient, but I'm just trying to patch a bug right now
-
   // check if none of the templates have wildcards
   let noWildcards = true;
   for (let template of templates) {
@@ -169,24 +146,8 @@ const filterForTemplatesWithAtLeastOneWildcard = (templates) => {
   }
 
   return templatesWithAtLeastOneWildcard;
-
-  
-  // Unless ALL the templates have no wildcards!
-  // let templatesWithAtLeastOneWildcard = [];
-  // let templatesWithNoWildcards = [];
-
-  // for (let template of templates) {
-  //   if (template.includes('x')) {
-  //     templatesWithAtLeastOneWildcard.push(template);
-  //   } else {
-  //     templatesWithNoWildcards.push(template);
-  //   }
-  // }
-
-  // return templatesWithAtLeastOneWildcard.length ? templatesWithAtLeastOneWildcard : templatesWithNoWildcards;
 };
 
-// Requires templates
 const filterTemplatesForLeastNumberOfWildcards = (templates) => {
   let leastNumberOfWildcards = Infinity;
   let filteredTemplates = [];

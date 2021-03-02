@@ -4,7 +4,7 @@ import ScoreIncrement from './ScoreIncrement.jsx';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) => {
+export default function Console({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}) {
   const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
   const [options, toggleOptions] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -16,7 +16,6 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
   }
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
-
   const pointsScored = currentRound <= turnsPerRound ? currentRound - 1 : currentRound;
 
   let winner;
@@ -29,7 +28,7 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
       winner = 'It\'s a tie';
     }
   }
-  // next round or switch turns
+
   return (
     <div className={styles.container}>
       <div className={styles.round}>Round {round} of {roundLimit}</div>
@@ -62,10 +61,7 @@ const Console = ({gameViewState, whoseTurn, role, currentRound, roundOver, displ
         <Rodal visible={visible} onClose={() => {handleVideoClose(); setVisible(false)}} customStyles={{ height: '75%', width: '75%'}}>
           <iframe ref={videoPlayer} title="Tutorial" width="100%" height="100%" src="https://www.youtube.com/embed/jD2qdPCD_eo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
-      </div>
-      }
+      </div>}
     </div>
   );
 };
-
-export default Console;

@@ -41,42 +41,25 @@ exports.difficultyLevels = (/* TESTING */ secretTestCode = null, difficulty /* T
     // addToColorsTriedThusFar could be an empty array, which is totally fine
     COLORS_TRIED_THUS_FAR = COLORS_TRIED_THUS_FAR.concat(addToColorsTriedThusFar);
 
-    // console.log(`------------------------------------------------ Round ${CURRENT_ROUND} ------------------------------------------------`);
-    // console.log('Next guess:', guess);
-
     let guessResults = getBlackAndWhitePegs(guess, SECRET_CODE);
-    // console.log('Guess Results:', guessResults);
 
     // check win condition
     if (guessResults[0] === CODE_SIZE) {
-      // console.log('YOU WIN!!!');
       return CURRENT_ROUND;
     }
 
     priorRounds[CURRENT_ROUND] = {
-      guess: [...bestNextGuess], // not sure if copying the arrays is necessary, just playing it safe
+      guess: [...bestNextGuess],
       results: [...guessResults]
     }
 
-    // console.log('These are the templates being used to generate all permutations:', templates);
     let allPermutations = generateAllPermutations(templates, colorOrColorsUsedToFillTemplate); // previously was hard-coded ['r', 'b', 'x']
-    // console.log('All Permutations:', allPermutations);
-    // console.log('Number of all possible permutations:', allPermutations.length);
 
-
-    // CRUCIAL STEP! Use information from prior rounds to filter viable templates. This solved the main problem!!!
-    // Filter templates based on ALL PRIOR ROUNDS
     for (let round in priorRounds) {
-      // console.log('previous round:', priorRounds[round]);
-      // console.log('guess:', priorRounds[round].guess);
-      // console.log('results:', priorRounds[round].results);
       allPermutations = filterForPossibleSolutions(priorRounds[round].guess, priorRounds[round].results, allPermutations);
     }
 
-    // possibleSolutions and templates need to be consolidated. Just pick one!
     let possibleSolutions = allPermutations;
-    // console.log('Possible Solutions:', possibleSolutions);
-    // console.log('Number of possible solutions (templates):', possibleSolutions.length);
   
     // FILTER OUT PREVIOUS GUESSES
     possibleSolutions = possibleSolutions.filter(solution => !previousGuesses.has(`${solution}`));
@@ -86,7 +69,7 @@ exports.difficultyLevels = (/* TESTING */ secretTestCode = null, difficulty /* T
 
     // updateColorTracker
     COLOR_TRACKER = updateColorTracker(possibleSolutions, COLORS, COLORS_TRIED_THUS_FAR, COLOR_TRACKER);
-    // console.log(COLOR_TRACKER);
+
     CURRENT_ROUND++;
   }
 

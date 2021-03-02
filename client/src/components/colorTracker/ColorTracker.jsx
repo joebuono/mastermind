@@ -4,7 +4,7 @@ import RowsContainer from './RowsContainer.jsx';
 import Colors from '../board/Colors.jsx';
 import { useSpring, animated } from 'react-spring';
 
-const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}) => {
+export default function ColorTracker({colorTrackerData, codeSize, bestNextGuess, humanPlayerTurn}) {
   const [showBestNextGuess, setShowBestNextGuess] = useState(humanPlayerTurn ? false : true);
     
   // Fade in animation
@@ -34,10 +34,8 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess, humanPlayerTur
 
   // If we know the secret code for certain, set all number values to a single digit
   if (!globalTemplate.includes('x')) {
-    // This first line is a front-end fix for an algorithmic problem
     bestNextGuess = globalTemplate;
     let occurrences = {};
-    // count the number of times each color occurs in the globalTemplate
     for (let color of globalTemplate) {
       occurrences[color] = ++occurrences[color] || 1;
     }
@@ -67,5 +65,3 @@ const ColorTracker = ({colorTrackerData, codeSize, bestNextGuess, humanPlayerTur
     </animated.div>
   );
 };
-
-export default ColorTracker;

@@ -1,6 +1,3 @@
-
-
-
 Time taken to generate second guess (after 'rrbb' or 'rrrbb' etc):
 
 4-code: 833.911, 834.268, 844.24, 850.304, 845.389, 834.418, 834.279, 832.738, 840.261, 850.447

@@ -3,7 +3,7 @@ import styles from '../styles/turn.module.css';
 import Colors from './Colors.jsx';
 import BlackAndWhitePegs from './BlackAndWhitePegs.jsx';
 
-const Turn = ({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}) => {
+export default function Turn({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGuess}) {
   return (
     <div className={`${styles.rowContainer} ${currentTurn && styles.currentTurn}`}>
       <div className={styles.guess}><Colors colors={turn.guess} removeColorFromGuess={currentTurn ? removeColorFromGuess : () => {}} /></div>
@@ -12,5 +12,3 @@ const Turn = ({turn, codeSize, currentTurn, submitPlayerGuess, removeColorFromGu
     </div>
   );
 };
-
-export default Turn;

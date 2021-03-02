@@ -23,25 +23,20 @@ const fillInTemplate = (template, newColors, index = 0) => {
   return permutationsOfTemplate;
 };
 
-// Separate concerns
+
 const generateAllPermutations = (templates, newColorsIntroduced) => {
   // add wildcard variable 
   let newColors = [...newColorsIntroduced, 'x'];
 
-  // Later, make permutations a set to avoid duplicates
-  // Or adjust the algorithm so that it doesn't generate duplicates (but the former is probably easier)
   let perms = [];
 
   // fill the templates with the newColor(s) introduced in the previous guess
   for (let template of templates) {
-    // (there was some funky stuff going on with x, so I changed it to ? and then replaced it later)
-    // (not super efficient, but beware of premature optimization!)
     for (let i = 0; i < template.length; i++) {
       if (template[i] === 'x') {
         template[i] = '?';
       }
     }
-    // use .concat() instead? could be cleaner
     perms = perms.concat(fillInTemplate(template, newColors));
   }
 

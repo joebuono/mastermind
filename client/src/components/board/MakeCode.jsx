@@ -60,7 +60,6 @@ const MakeCode = ({codeSize, colorOptions, setSecretCode}) => {
             <Colors colors={colorOptions.slice(0, colorOptions.length / 2)} updateCurrentGuess={updateSecretCode}/>
             <Colors colors={colorOptions.slice(colorOptions.length / 2)} updateCurrentGuess={updateSecretCode}/>
             </div>}
-            {/* <Colors colors={colorOptions} updateCurrentGuess={updateSecretCode}/> */}
           </div>
           <div className={styles.buttons}>
             <div className={secretCode.includes('x') ? styles.incompleteCode : styles.submitCode} onClick={submitSecretCode}>Submit Code</div>

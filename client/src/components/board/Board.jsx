@@ -9,20 +9,18 @@ import Console from '../Console.jsx';
 import getComputerGuessAndState from '../../frontendLogic/getComputerGuessAndState.js';
 import submitGuess from '../../frontendLogic/submitGuess.js';
 
-// Solver algorithm functions (do we need to use require, or can we use import syntax?)
 const { initializeGame } = require('../../solverAlgorithm/globalLogic');
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // game state (shared by player and computer)
       humanPlayerTurn: this.props.humanStarts,
       codeSize: this.props.codeSize, 
       difficulty: this.props.difficulty,
-      displayColorTracker: true, // toggle-able
+      displayColorTracker: true,
       secretCode: [],
-      colorOptions: [], // 'n', 'w' for codeSize 5
+      colorOptions: [],
       turns: [],
       currentRound: 1, // change to currentTurn
       totalRounds: this.props.turnsPerRound, // change to totalTurns
@@ -36,7 +34,7 @@ class Board extends Component {
       templates: [],
       colorsTriedThusFar: [],
       previousGuesses: new Set(),
-      priorRounds: {}, // is this really necessary, or can we write a function that converts this.state.turns into the object we need?
+      priorRounds: {},
       colorOrColorsUsedToFillTemplate: []
     };
   }
@@ -47,7 +45,6 @@ class Board extends Component {
     /* This section is to accomodate for how getNextComputerGuess sets state */
     const stateCopy = Object.assign({}, this.state);
     stateCopy.bestNextGuess = currentGuess;
-    // refactor this functionality later
     stateCopy.colorsTriedThusFar = [];
     stateCopy.previousGuesses = new Set();
 
@@ -61,13 +58,9 @@ class Board extends Component {
     }
 
     stateCopy.colorOrColorsUsedToFillTemplate = Array.from(new Set(stateCopy.bestNextGuess));
-    /* There is certainly a more elegant way of doing this */
-    
-    // debugger;
 
     const s = submitGuess(stateCopy);
 
-    // What state do we want back?
     this.setState({
       turns: s.turns,
       priorRounds: s.priorRounds,
@@ -78,7 +71,6 @@ class Board extends Component {
   }
 
   updateCurrentGuess = (colorToAddToGuess) => {
-    // debugger;
     if (this.state.winCondition !== null) return;
 
     let currentGuess = [...this.getCurrentGuess()];
@@ -99,11 +91,12 @@ class Board extends Component {
     });
   }
 
-  // This needs to only work for the current guess
+
   removeColorFromGuess = (colorIndex) => () => {
     // remove color from current guess
     let currentGuess = this.getCurrentGuess();
     currentGuess[colorIndex] = 'x';
+
     // update turns with current guess
     let copyOfTurns = [...this.state.turns];
     copyOfTurns[this.state.currentRound - 1].guess = currentGuess;
@@ -116,11 +109,9 @@ class Board extends Component {
     return [...this.state.turns][this.state.currentRound - 1].guess;
   }
 
-  // I really have to think about how to generalize this functionality for both computer and human guesses
   submitComputerGuess = () => {
     const s = submitGuess(this.state);
 
-    // What state do we want back?
     this.setState({
       turns: s.turns,
       priorRounds: s.priorRounds,
@@ -130,8 +121,6 @@ class Board extends Component {
   }
 
   getNextComputerGuess = () => {
-    // if (this.state.winCondition !== null) return;
-    // if (this.state.humanPlayerTurn) debugger;
     const g = getComputerGuessAndState(this.state);
 
     this.setState({
@@ -147,7 +136,6 @@ class Board extends Component {
     const blackPegs = [...this.state.turns][this.state.currentRound - 1].bwPegs[0];
     const nextRound = currentRound + 1
     
-    // not sure about the conditionals and state yet...
     let updatedWinCondition = null;
     const whoScored = humanPlayerTurn ? 'computer' : 'player';
     if (blackPegs === codeSize) {
@@ -172,8 +160,6 @@ class Board extends Component {
   }
 
   startNewRound = () => {
-    // we don't need the secretCode to be automatically generated
-    // that's only for testing purposes
     const { codeSize, humanPlayerTurn, totalRounds } = this.state;
     let [colorOptions, colorTracker, secretCode] = initializeGame(codeSize);
  
@@ -199,7 +185,7 @@ class Board extends Component {
       bestNextGuess: [],
       colorsTriedThusFar: [],
       previousGuesses: new Set(),
-      priorRounds: {}, // is this really necessary, or can we write a function that converts this.state.turns into the object we need?
+      priorRounds: {},
       colorOrColorsUsedToFillTemplate: [],
       currentRound: 1, // change to currentTurn
       winCondition: null
@@ -207,10 +193,8 @@ class Board extends Component {
   }
 
   switchRoles = () => {
-    // debugger;
     const toggleCodeBreaker = !this.state.humanPlayerTurn;
     // toggle who is playing: human or computer
-    // also keep track of round in state so that we can increment round every two roles
     if (this.state.role) {
       this.setState({
         humanPlayerTurn: toggleCodeBreaker,
@@ -276,7 +260,6 @@ class Board extends Component {
               <SecretCode secretCode={secretCode} currentTurn={winCondition === null ? currentRound : currentRound - 1} showSecretCode={!humanPlayerTurn || winCondition !== null} />
             </div>
             <div className={styles.turns}>
-              {/* There has to be a better way of doing this other than default to an anonymous function, right? */}
               <Turns turns={turns} codeSize={codeSize} turnIndex={totalRounds - currentRound} submitPlayerGuess={humanPlayerTurn ? this.submitPlayerGuess : () => {}} removeColorFromGuess={humanPlayerTurn ? this.removeColorFromGuess : () => {}} />
             </div>
             <div className={styles.colorOptions}>

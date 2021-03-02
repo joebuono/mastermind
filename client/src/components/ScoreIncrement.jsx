@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ScoreIncrement = ({previousScore, updatedScore}) => {
-
-  // Number displayed by component
+export default function ScoreIncrement({previousScore, updatedScore}) {
   const [score, setScore] = useState(previousScore);
 
   useEffect(() => {
@@ -21,9 +19,5 @@ const ScoreIncrement = ({previousScore, updatedScore}) => {
 
   }, [previousScore, updatedScore]);
 
-  return (
-    <div>{score}</div>
-  );
+  return <div>{score}</div>;
 };
-
-export default ScoreIncrement;

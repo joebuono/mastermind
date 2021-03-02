@@ -2,22 +2,7 @@ import React from 'react';
 import styles from '../styles/rowsContainer.module.css';
 import Row from './Row.jsx';
 
-// const colorData = [
-//   {
-//     color: 'r',
-//     number: [0, 1, 2, 3, 4],
-//     position: [1, 2, 3, 4]
-//   },
-//   {
-//     color: 'b',
-//     number: [0, 1, 2, 3, 4],
-//     position: [1, 2, 3, 4]
-//   },
-//   ... etc
-// ];
-
-const RowsContainer = ({colorTrackerData, codeSize, certainties}) => {
-  // modifying input for component use
+export default function RowsContainer ({colorTrackerData, codeSize, certainties}) {
   let colorData = [];
   for (let color in colorTrackerData) {
     colorData.push({
@@ -33,5 +18,3 @@ const RowsContainer = ({colorTrackerData, codeSize, certainties}) => {
     </div>
   );
 };
-
-export default RowsContainer;
