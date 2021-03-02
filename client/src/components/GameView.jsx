@@ -69,7 +69,8 @@ class GameView extends Component {
     this.setState({
       initGame: true,
       playerScore: 0,
-      computerScore: 0
+      computerScore: 0,
+      round: 1
     });
   }
 
