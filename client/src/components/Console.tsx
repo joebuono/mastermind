@@ -11,14 +11,15 @@ type Props = {
   currentRound: number,
   roundOver: boolean,
   displayColorTracker: boolean,
+  winCondition: boolean,
   toggleColorTracker: MouseEventHandler,
   submitComputerGuess: MouseEventHandler, 
   switchRoles: MouseEventHandler,
   restartGame: MouseEventHandler
 }
 
-export default function Console({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}: Props) {
-  const { round, roundLimit, playerScore, computerScore, playerName, turnsPerRound } = gameViewState;
+export default function Console({gameViewState, whoseTurn, role, currentRound, roundOver, displayColorTracker, winCondition, toggleColorTracker, submitComputerGuess, switchRoles, restartGame}: Props) {
+  const { round, roundLimit, playerScore, computerScore, playerName } = gameViewState;
   const [options, toggleOptions] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -29,7 +30,8 @@ export default function Console({gameViewState, whoseTurn, role, currentRound, r
   }
 
   const gameOver = round === roundLimit && role === 0 && roundOver;
-  const pointsScored = currentRound <= turnsPerRound ? currentRound - 1 : currentRound;
+
+  const pointsScored = winCondition ? currentRound - 1 : currentRound;
 
   let winner;
   if (gameOver) {
