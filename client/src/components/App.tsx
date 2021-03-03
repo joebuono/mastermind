@@ -37,7 +37,7 @@ const App = () => {
           <iframe ref={tutorialVideo} title="Tutorial" width="100%" height="100%" src="https://www.youtube.com/embed/jD2qdPCD_eo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
         <Rodal visible={intro} onClose={() => {handleIntroClose(); setIntro(false)}} customStyles={{ height: '75%', width: '75%'}}>
-          <iframe ref={introVideo} title="Intro" width="100%" height="100%" src="https://www.youtube.com/embed/W-fWm3MUWow" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+          <iframe ref={introVideo} title="Intro" width="100%" height="100%" src="https://www.youtube.com/embed/1lS9AYtMeCA" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </Rodal>
       </div>}
       {nav === 'game' && <GameView />}
