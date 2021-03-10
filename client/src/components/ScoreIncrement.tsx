@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+// This component is responsible for gradually incrementing the displayed score when a round is over
+
 type Props = {
   previousScore: number,
   updatedScore: number
@@ -12,15 +14,10 @@ export default function ScoreIncrement({previousScore, updatedScore}: Props) {
     let start = previousScore;
     const end = updatedScore;
 
-    if (start === end) return;
-
     let timer = setInterval(() => {
-      start += 1;
-      setScore(start);
+      setScore(++start);
       if (start === end) clearInterval(timer);
     }, 200);
-
-    return () => clearInterval(timer);
 
   }, [previousScore, updatedScore]);
 

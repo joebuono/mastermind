@@ -15,19 +15,19 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      humanPlayerTurn: this.props.humanStarts,
       codeSize: this.props.codeSize, 
       difficulty: this.props.difficulty,
-      displayColorTracker: true,
+      totalRounds: this.props.turnsPerRound,
+      humanPlayerTurn: this.props.humanStarts,
+      makeSecretCode: !this.props.humanStarts,
+      role: 1, // alterating between who plays code-maker and code-breaker
+      turns: [],
       secretCode: [],
       colorOptions: [],
-      turns: [],
-      currentRound: 1, // change to currentTurn
-      totalRounds: this.props.turnsPerRound, // change to totalTurns
+      currentRound: 1,
       winCondition: null,
-      role: 1, // alterating between who plays code-maker and code-breaker
-      makeSecretCode: !this.props.humanStarts,
-
+      displayColorTracker: true,
+    
       // computer state needed for calculating bestNextGuess and updating colorTracker
       bestNextGuess: [],
       colorTracker: {},
