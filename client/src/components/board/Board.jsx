@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styles from '../styles/board.module.css';
 import Colors from './Colors';
 import SecretCode from './SecretCode';
